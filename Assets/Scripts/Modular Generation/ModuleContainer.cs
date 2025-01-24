@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class ModuleContainer : MonoBehaviour {
 
-    public List<Module> activeModules = new List<Module>(capacity: 8);
+    //public List<Module> activeModules = new List<Module>(capacity: 8);
     public List<Module> modulePrefabs = new();
     public List<int> initialPoolAmount = new();
     public List<Module> _modulePool = new(capacity: 64);
     public List<int> modulesUsedInOrder = new List<int>(capacity: 64);
-
+   
     public static ModuleContainer instance;
     private void Awake() {
         if (!instance) { instance = this; }
+
+        ForceIDOnPrefabs();
 
         SetInitialPoolAmountByDefaultIfNotSet();
 
@@ -20,6 +22,12 @@ public class ModuleContainer : MonoBehaviour {
     }
 
     #region Initialization
+
+    private void ForceIDOnPrefabs() {
+        for (int i = 0; i < modulePrefabs.Count; i++) {
+            modulePrefabs[i].ID = i;
+        }
+    }
 
     public void SetInitialPoolAmountByDefaultIfNotSet() {
         if (initialPoolAmount.Count != modulePrefabs.Count) {
@@ -121,15 +129,15 @@ public class ModuleContainer : MonoBehaviour {
         module.gameObject.SetActive(false);
     }
 
-    #region ActiveModules
+    //#region ActiveModules
 
-    public void AddModule(Module module) {
-        activeModules.Add(module);
-    }
+    //public void AddModule(Module module) {
+    //    activeModules.Add(module);
+    //}
 
-    public void RemoveModule(Module module) {
-        activeModules.Remove(module);
-    }
+    //public void RemoveModule(Module module) {
+    //    activeModules.Remove(module);
+    //}
 
-    #endregion
+    //#endregion
 }
