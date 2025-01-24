@@ -118,6 +118,7 @@ public class ModuleContainer : MonoBehaviour {
 
     public void StoreModuleInPool(Module module) {
         _modulePool.Add(module);
+        module.gameObject.SetActive(false);
     }
 
     #region ActiveModules
