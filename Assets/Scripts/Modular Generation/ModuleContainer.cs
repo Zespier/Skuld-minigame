@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ModuleContainer : MonoBehaviour {
 
-    public List<Module> activeModules = new List<Module>(capacity: 8);
+    //public List<Module> activeModules = new List<Module>(capacity: 8);
     public List<Module> modulePrefabs = new();
     public List<int> initialPoolAmount = new();
     public List<Module> _modulePool = new(capacity: 64);
@@ -14,12 +14,20 @@ public class ModuleContainer : MonoBehaviour {
     private void Awake() {
         if (!instance) { instance = this; }
 
+        ForceIDOnPrefabs();
+
         SetInitialPoolAmountByDefaultIfNotSet();
 
         InitializePool();
     }
 
     #region Initialization
+
+    private void ForceIDOnPrefabs() {
+        for (int i = 0; i < modulePrefabs.Count; i++) {
+            modulePrefabs[i].ID = i;
+        }
+    }
 
     public void SetInitialPoolAmountByDefaultIfNotSet() {
         if (initialPoolAmount.Count != modulePrefabs.Count) {
@@ -97,7 +105,7 @@ public class ModuleContainer : MonoBehaviour {
         if (allModulesWithThatHeight.Count > 0) {
             int randomIndex = Random.Range(0, allModulesWithThatHeight.Count);
 
-            return RetrieveModuleFromPool(randomIndex);
+            return RetrieveModuleFromPool(_modulePool.FindIndex(m => m.ID == allModulesWithThatHeight[randomIndex].ID));
         }
 
         NewRandomModule(moduleHeight);
@@ -118,17 +126,18 @@ public class ModuleContainer : MonoBehaviour {
 
     public void StoreModuleInPool(Module module) {
         _modulePool.Add(module);
+        module.gameObject.SetActive(false);
     }
 
-    #region ActiveModules
+    //#region ActiveModules
 
-    public void AddModule(Module module) {
-        activeModules.Add(module);
-    }
+    //public void AddModule(Module module) {
+    //    activeModules.Add(module);
+    //}
 
-    public void RemoveModule(Module module) {
-        activeModules.Remove(module);
-    }
+    //public void RemoveModule(Module module) {
+    //    activeModules.Remove(module);
+    //}
 
-    #endregion
+    //#endregion
 }
