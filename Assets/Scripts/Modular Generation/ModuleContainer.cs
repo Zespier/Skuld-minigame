@@ -9,7 +9,7 @@ public class ModuleContainer : MonoBehaviour {
     public List<int> initialPoolAmount = new();
     public List<Module> _modulePool = new(capacity: 64);
     public List<int> modulesUsedInOrder = new List<int>(capacity: 64);
-   
+
     public static ModuleContainer instance;
     private void Awake() {
         if (!instance) { instance = this; }
@@ -105,7 +105,7 @@ public class ModuleContainer : MonoBehaviour {
         if (allModulesWithThatHeight.Count > 0) {
             int randomIndex = Random.Range(0, allModulesWithThatHeight.Count);
 
-            return RetrieveModuleFromPool(randomIndex);
+            return RetrieveModuleFromPool(_modulePool.FindIndex(m => m.ID == allModulesWithThatHeight[randomIndex].ID));
         }
 
         NewRandomModule(moduleHeight);

@@ -74,6 +74,7 @@ public enum ModuleHeight {
     Top,
     Midle,
     Bottom,
+    BaseModule,
 }
 public enum ModuleType {
     TopToTop,
