@@ -12,6 +12,12 @@ public class Module : MonoBehaviour {
     public float height = 1;
     public Camera mainCamera;
 
+    [Header("Reset")]
+    [Tooltip("Referencia a todos los enemigos que researemos en la plataforma")]
+    public List<GameObject> enemiesRef;
+    [Tooltip("Layer de los objetos que recojeremos en la lista")]
+    public LayerMask resetObjectLayer;
+
     [HideInInspector] public int ID;
     private bool _spawnedRight;
 
@@ -26,8 +32,43 @@ public class Module : MonoBehaviour {
     //    ModuleContainer.instance.RemoveModule(this);
     //}
 
+    private void Start()
+    {
+        enemiesRef = GetFilteredChildren(transform, resetObjectLayer);
+    }
+
+    private List<GameObject> GetFilteredChildren(Transform parent, LayerMask layer)
+    {
+        List<GameObject> filteredObjects = new List<GameObject>();
+
+        // Recorrer todos los hijos del objeto padre
+        foreach (Transform child in parent)
+        {
+            // Comprobar si el hijo está en la capa especificada
+            if (child.gameObject.layer == Mathf.Log(layer.value, 2))
+            {
+                // Comprobar si contiene el script específico (si es necesario)
+                //var script = child.GetComponent(scriptName); // scriptName es opcional
+                //if (script != null)
+                //{
+                filteredObjects.Add(child.gameObject);
+                //}
+            }
+        }
+
+        return filteredObjects;
+    }
+
     public void ResetSpecificVariables() {
         _spawnedRight = false;
+
+        foreach (GameObject resetObj in enemiesRef)
+        {
+            resetObj.SetActive(true);
+
+            break;
+
+        }
     }
 
     private void Update() {
