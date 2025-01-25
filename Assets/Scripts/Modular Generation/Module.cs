@@ -18,14 +18,6 @@ public class Module : MonoBehaviour {
     public float RightCameraLimit => mainCamera.transform.position.x + mainCamera.orthographicSize * mainCamera.aspect;
     public float LeftCameraLimit => mainCamera.transform.position.x - mainCamera.orthographicSize * mainCamera.aspect;
 
-    //private void OnEnable() {
-    //    ModuleContainer.instance.AddModule(this);
-    //}
-
-    //private void OnDisable() {
-    //    ModuleContainer.instance.RemoveModule(this);
-    //}
-
     public virtual void ResetSpecificVariables() {
         _spawnedRight = false;
     }
@@ -49,9 +41,6 @@ public class Module : MonoBehaviour {
         Gizmos.DrawCube(new Vector3(LeftCameraLimit, 0, 0), new Vector3(0.05f, height, 0));
     }
 
-    /// <summary>
-    /// Checks whether the section should deactivate relative to the camera
-    /// </summary>
     private void CheckDeactivation() {
 
         if (LeftCameraLimit > transform.position.x + width) {
@@ -60,12 +49,6 @@ public class Module : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Inicializa la seccion dandole las referencias y la coordenada en la que se encuentra
-    /// </summary>
-    /// <param name="manager"></param>
-    /// <param name="mainCamera"></param>
-    /// <param name="coordinate"></param>
     public void InitializeSection(Camera mainCamera) {
     }
 }

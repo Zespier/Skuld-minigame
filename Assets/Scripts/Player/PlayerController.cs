@@ -130,6 +130,8 @@ public class PlayerController : MonoBehaviour {
 
     private void Movement()
     {
+
+
         Vector3 velocity = rb.velocity;
 
         // Aumentamos la velocidad hacia adelante si estamos planeando

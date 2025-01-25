@@ -118,8 +118,8 @@ public class ModuleContainer : MonoBehaviour {
         _modulePool[index] = _modulePool[^1];         //Now that we saved it, we duplicate the last item
         _modulePool.RemoveAt(_modulePool.Count - 1);  //The last item, that is duplicated in 'index', is removed, so in the end only the desired module is out of the list, without the default swapping in lists => efficient
 
-        desiredModule.gameObject.SetActive(true);
         desiredModule.ResetSpecificVariables();
+        desiredModule.gameObject.SetActive(true);
         modulesUsedInOrder.Add(desiredModule.ID);
         return desiredModule;
     }

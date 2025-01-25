@@ -12,15 +12,17 @@ public class FollowCamera : MonoBehaviour {
         _lastCameraPosition = CameraController.instance.transform.position;
     }
 
+    private void OnEnable() {
+        if (CameraController.instance != null) {
+            _lastCameraPosition = CameraController.instance.transform.position;
+        }
+    }
+
     private void Update() {
         Vector3 distanceTraveled = 0.01f * (100 - movementPercentage) * (CameraController.instance.transform.position - _lastCameraPosition);
 
         transform.position += distanceTraveled;
 
-        _lastCameraPosition = CameraController.instance.transform.position;
-    }
-
-    public void ResetVariables() {
         _lastCameraPosition = CameraController.instance.transform.position;
     }
 }
