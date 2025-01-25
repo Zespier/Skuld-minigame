@@ -75,7 +75,7 @@ public class PatrolState : State {
             enemy.rB.velocity = direction * speed;
 
             //En base a la direccion del RigidBody, flipeamos el sprite
-            enemy.playerSprite.flipX = enemy.rB.velocity.x < 0 ? true : false;
+            enemy.enemySprite.flipX = enemy.rB.velocity.x < 0 ? true : false;
         }
     }
 }

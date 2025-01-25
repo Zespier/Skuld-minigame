@@ -186,6 +186,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyingEnemy (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6323277907661315153, guid: 6d3d0315442c32d498746da3f3edc6a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6829604799713969483, guid: 6d3d0315442c32d498746da3f3edc6a6,
         type: 3}
       propertyPath: m_IsTrigger
@@ -1131,6 +1136,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FlyingEnemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6323277907661315153, guid: 6d3d0315442c32d498746da3f3edc6a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6829604799713969483, guid: 6d3d0315442c32d498746da3f3edc6a6,
         type: 3}
       propertyPath: m_IsTrigger
@@ -1248,6 +1258,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 6323277907661315153, guid: 6d3d0315442c32d498746da3f3edc6a6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7466730301317396432, guid: 6d3d0315442c32d498746da3f3edc6a6,
         type: 3}

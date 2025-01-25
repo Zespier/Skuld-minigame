@@ -14,8 +14,8 @@ public class Enemy : MonoBehaviour {
     [Header("Enemy properties")]
     public EnemyType type;
     public LayerMask layersToDetect;
+    public SpriteRenderer enemySprite;
     public PlayerController player;
-    public SpriteRenderer playerSprite;
     public Rigidbody2D rB;
 
     public enum EnemyType { Static, Moveable, Flight }
@@ -25,8 +25,8 @@ public class Enemy : MonoBehaviour {
     }
     private void OnEnable() {
         player = Transform.FindAnyObjectByType<PlayerController>();
-        playerSprite = player.GetComponentInChildren<SpriteRenderer>();
-        rB = player.GetComponent<Rigidbody2D>();
+        enemySprite = GetComponentInChildren<SpriteRenderer>();
+        rB = GetComponent<Rigidbody2D>();
     }
     void Start() {
 
@@ -41,9 +41,9 @@ public class Enemy : MonoBehaviour {
     void Update() {
         stateMachine.currentState.Update();
 
-        playerSprite.flipX = rB.velocity.x > 0 ? true : false;
+        enemySprite.flipX = rB.velocity.x > 0 ? true : false;
 
-        if (rB.rotation < -90 || rB.rotation > 90) playerSprite.flipY = true; else playerSprite.flipY = false;
+        if (rB.rotation < -90 || rB.rotation > 90) enemySprite.flipY = true; else enemySprite.flipY = false;
     }
     private void FixedUpdate() {
         stateMachine.currentState.PhysicsUpdate();
