@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 106751775}
   - component: {fileID: 106751776}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,7 +219,7 @@ GameObject:
   - component: {fileID: 330585545}
   - component: {fileID: 330585544}
   - component: {fileID: 330585547}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Main Camera
   m_TagString: MainCamera
   m_Icon: {fileID: 0}
@@ -541,7 +541,7 @@ GameObject:
   - component: {fileID: 469731217}
   - component: {fileID: 469731216}
   - component: {fileID: 469731215}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: FBX_BORRAR
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -899,7 +899,7 @@ GameObject:
   - component: {fileID: 1102334962}
   - component: {fileID: 1102334964}
   - component: {fileID: 1102334963}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -937,7 +937,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 3.1
-  acceleration: 3
+  acceleration: 1.5
   rb: {fileID: 1102334963}
   height: 1.15
   timeAtheightPeak: 0.42
@@ -1024,7 +1024,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1394339469}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1055,7 +1055,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1589035591}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1090,7 +1090,7 @@ GameObject:
   - component: {fileID: 1888223067}
   - component: {fileID: 1888223066}
   - component: {fileID: 1888223065}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}

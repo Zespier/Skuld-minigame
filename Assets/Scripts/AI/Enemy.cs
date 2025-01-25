@@ -12,19 +12,23 @@ public class Enemy : MonoBehaviour {
     public ChargeAttackState chargeAttackState;
 
     [Header("Enemy properties")]
+    public EnemyType type;
     public LayerMask layersToDetect;
-    public Transform player;
+    public PlayerController player;
     public SpriteRenderer playerSprite;
     public Rigidbody2D rB;
-    public EnemyType type;
 
     public enum EnemyType { Static, Moveable, Flight }
     [HideInInspector] public Vector2 initialPos;
     private void OnValidate() {
         initialPos = transform.position;
     }
+    private void OnEnable() {
+        player = Transform.FindAnyObjectByType<PlayerController>();
+        playerSprite = player.GetComponentInChildren<SpriteRenderer>();
+        rB = player.GetComponent<Rigidbody2D>();
+    }
     void Start() {
-        player = Transform.FindAnyObjectByType<PlayerController>().transform;
 
         stateMachine = new StateMachine();
 
@@ -54,8 +58,21 @@ public class Enemy : MonoBehaviour {
 
             Vector2 path = initialPos + patrolState.waypoints[i];
 
-            Gizmos.DrawWireSphere(path, 0.2f);
+            Gizmos.DrawWireSphere(path, 0.05f);
         }
+        if (player == null) return;
+        // Tiempo de predicción basado en la distancia entre el enemigo y el jugador, y el impulso
+        float timeToTarget = Vector3.Distance(transform.position, player.transform.position) / chargeAttackState.impulse * aimtToTargetState.predictionFactor;
+
+        // Calcula la dirección predicha del jugador
+        Vector3 predictedPosition = player.transform.position + (player.transform.right * timeToTarget + (Vector3)rB.velocity);
+
+        // Calcula la dirección hacia la posición predicha
+        Vector3 directionToPredictedPosition = predictedPosition - transform.position;
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawRay(transform.position, directionToPredictedPosition);
+
     }
 
     public void DestroyObject() => Destroy(gameObject, 5f);
