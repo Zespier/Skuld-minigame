@@ -8,6 +8,13 @@ public class PlayerController : MonoBehaviour {
     public float acceleration = 1.5f;
     public Rigidbody2D rb;
 
+    [Header("PlayerStates")]
+    [Tooltip("Estado actual del jugador")]
+    public ENUM_PlayerStates state;
+
+    [Tooltip("Arma equipada por el jugador")]
+    public ENUM_Weapons weapon;
+
     [Header("Jump")]
     //public float jumpSpeed = 5f;
     public float height = 1;
@@ -51,6 +58,8 @@ public class PlayerController : MonoBehaviour {
         _increasedGravityValue = rb.gravityScale * fallingGravity;
         _currentIncreasedGravityValue = 1;
         _currentDecreasedGravityValue = 1;
+        state = ENUM_PlayerStates.Running;
+
     }
 
     private void Update() {
