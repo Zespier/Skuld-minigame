@@ -99,7 +99,15 @@ MonoBehaviour:
   totalSouls: {fileID: 0}
   upgrades:
   - {fileID: 11400000, guid: 7ec24be514f2924479d5ea7c0e2fdcab, type: 2}
+  - {fileID: 11400000, guid: f216da03591af9b428c2ddfc1286bba7, type: 2}
+  - {fileID: 11400000, guid: 13bba045c3a01df4f94fcec642aa40ab, type: 2}
+  - {fileID: 11400000, guid: e694ed4fca218e9489a986e85474ee46, type: 2}
+  - {fileID: 11400000, guid: 02a6d3440d10ba14f94b2874426f0780, type: 2}
   UIpanels:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   - {fileID: 0}
   economyLetters: 20004b004d00420054006100620063006400650066006700680069006a006b006c006d006e006f0070007100720073007400750076007700780079007a00
 --- !u!114 &2185104665385002547
