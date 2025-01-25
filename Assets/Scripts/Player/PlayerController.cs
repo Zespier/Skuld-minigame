@@ -85,6 +85,7 @@ public class PlayerController : MonoBehaviour {
     private bool _afectedByIntenseFalling;
     private bool _isDead;
     private bool _hasJump;
+    private string _lastAnimationName;
     [SerializeField] private float _storedCombo;
     [SerializeField] private float _storedScore;
 
@@ -106,10 +107,9 @@ public class PlayerController : MonoBehaviour {
         state = ENUM_PlayerStates.Running;
 
         _animator = GetComponentInChildren<Animator>();
-}
+    }
 
-    private void Update()
-    {
+    private void Update() {
         EvaluateGrounded();
         CalculateCoyoteTime();
         Accelerate();
@@ -119,10 +119,11 @@ public class PlayerController : MonoBehaviour {
         // Comprobar ataques automáticos
         AutoAttack();
 
-
+        if (!grounded && state == ENUM_PlayerStates.Running) {
+            PlayAnimation("JumpTransition");
+        }
     }
-    private void FixedUpdate()
-    {
+    private void FixedUpdate() {
         TimerWallCheckInit();
     }
 
@@ -137,19 +138,15 @@ public class PlayerController : MonoBehaviour {
         _currentSpeed = Mathf.MoveTowards(_currentSpeed, maxSpeed, acceleration * Time.deltaTime);
     }
 
-    private void Movement()
-    {
-        if (wallStamp&&!grounded) return;
+    private void Movement() {
+        if (wallStamp && !grounded) return;
 
         Vector3 velocity = rb.velocity;
 
         // Aumentamos la velocidad hacia adelante si estamos planeando
-        if (isGliding)
-        {
+        if (isGliding) {
             velocity.x = _currentSpeed * glideSpeedMultiplier; // Aumentar la velocidad durante el planeo
-        }
-        else
-        {
+        } else {
             velocity.x = _currentSpeed; // Lógica normal
         }
 
@@ -159,17 +156,13 @@ public class PlayerController : MonoBehaviour {
         ClampVerticalSpeed();
     }
 
-    private void ClampVerticalSpeed()
-    {
+    private void ClampVerticalSpeed() {
 
         _velocity = rb.velocity;
 
-        if (isGliding)
-        {
+        if (isGliding) {
             _velocity.y = Mathf.Clamp(_velocity.y, glideFallSpeed, 100); // Limitar velocidad hacia abajo durante el planeo.
-        }
-        else
-        {
+        } else {
             _velocity.y = Mathf.Clamp(_velocity.y, -maxVerticalSpeed, 100); // Velocidad normal en otras situaciones.
         }
 
@@ -195,9 +188,8 @@ public class PlayerController : MonoBehaviour {
         _hasJump = true;
     }
 
-    public void CalculateCoyoteTime()
-    {
-        if (grounded && state != ENUM_PlayerStates.Jumping) {coyoteTimeCounter = coyoteTime;} else coyoteTimeCounter-=Time.deltaTime;
+    public void CalculateCoyoteTime() {
+        if (grounded && state != ENUM_PlayerStates.Jumping) { coyoteTimeCounter = coyoteTime; } else coyoteTimeCounter -= Time.deltaTime;
     }
 
     private float CalculateJumpVelocityWithTotalTime() {
@@ -219,24 +211,21 @@ public class PlayerController : MonoBehaviour {
 
     private IEnumerator IncreaseGravityAtPeakCoroutine() {
 
-        _animator.Play("JumpUp");
+        PlayAnimation("JumpUp");
         // Esperar hasta llegar al pico del salto
-        while (rb.velocity.y > 0.17f)
-        {
+        while (rb.velocity.y > 0.17f) {
             yield return null; // Continuar esperando mientras sube.
         }
-        _animator.Play("JumpTransition");
+        PlayAnimation("JumpTransition");
 
         // Cuando se alcance el pico o comience a caer, verificamos si se ha solicitado planeo
-        if (glideRequested && !isGliding)
-        {
+        if (glideRequested && !isGliding) {
             StartGlide();
             glideRequested = false; // Reiniciar la solicitud después de activar el planeo.
         }
 
         // Mientras esté planeando, esperar hasta que comience a caer
-        while (rb.velocity.y > -0.1f && isGliding)
-        {
+        while (rb.velocity.y > -0.1f && isGliding) {
             yield return null;
         }
     }
@@ -251,10 +240,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     #region Glide
-    private void StartGlide()
-    {
+    private void StartGlide() {
         if (isGliding) return; // Evitar múltiples activaciones.
-        _animator.Play("Glide");
+        PlayAnimation("Glide");
 
         isGliding = true;
         state = ENUM_PlayerStates.Gliding;
@@ -262,10 +250,9 @@ public class PlayerController : MonoBehaviour {
         Debug.Log("Planeo activado.");
     }
 
-    private void StopGlide()
-    {
+    private void StopGlide() {
         if (!isGliding) return; // Evitar múltiples llamadas.
-        _animator.Play("JumpLanding");
+        PlayAnimation("JumpLanding");
 
         isGliding = false;
         state = ENUM_PlayerStates.Jumping; // Volver al estado de salto.
@@ -274,28 +261,21 @@ public class PlayerController : MonoBehaviour {
     }
     #endregion
 
-    private void JumpGlideActions()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if ((grounded || coyoteTimeCounter > 0) && state != ENUM_PlayerStates.Jumping)
-            {
+    private void JumpGlideActions() {
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            if ((grounded || coyoteTimeCounter > 0) && state != ENUM_PlayerStates.Jumping) {
                 Jump(); // Primer salto.
-            }
-            else if (!isGliding && state == ENUM_PlayerStates.Jumping)
-            {
+            } else if (!isGliding && state == ENUM_PlayerStates.Jumping) {
                 glideRequested = true; // Solicitar planeo.
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space) && isGliding)
-        {
+        if (Input.GetKeyUp(KeyCode.Space) && isGliding) {
             StopGlide(); // Detener el planeo al soltar Espacio.
         }
 
         // Comprobamos si estamos saltando o cayendo y activamos el planeo si es necesario.
-        if (glideRequested && state == ENUM_PlayerStates.Jumping && !isGliding)
-        {
+        if (glideRequested && state == ENUM_PlayerStates.Jumping && !isGliding) {
             if (rb.velocity.y <= 0) // Solo activar cuando estamos cayendo o al alcanzar el pico.
             {
                 StartGlide();
@@ -309,25 +289,21 @@ public class PlayerController : MonoBehaviour {
     /// <summary>
     /// Checks if the player is grounded and update the boolean
     /// </summary>
-    private void EvaluateGrounded()
-    {
+    private void EvaluateGrounded() {
         _groundCollision = Physics2D.OverlapBox(groundCheck.position, sizeGroundCheck, 0f, groundLayer);
         grounded = _groundCollision ? true : false;
 
-        if (grounded)
-        {
-            if (isGliding)
-            {
+        if (grounded) {
+            if (isGliding) {
                 StopGlide(); // Terminar el planeo al aterrizar.
             }
         }
 
-        if (rb.velocity.y < 0 && (!_lastGrounded && grounded))
-        {
+        if (rb.velocity.y < 0 && (!_lastGrounded && grounded)) {
             RecoverDefaultGravity();
             MarkBoolsWhenLanding();
             if (grounded) state = ENUM_PlayerStates.Running;
-            _animator.Play("JumpLanding");
+            PlayAnimation("JumpLanding");
         }
 
         _lastGrounded = grounded;
@@ -338,14 +314,11 @@ public class PlayerController : MonoBehaviour {
     }
     #endregion
 
-    private void AutoAttack()
-    {
-        enemiesInRange = Physics2D.OverlapCircleAll(transform.position,attackRange, enemyLayer);
+    private void AutoAttack() {
+        enemiesInRange = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
 
-        if (enemiesInRange.Length > 0 && Time.time > lastAttackTime + attackCooldown)
-        {
-            foreach (Collider2D enemy in enemiesInRange)
-            {
+        if (enemiesInRange.Length > 0 && Time.time > lastAttackTime + attackCooldown) {
+            foreach (Collider2D enemy in enemiesInRange) {
                 // Aquí puedes llamar al método de daño del enemigo
                 Debug.Log($"Atacando a {enemy.name}");
                 // enemy.GetComponent<EnemyController>()?.TakeDamage(attackDamage);
@@ -354,7 +327,7 @@ public class PlayerController : MonoBehaviour {
                 _animator.Play("Attack Spear");
 
                 StartCoroutine(DestroyTimer(enemy.gameObject));
-                
+
             }
 
             // Actualizar el tiempo del último ataque
@@ -362,30 +335,25 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public IEnumerator DestroyTimer(GameObject target)
-    {
+    public IEnumerator DestroyTimer(GameObject target) {
 
         yield return new WaitForSeconds(delayAnimAttack);
 
         target.SetActive(false);
     }
 
-    private void WallFrameCheck()
-    {
+    private void WallFrameCheck() {
         // Simular un valor que cambia (puedes reemplazarlo con el valor real que quieres comprobar)
         currentFrameCheck = transform.position.x;
 
         // Comprobar si el valor se ha mantenido igual en los últimos dos frames
-        if (currentFrameCheck == previousFrameCheck1 && previousFrameCheck1 == previousFrameCheck2)
-        {
+        if (currentFrameCheck == previousFrameCheck1 && previousFrameCheck1 == previousFrameCheck2) {
             Debug.Log("El valor no ha cambiado en los últimos dos frames.");
 
             rb.gravityScale = wallFallGravity;
 
             wallStamp = true;
-        }
-        else
-        {
+        } else {
             rb.gravityScale = CalculateGravity();
             wallStamp = false;
             //Debug.Log("El valor ha cambiado.");
@@ -396,13 +364,20 @@ public class PlayerController : MonoBehaviour {
         previousFrameCheck1 = currentFrameCheck;
     }
 
-    private void TimerWallCheckInit()
-    {
+    private void TimerWallCheckInit() {
         if (waitCheckWall > 0) waitCheckWall -= Time.deltaTime; else WallFrameCheck();
-        
+
     }
 
     //public void FootSteps() {
     //    SoundFxController.instance.FootSteps();
     //}
+
+    public void PlayAnimation(string animationName) {
+        if (_lastAnimationName != animationName) {
+            _animator.Play(animationName);
+        }
+
+        _lastAnimationName = animationName;
+    }
 }
