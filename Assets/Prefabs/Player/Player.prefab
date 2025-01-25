@@ -143,7 +143,7 @@ MonoBehaviour:
   attackCooldown: 1
   delayAnimAttack: 0.2
   height: 1.15
-  timeAtheightPeak: 0.42
+  timeAtheightPeak: 0.36
   fallingGravity: 2.5
   peakGlideGravityDecrease: 1.5
   maxVerticalSpeed: 4
