@@ -99,7 +99,7 @@ public class ModuleContainer : MonoBehaviour {
         Module newModule = Instantiate(initialModule, transform);
         _modulePool.Add(newModule);
 
-        newModule.transform.position = playerPosition + new Vector3()
+        newModule.transform.position = playerPosition + new Vector3();
         return newModule;
     }
 
