@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: EconomyUpgrade
   m_EditorClassIdentifier: 
   buffType: 1
-  amount: 50
+  amount: 2000000
   Name: Huevo
   description: Aumenta en 50% las ganancias.
