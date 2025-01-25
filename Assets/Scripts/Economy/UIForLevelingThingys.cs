@@ -9,22 +9,27 @@ public class UIForLevelingThingys : MonoBehaviour {
     [HideInInspector] public EconomyUpgrade economyUpgrade;
     public TMP_Text Name;
     public TMP_Text description;
+    public TMP_Text levelText;
     public TMP_Text amount;
     public TMP_Text price;
-    public TMP_Text levelText;
     public int level;
 
     public void SetUpPanel() {
         Name.text = economyUpgrade.Name;
         description.text = economyUpgrade.description;
+        levelText.text = $"LV.{level}";
         amount.text = $"+{Economy.instance.TransformIntoEconomyLetter(economyUpgrade.amount)}";
         price.text = Economy.instance.TransformIntoEconomyLetter(GetCurrentPrice());
     }
 
     public void OnClick() {
-        Economy.instance.AddUpgrade(economyUpgrade);
-        level++;
-        SetUpPanel();
+        if (Economy.instance.souls >= GetCurrentPrice()) {
+            Economy.instance.souls -= GetCurrentPrice();
+
+            Economy.instance.AddUpgrade(economyUpgrade);
+            level++;
+            SetUpPanel();
+        }
     }
 
     public float GetCurrentPrice() {
