@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 4026392931845217666}
   - component: {fileID: 5157297954643048491}
   - component: {fileID: 8679349758093694751}
+  - component: {fileID: 1139724082371889472}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -163,7 +164,8 @@ MonoBehaviour:
   previousFrameCheck1: 0
   previousFrameCheck2: 0
   wallStamp: 0
-  wallFallGravity: 5
+  wallFallGravity: 1.2
+  skillSpeedMultiplier: 0
   _storedCombo: 0
   _storedScore: 0
 --- !u!70 &5157297954643048491
@@ -228,6 +230,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &1139724082371889472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1062285377701412879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ab6c8021ef78754bbf7379dc6c5231e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skillQ: {fileID: 11400000, guid: 4679c386e0db86c43a34b8873ec9c1d2, type: 2}
+  skillW: {fileID: 11400000, guid: 4679c386e0db86c43a34b8873ec9c1d2, type: 2}
+  skillE: {fileID: 11400000, guid: 4679c386e0db86c43a34b8873ec9c1d2, type: 2}
+  skillR: {fileID: 11400000, guid: 4679c386e0db86c43a34b8873ec9c1d2, type: 2}
 --- !u!1 &4439208038804227357
 GameObject:
   m_ObjectHideFlags: 0

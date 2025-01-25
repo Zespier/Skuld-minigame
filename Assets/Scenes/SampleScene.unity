@@ -547,11 +547,6 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
         type: 3}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 330585545}
-    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
-        type: 3}
       propertyPath: modulePrefabs.Array.size
       value: 7
       objectReference: {fileID: 0}
@@ -1445,6 +1440,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026392931845217666, guid: 6eaf9146862ebcd48adf0a4e461c9618,
+        type: 3}
+      propertyPath: glideGravity
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026392931845217666, guid: 6eaf9146862ebcd48adf0a4e461c9618,
+        type: 3}
+      propertyPath: glideFallSpeed
+      value: -0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
