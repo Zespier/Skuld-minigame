@@ -10,7 +10,11 @@ public class CameraController : MonoBehaviour {
 
     private Vector3 _defaultPosition;
 
+    public bool IsInIdleSide => player.transform.position.y < -1.5f;
+
+    public static CameraController instance;
     private void Awake() {
+        if (!instance) { instance = this; }
         _defaultPosition = player.transform.position;
     }
 
