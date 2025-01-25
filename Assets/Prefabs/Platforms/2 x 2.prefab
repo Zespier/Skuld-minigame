@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2197610118179047032}
   - component: {fileID: 3044438734358269024}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 2 x 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   - component: {fileID: 7209173478049435576}
   - component: {fileID: 7479251613125162322}
   - component: {fileID: 2852533989515925449}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PV 2 x 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
