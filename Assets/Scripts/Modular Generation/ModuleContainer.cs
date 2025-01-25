@@ -10,6 +10,8 @@ public class ModuleContainer : MonoBehaviour {
     public List<Module> _modulePool = new(capacity: 64);
     public List<int> modulesUsedInOrder = new List<int>(capacity: 64);
 
+    public bool IsInIdleSide => PlayerController.instance.transform.position.y < -1.5f;
+
     public static ModuleContainer instance;
     private void Awake() {
         if (!instance) { instance = this; }
