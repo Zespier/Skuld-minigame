@@ -10,7 +10,7 @@ public class Economy : MonoBehaviour {
     public TMP_Text soulsPerSecond;
     public TMP_Text totalSouls;
     public List<EconomyUpgrade> upgrades = new List<EconomyUpgrade>();
-    public List<char> economyLetters = new List<char>() { ' ', 'K', 'M', 'B', 'T', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k' };
+    public List<char> economyLetterss = new List<char>() { ' ', 'K', 'M', 'B', 'T', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k' };
 
     private void Start() {
         stats.ManageAddUpgrade(Buff.BaseSoulsPerSecond, 6);
@@ -28,10 +28,15 @@ public class Economy : MonoBehaviour {
     }
 
     private string TransformIntoEconomyLetter(float amount) {
-        int ceroAmount = ((int)amount).ToString().Length - 1; //Quitando la unidad
+        float originalAmount = amount;
+        int ceroAmount = 0;
+        do {
+            amount /= 10;
+            ceroAmount++;
+        } while (amount > 10);
 
         int stepsIntoTheEconomyLetters = (ceroAmount / 3);
 
-        return (amount / Mathf.Pow(10, stepsIntoTheEconomyLetters * 3)).ToString("F2") + economyLetters[stepsIntoTheEconomyLetters];
+        return (originalAmount / Mathf.Pow(10, stepsIntoTheEconomyLetters * 3)).ToString("F2") + economyLetterss[stepsIntoTheEconomyLetters];
     }
 }

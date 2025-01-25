@@ -914,7 +914,7 @@ MonoBehaviour:
   baseSoulsPerCollections: []
   soulsPerCollectionPercentages: []
   flatSoulsPerCollections: []
-  baseSoulsPerSecond: 200000
+  baseSoulsPerSecond: 100
   baseSoulsPerCollection: 1
 --- !u!114 &503032625
 MonoBehaviour:
@@ -934,7 +934,7 @@ MonoBehaviour:
   totalSouls: {fileID: 201501886}
   upgrades:
   - {fileID: 11400000, guid: 7ec24be514f2924479d5ea7c0e2fdcab, type: 2}
-  economyLetters: 4b004d00420054006100620063006400650066006700680069006a006b00
+  economyLetterss: 20004b004d00420054006100620063006400650066006700680069006a006b00
 --- !u!1 &510295746
 GameObject:
   m_ObjectHideFlags: 0
