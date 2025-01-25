@@ -51,6 +51,10 @@ MonoBehaviour:
   width: 9.3
   height: 4.65
   mainCamera: {fileID: 0}
+  enemiesRef: []
+  resetObjectLayer:
+    serializedVersion: 2
+    m_Bits: 0
   ID: 2
 --- !u!114 &632801319283739817
 MonoBehaviour:

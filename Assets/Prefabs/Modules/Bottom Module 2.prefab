@@ -65,7 +65,7 @@ MonoBehaviour:
   enemiesRef: []
   resetObjectLayer:
     serializedVersion: 2
-    m_Bits: 8388608
+    m_Bits: 0
   ID: 0
 --- !u!1001 &326775928708030052
 PrefabInstance:

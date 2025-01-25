@@ -58,6 +58,10 @@ MonoBehaviour:
   width: 23
   height: 3
   mainCamera: {fileID: 0}
+  enemiesRef: []
+  resetObjectLayer:
+    serializedVersion: 2
+    m_Bits: 0
   ID: 0
 --- !u!1001 &326775928708030052
 PrefabInstance:

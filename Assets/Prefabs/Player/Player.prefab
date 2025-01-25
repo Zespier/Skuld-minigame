@@ -147,8 +147,8 @@ MonoBehaviour:
   fallingGravity: 2.5
   peakGlideGravityDecrease: 1.5
   maxVerticalSpeed: 4
-  glideGravity: 0.4
-  glideFallSpeed: -1
+  glideGravity: 0.1
+  glideFallSpeed: -0.5
   glideSpeedMultiplier: 1.5
   coyoteTime: 0.15
   coyoteTimeCounter: 0
@@ -163,7 +163,7 @@ MonoBehaviour:
   previousFrameCheck1: 0
   previousFrameCheck2: 0
   wallStamp: 0
-  wallFallGravity: 5
+  wallFallGravity: 1.2
   _storedCombo: 0
   _storedScore: 0
 --- !u!70 &5157297954643048491
