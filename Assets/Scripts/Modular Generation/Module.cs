@@ -37,8 +37,10 @@ public class Module : MonoBehaviour {
         Gizmos.color = Color.green;
         Gizmos.DrawWireCube(transform.position + new Vector3(width * 0.5f, height * 0.5f, 0), new Vector3(width, height, 0));
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawCube(new Vector3(LeftCameraLimit, 0, 0), new Vector3(0.05f, height, 0));
+        if (mainCamera != null) {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawCube(new Vector3(LeftCameraLimit, 0, 0), new Vector3(0.05f, height, 0));
+        }
     }
 
     private void CheckDeactivation() {
