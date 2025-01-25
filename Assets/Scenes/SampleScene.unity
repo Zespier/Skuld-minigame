@@ -932,6 +932,8 @@ MonoBehaviour:
   souls: 0
   soulsPerSecond: {fileID: 786464661}
   totalSouls: {fileID: 201501886}
+  upgrades:
+  - {fileID: 11400000, guid: 7ec24be514f2924479d5ea7c0e2fdcab, type: 2}
 --- !u!1 &510295746
 GameObject:
   m_ObjectHideFlags: 0
