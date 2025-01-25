@@ -5,9 +5,9 @@ using UnityEngine;
 [System.Serializable]
 public class AimToTarget : State {
     public float turnSpeed;
-    public Transform player;
 
     public float cooldownToAttack;
+    private float timer;
 
     public AimToTarget(Enemy enemy, StateMachine stateMachine) : base(enemy, stateMachine) {
     }
@@ -15,7 +15,7 @@ public class AimToTarget : State {
     public override void Enter() {
         Debug.Log("Aim");
 
-        player = Transform.FindAnyObjectByType<PlayerController>().transform;
+        timer = cooldownToAttack;
     }
 
     public override void Exit() {
@@ -29,7 +29,7 @@ public class AimToTarget : State {
     public override void Update() {
 
         // Calcula la dirección hacia el jugador
-        Vector3 directionToPlayer = player.position - enemy.transform.position;
+        Vector3 directionToPlayer = enemy.player.position - enemy.transform.position;
 
         directionToPlayer.z = 0;
 
@@ -45,5 +45,11 @@ public class AimToTarget : State {
             targetRotation,
             turnSpeed * Time.deltaTime
         );
+
+        if (timer <= 0) {
+            enemy.stateMachine.ChangeState(enemy.chargeAttackState);
+        } else {
+            timer -= Time.deltaTime;
+        }
     }
 }

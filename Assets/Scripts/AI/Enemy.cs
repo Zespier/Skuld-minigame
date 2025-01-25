@@ -9,31 +9,37 @@ public class Enemy : MonoBehaviour {
     public StateMachine stateMachine;
     public PatrolState patrolState;
     public AimToTarget aimtToTargetState;
+    public ChargeAttackState chargeAttackState;
 
-    [Header("Enemy variables")]
+    [Header("Enemy properties")]
     public LayerMask layersToDetect;
-    public SpriteRenderer sprite;
+    public Transform player;
+    public SpriteRenderer playerSprite;
     public Rigidbody2D rB;
+    public EnemyType type;
 
-
+    public enum EnemyType { Static, Moveable, Flight }
     [HideInInspector] public Vector2 initialPos;
     private void OnValidate() {
         initialPos = transform.position;
     }
     void Start() {
+        player = Transform.FindAnyObjectByType<PlayerController>().transform;
+
         stateMachine = new StateMachine();
 
         patrolState.enemy = this;
         aimtToTargetState.enemy = this;
+        chargeAttackState.enemy = this;
 
         stateMachine.Initialize(patrolState);
     }
     void Update() {
         stateMachine.currentState.Update();
 
-        sprite.flipX = rB.velocity.x > 0 ? true : false;
+        playerSprite.flipX = rB.velocity.x > 0 ? true : false;
 
-        if (rB.rotation < -90 || rB.rotation > 90) sprite.flipY = true; else sprite.flipY = false;
+        if (rB.rotation < -90 || rB.rotation > 90) playerSprite.flipY = true; else playerSprite.flipY = false;
     }
     private void FixedUpdate() {
         stateMachine.currentState.PhysicsUpdate();
@@ -51,4 +57,6 @@ public class Enemy : MonoBehaviour {
             Gizmos.DrawWireSphere(path, 0.2f);
         }
     }
+
+    public void DestroyObject() => Destroy(gameObject, 5f);
 }

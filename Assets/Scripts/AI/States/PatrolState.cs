@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.TextCore.Text;
 
@@ -13,8 +12,8 @@ public class PatrolState : State {
     public Vector2 lastPos;
 
     private Vector3 currentPos;
-    private bool closeToWayPoint;
-    public int currentWaypointIndex;
+    //private bool closeToWayPoint;
+    private int currentWaypointIndex;
 
     public PatrolState(Enemy enemy, StateMachine stateMachine) : base(enemy, stateMachine) {
     }
@@ -30,16 +29,16 @@ public class PatrolState : State {
     }
 
     public override void PhysicsUpdate() {
-
-    }
-
-    public override void Update() {
         PatrolWaypoints(waypoints, speed, detectionRadius);
 
         if (Physics2D.OverlapCircle(enemy.transform.position, detectionRadius, enemy.layersToDetect)) {
 
             enemy.stateMachine.ChangeState(enemy.aimtToTargetState);
         }
+    }
+
+    public override void Update() {
+        
     }
 
     public void PatrolWaypoints(Vector2[] waypoints, float speed, float detectionRadius) {
@@ -54,7 +53,6 @@ public class PatrolState : State {
 
         // Calcula la distancia al waypoint actual
         float distanceToWaypoint = Vector2.Distance(currentPos, targetWaypoint);
-        Debug.Log(distanceToWaypoint);
 
         // Verifica si el enemigo está cerca del waypoint
         if (distanceToWaypoint <= 0.1f) {
@@ -75,6 +73,9 @@ public class PatrolState : State {
 
             // Ajusta la velocidad para moverse hacia el waypoint
             enemy.rB.velocity = direction * speed;
+
+            //En base a la direccion del RigidBody, flipeamos el sprite
+            enemy.playerSprite.flipX = enemy.rB.velocity.x < 0 ? true : false;
         }
     }
 }
