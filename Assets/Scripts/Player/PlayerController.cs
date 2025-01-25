@@ -27,6 +27,9 @@ public class PlayerController : MonoBehaviour {
     private float lastAttackTime;
     //Enemigos en el rango de ataque que detectaremos con una overlapsphere
     private Collider2D[] enemiesInRange;
+    [Tooltip("DelayAnimacionAtaque")]
+    public float delayAnimAttack = 0.2f;
+
 
     [Header("Jump")]
     //public float jumpSpeed = 5f;
@@ -87,6 +90,8 @@ public class PlayerController : MonoBehaviour {
 
     private float _currentSpeed;
 
+    private Animator _animator;
+
     public float GravityScale { get => _defaultGravityMultiplier * _currentIncreasedGravityValue / _currentDecreasedGravityValue; }
 
     public static PlayerController instance;
@@ -100,7 +105,7 @@ public class PlayerController : MonoBehaviour {
         _currentDecreasedGravityValue = 1;
         state = ENUM_PlayerStates.Running;
 
-
+        _animator = GetComponentInChildren<Animator>();
 }
 
     private void Update()
@@ -134,7 +139,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Movement()
     {
-        if (wallStamp) return;
+        if (wallStamp&&!grounded) return;
 
         Vector3 velocity = rb.velocity;
 
@@ -340,13 +345,24 @@ public class PlayerController : MonoBehaviour {
                 Debug.Log($"Atacando a {enemy.name}");
                 // enemy.GetComponent<EnemyController>()?.TakeDamage(attackDamage);
                 //Testeo
+
+                _animator.Play("Attack Spear");
+
+                StartCoroutine(DestroyTimer(enemy.gameObject));
                 
-                enemy.gameObject.SetActive(false);
             }
 
             // Actualizar el tiempo del último ataque
             lastAttackTime = Time.time;
         }
+    }
+
+    public IEnumerator DestroyTimer(GameObject target)
+    {
+
+        yield return new WaitForSeconds(delayAnimAttack);
+
+        target.SetActive(false);
     }
 
     private void WallFrameCheck()
