@@ -5,10 +5,13 @@ using UnityEngine;
 public class ModuleContainer : MonoBehaviour {
 
     //public List<Module> activeModules = new List<Module>(capacity: 8);
+    public Module initialModule;
     public List<Module> modulePrefabs = new();
     public List<int> initialPoolAmount = new();
     public List<Module> _modulePool = new(capacity: 64);
     public List<int> modulesUsedInOrder = new List<int>(capacity: 64);
+
+    public bool IsInIdleSide => PlayerController.instance.transform.position.y < -1.5f;
 
     public static ModuleContainer instance;
     private void Awake() {
@@ -92,6 +95,14 @@ public class ModuleContainer : MonoBehaviour {
 
     #endregion
 
+    public Module GetInitialModule(Vector3 playerPosition) {
+        Module newModule = Instantiate(initialModule, transform);
+        _modulePool.Add(newModule);
+
+        newModule.transform.position = playerPosition + new Vector3();
+        return newModule;
+    }
+
     public Module GetRandomModule(ModuleHeight moduleHeight) {
 
         List<Module> allModulesWithThatHeight = new List<Module>();
@@ -118,8 +129,8 @@ public class ModuleContainer : MonoBehaviour {
         _modulePool[index] = _modulePool[^1];         //Now that we saved it, we duplicate the last item
         _modulePool.RemoveAt(_modulePool.Count - 1);  //The last item, that is duplicated in 'index', is removed, so in the end only the desired module is out of the list, without the default swapping in lists => efficient
 
-        desiredModule.gameObject.SetActive(true);
         desiredModule.ResetSpecificVariables();
+        desiredModule.gameObject.SetActive(true);
         modulesUsedInOrder.Add(desiredModule.ID);
         return desiredModule;
     }

@@ -44,10 +44,10 @@ public class Module : MonoBehaviour {
         // Recorrer todos los hijos del objeto padre
         foreach (Transform child in parent)
         {
-            // Comprobar si el hijo está en la capa especificada
+            // Comprobar si el hijo estï¿½ en la capa especificada
             if (child.gameObject.layer == Mathf.Log(layer.value, 2))
             {
-                // Comprobar si contiene el script específico (si es necesario)
+                // Comprobar si contiene el script especï¿½fico (si es necesario)
                 //var script = child.GetComponent(scriptName); // scriptName es opcional
                 //if (script != null)
                 //{
@@ -59,7 +59,7 @@ public class Module : MonoBehaviour {
         return filteredObjects;
     }
 
-    public void ResetSpecificVariables() {
+    public virtual void ResetSpecificVariables() {
         _spawnedRight = false;
 
         foreach (GameObject resetObj in enemiesRef)
@@ -90,9 +90,6 @@ public class Module : MonoBehaviour {
         Gizmos.DrawCube(new Vector3(LeftCameraLimit, 0, 0), new Vector3(0.05f, height, 0));
     }
 
-    /// <summary>
-    /// Checks whether the section should deactivate relative to the camera
-    /// </summary>
     private void CheckDeactivation() {
 
         if (LeftCameraLimit > transform.position.x + width) {
@@ -101,12 +98,6 @@ public class Module : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Inicializa la seccion dandole las referencias y la coordenada en la que se encuentra
-    /// </summary>
-    /// <param name="manager"></param>
-    /// <param name="mainCamera"></param>
-    /// <param name="coordinate"></param>
     public void InitializeSection(Camera mainCamera) {
     }
 }
