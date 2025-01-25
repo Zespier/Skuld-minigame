@@ -64,7 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01220fd936a670d4297f2487ccf30222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementPercentage: 15
+  movementPercentage: 8
 --- !u!1 &7864373384011095494
 GameObject:
   m_ObjectHideFlags: 0

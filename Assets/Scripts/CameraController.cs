@@ -6,11 +6,14 @@ public class CameraController : MonoBehaviour {
 
     public Transform player;
     public Vector3 offset = new Vector3(2, 0, 0);
+    public float gameplayHeightOffset = 2.82f;
+    public float idleHeightOffset = -2.56f;
     public bool followPlayerHeight;
 
     private Vector3 _defaultPosition;
 
     public bool IsInIdleSide => player.transform.position.y < -1.5f;
+    public float HeightOffset => IsInIdleSide ? idleHeightOffset : gameplayHeightOffset;
 
     public static CameraController instance;
     private void Awake() {
@@ -24,10 +27,10 @@ public class CameraController : MonoBehaviour {
 
     private void Movement() {
         if (followPlayerHeight) {
-            transform.position = Vector3.Lerp(transform.position, player.position + offset, Time.deltaTime * 10f);
+            transform.position = Vector3.Lerp(transform.position, player.position , Time.deltaTime * 10f);
 
         } else {
-            transform.position = Vector3.Lerp(transform.position, new Vector3(player.position.x, _defaultPosition.y, 0) + offset, Time.deltaTime * 10f);
+            transform.position = Vector3.Lerp(transform.position, new Vector3(player.position.x, HeightOffset, 0) + offset, Time.deltaTime * 10f);
         }
     }
 }
