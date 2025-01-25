@@ -77,7 +77,7 @@ MonoBehaviour:
   resetObjectLayer:
     serializedVersion: 2
     m_Bits: 0
-  ID: 0
+  ID: 2
 --- !u!1001 &326775928708030052
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -558,7 +558,7 @@ PrefabInstance:
     - target: {fileID: 1510981549875688625, guid: 536eaece16571494ba2af6971bd5ce05,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.065142
+      value: 10.955
       objectReference: {fileID: 0}
     - target: {fileID: 1510981549875688625, guid: 536eaece16571494ba2af6971bd5ce05,
         type: 3}
@@ -1328,7 +1328,7 @@ PrefabInstance:
     - target: {fileID: 6102405806319522670, guid: 436e9b3181b479840a660029a4bfa550,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.296
+      value: 16.146
       objectReference: {fileID: 0}
     - target: {fileID: 6102405806319522670, guid: 436e9b3181b479840a660029a4bfa550,
         type: 3}
