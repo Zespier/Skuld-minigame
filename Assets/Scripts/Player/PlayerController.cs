@@ -239,11 +239,6 @@ public class PlayerController : MonoBehaviour {
         {
             yield return null;
         }
-
-        while (rb.velocity.y > -0.1f) {
-            yield return null;
-        }
-        _animator.Play("JumpDown");
     }
 
     private void RecoverDefaultGravity() {
@@ -259,6 +254,7 @@ public class PlayerController : MonoBehaviour {
     private void StartGlide()
     {
         if (isGliding) return; // Evitar múltiples activaciones.
+        _animator.Play("Glide");
 
         isGliding = true;
         state = ENUM_PlayerStates.Gliding;
@@ -269,6 +265,7 @@ public class PlayerController : MonoBehaviour {
     private void StopGlide()
     {
         if (!isGliding) return; // Evitar múltiples llamadas.
+        _animator.Play("JumpLanding");
 
         isGliding = false;
         state = ENUM_PlayerStates.Jumping; // Volver al estado de salto.

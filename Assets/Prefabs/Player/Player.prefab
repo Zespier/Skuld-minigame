@@ -149,7 +149,7 @@ MonoBehaviour:
   maxVerticalSpeed: 4
   glideGravity: 0.4
   glideFallSpeed: -1
-  glideSpeedMultiplier: 1.5
+  glideSpeedMultiplier: 1.2
   coyoteTime: 0.15
   coyoteTimeCounter: 0
   groundCheck: {fileID: 8269408498448618329}
