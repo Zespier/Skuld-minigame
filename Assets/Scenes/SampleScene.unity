@@ -811,6 +811,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2396700946368382619, guid: 1987a12c1021e1141a16178bd7e4c826,
         type: 3}
+      propertyPath: entrance
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2396700946368382619, guid: 1987a12c1021e1141a16178bd7e4c826,
+        type: 3}
+      propertyPath: exitHeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2396700946368382619, guid: 1987a12c1021e1141a16178bd7e4c826,
+        type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 330585545}
@@ -1730,11 +1740,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainCanvas
-      objectReference: {fileID: 0}
-    - target: {fileID: 8572957462020131483, guid: f073c9cb0d59d7748a04883179f8ad7e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9074219166072108559, guid: f073c9cb0d59d7748a04883179f8ad7e,
         type: 3}
