@@ -19,4 +19,8 @@ public class FollowCamera : MonoBehaviour {
 
         _lastCameraPosition = CameraController.instance.transform.position;
     }
+
+    public void ResetVariables() {
+        _lastCameraPosition = CameraController.instance.transform.position;
+    }
 }

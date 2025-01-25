@@ -36,6 +36,10 @@ public class Economy : MonoBehaviour {
         }
     }
 
+    public void AddSoulCollectable() {
+        souls += stats.SoulsPerCollection;
+    }
+
     public void AddUpgrade(EconomyUpgrade economyUpgrade) {
         stats.ManageAddUpgrade(economyUpgrade.buffType, economyUpgrade.amount);
     }

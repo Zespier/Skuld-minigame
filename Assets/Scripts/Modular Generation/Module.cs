@@ -26,7 +26,7 @@ public class Module : MonoBehaviour {
     //    ModuleContainer.instance.RemoveModule(this);
     //}
 
-    public void ResetSpecificVariables() {
+    public virtual void ResetSpecificVariables() {
         _spawnedRight = false;
     }
 
