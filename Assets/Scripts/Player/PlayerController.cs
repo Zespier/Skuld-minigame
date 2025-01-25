@@ -217,13 +217,15 @@ public class PlayerController : MonoBehaviour {
         _increaseGravity = StartCoroutine(IncreaseGravityAtPeakCoroutine());
     }
 
-    private IEnumerator IncreaseGravityAtPeakCoroutine()
-    {
+    private IEnumerator IncreaseGravityAtPeakCoroutine() {
+
+        _animator.Play("JumpUp");
         // Esperar hasta llegar al pico del salto
         while (rb.velocity.y > 0.17f)
         {
             yield return null; // Continuar esperando mientras sube.
         }
+        _animator.Play("JumpTransition");
 
         // Cuando se alcance el pico o comience a caer, verificamos si se ha solicitado planeo
         if (glideRequested && !isGliding)
@@ -252,6 +254,7 @@ public class PlayerController : MonoBehaviour {
     private void StartGlide()
     {
         if (isGliding) return; // Evitar múltiples activaciones.
+        _animator.Play("Glide");
 
         isGliding = true;
         state = ENUM_PlayerStates.Gliding;
@@ -262,6 +265,7 @@ public class PlayerController : MonoBehaviour {
     private void StopGlide()
     {
         if (!isGliding) return; // Evitar múltiples llamadas.
+        _animator.Play("JumpLanding");
 
         isGliding = false;
         state = ENUM_PlayerStates.Jumping; // Volver al estado de salto.
@@ -323,6 +327,7 @@ public class PlayerController : MonoBehaviour {
             RecoverDefaultGravity();
             MarkBoolsWhenLanding();
             if (grounded) state = ENUM_PlayerStates.Running;
+            _animator.Play("JumpLanding");
         }
 
         _lastGrounded = grounded;

@@ -143,13 +143,13 @@ MonoBehaviour:
   attackCooldown: 1
   delayAnimAttack: 0.2
   height: 1.15
-  timeAtheightPeak: 0.42
+  timeAtheightPeak: 0.36
   fallingGravity: 2.5
   peakGlideGravityDecrease: 1.5
   maxVerticalSpeed: 4
-  glideGravity: 0.1
-  glideFallSpeed: -0.5
-  glideSpeedMultiplier: 1.5
+  glideGravity: 0.4
+  glideFallSpeed: -1
+  glideSpeedMultiplier: 1.2
   coyoteTime: 0.15
   coyoteTimeCounter: 0
   groundCheck: {fileID: 8269408498448618329}
@@ -163,7 +163,7 @@ MonoBehaviour:
   previousFrameCheck1: 0
   previousFrameCheck2: 0
   wallStamp: 0
-  wallFallGravity: 1.2
+  wallFallGravity: 5
   _storedCombo: 0
   _storedScore: 0
 --- !u!70 &5157297954643048491

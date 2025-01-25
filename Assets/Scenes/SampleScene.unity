@@ -545,6 +545,64 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: mainCamera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.size
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 8572405935640436338, guid: a8ab5cc8ccc51894cb9995657a5e6d93,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 7287207088016864543, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 2396700946368382619, guid: 1987a12c1021e1141a16178bd7e4c826,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 2396700946368382619, guid: 23dc8abae0aa0bf47bdf69e58e8f26d2,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 2396700946368382619, guid: 557f898cff63e8941b97134695784d1a,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 2396700946368382619, guid: 9a4cdff6c0412f841bc1f73fe6590797,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 2396700946368382619, guid: 5a5e435d9ee121d4bbdb81e1bd7801cd,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
+      propertyPath: modulePrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 2396700946368382619, guid: 50e757be3809e1748b4288bc07efa588,
+        type: 3}
     - target: {fileID: 3651364891724408688, guid: 08e29df43c5617c4f91d250d9941f344,
         type: 3}
       propertyPath: m_Name
