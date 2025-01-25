@@ -977,11 +977,18 @@ MonoBehaviour:
   maxSpeed: 3.1
   acceleration: 3
   rb: {fileID: 1102334963}
+  state: 0
+  weapon: 0
   height: 1.15
   timeAtheightPeak: 0.42
   fallingGravity: 2.5
   peakGlideGravityDecrease: 1.5
   maxVerticalSpeed: 4
+  glideGravity: 0.5
+  glideFallSpeed: -2
+  glideSpeedMultiplier: 1.5
+  coyoteTime: 0.2
+  coyoteTimeCounter: 0
   groundCheck: {fileID: 1394339469}
   groundLayer:
     serializedVersion: 2
@@ -1356,16 +1363,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base Module
       objectReference: {fileID: 0}
-    - target: {fileID: 5408939223280574752, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 5408939223280574752, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 5744187390321673092, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1415,11 +1412,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7287207088016864543, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
-        type: 3}
-      propertyPath: width
-      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 7287207088016864543, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
         type: 3}
