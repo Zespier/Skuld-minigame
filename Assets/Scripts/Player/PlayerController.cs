@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour {
     }
     private void FixedUpdate()
     {
-        
+        TimerWallCheckInit();
     }
 
     private void OnDrawGizmos() {
@@ -373,6 +373,12 @@ public class PlayerController : MonoBehaviour {
         // Actualizar los valores para el siguiente frame
         previousFrameCheck2 = previousFrameCheck1;
         previousFrameCheck1 = currentFrameCheck;
+    }
+
+    private void TimerWallCheckInit()
+    {
+        if (waitCheckWall > 0) waitCheckWall -= Time.deltaTime; else WallFrameCheck();
+        
     }
 
     //public void FootSteps() {
