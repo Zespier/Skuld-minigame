@@ -6,11 +6,11 @@ using UnityEngine;
 public class Economy : MonoBehaviour {
 
     public Stats stats;
-    public float souls;
+    public double souls;
     public TMP_Text soulsPerSecond;
     public TMP_Text totalSouls;
     public List<EconomyUpgrade> upgrades = new List<EconomyUpgrade>();
-    public List<char> economyLetterss = new List<char>() { ' ', 'K', 'M', 'B', 'T', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k' };
+    public List<char> economyLetterss = new List<char>() { ' ', 'K', 'M', 'B', 'T', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
     private void Start() {
         stats.ManageAddUpgrade(Buff.BaseSoulsPerSecond, 6);
@@ -27,8 +27,8 @@ public class Economy : MonoBehaviour {
         }
     }
 
-    private string TransformIntoEconomyLetter(float amount) {
-        float originalAmount = amount;
+    private string TransformIntoEconomyLetter(double amount) {
+        double originalAmount = amount;
         int ceroAmount = 0;
         do {
             amount /= 10;
