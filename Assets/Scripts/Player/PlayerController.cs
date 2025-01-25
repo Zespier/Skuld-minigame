@@ -125,8 +125,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Jump() {
-        if (_isDead) { return; }
-        if (!grounded) { return; }
+        //if (!grounded) { return; }
 
         Vector3 velocity = rb.velocity;
         float jumpVelocity = CalculateJumpVelocityWithTotalTime();
