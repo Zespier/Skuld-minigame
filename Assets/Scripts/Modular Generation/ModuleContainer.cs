@@ -5,6 +5,7 @@ using UnityEngine;
 public class ModuleContainer : MonoBehaviour {
 
     //public List<Module> activeModules = new List<Module>(capacity: 8);
+    public Module initialModule;
     public List<Module> modulePrefabs = new();
     public List<int> initialPoolAmount = new();
     public List<Module> _modulePool = new(capacity: 64);
@@ -93,6 +94,14 @@ public class ModuleContainer : MonoBehaviour {
     }
 
     #endregion
+
+    public Module GetInitialModule(Vector3 playerPosition) {
+        Module newModule = Instantiate(initialModule, transform);
+        _modulePool.Add(newModule);
+
+        newModule.transform.position = playerPosition + new Vector3()
+        return newModule;
+    }
 
     public Module GetRandomModule(ModuleHeight moduleHeight) {
 
