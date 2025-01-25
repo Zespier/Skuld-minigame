@@ -23,6 +23,11 @@ public class PlayerController : MonoBehaviour {
     public float peakGlideGravityDecrease = 1.75f;
     public float maxVerticalSpeed = 3f;
 
+    [Header("Coyote Time")]
+    [Tooltip("Estado actual del jugador")]
+    public float coyoteTime = 0.2f;
+    public float coyoteTimeCounter;
+
     [Header("GroundCheck")]
     public Transform groundCheck;
     public LayerMask groundLayer;
@@ -64,6 +69,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() {
         EvaluateGrounded();
+        CalculateCoyoteTime();
         Accelerate();
         Movement();
 
@@ -125,7 +131,11 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void Jump() {
-        //if (!grounded) { return; }
+        if (coyoteTimeCounter<=0) return;
+
+        coyoteTimeCounter=0f;
+
+        state = ENUM_PlayerStates.Jumping;
 
         Vector3 velocity = rb.velocity;
         float jumpVelocity = CalculateJumpVelocityWithTotalTime();
@@ -135,6 +145,11 @@ public class PlayerController : MonoBehaviour {
         rb.gravityScale = CalculateGravity();
 
         IncreaseGravityAtPeak();
+    }
+
+    public void CalculateCoyoteTime()
+    {
+        if (grounded) {coyoteTimeCounter = coyoteTime;} else coyoteTimeCounter-=Time.deltaTime;
     }
 
     private float CalculateJumpVelocityWithTotalTime() {
