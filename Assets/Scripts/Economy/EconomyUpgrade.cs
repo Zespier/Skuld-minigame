@@ -9,5 +9,6 @@ public class EconomyUpgrade : ScriptableObject {
     public float amount;
     public string Name;
     public string description;
+    public float price;
 
 }

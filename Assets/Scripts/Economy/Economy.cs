@@ -10,11 +10,20 @@ public class Economy : MonoBehaviour {
     public TMP_Text soulsPerSecond;
     public TMP_Text totalSouls;
     public List<EconomyUpgrade> upgrades = new List<EconomyUpgrade>();
-    public List<char> economyLetterss = new List<char>() { ' ', 'K', 'M', 'B', 'T', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+    public List<UIForLevelingThingys> UIpanels = new List<UIForLevelingThingys>();
+    public List<char> economyLetters = new List<char>() { ' ', 'K', 'M', 'B', 'T', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+
+    public static Economy instance;
+    private void Awake() {
+        if (!instance) { instance = this; }
+    }
 
     private void Start() {
-        stats.ManageAddUpgrade(Buff.BaseSoulsPerSecond, 6);
-        stats.ManageAddUpgrade(Buff.SoulsPerSecondPercentage, 50);
+
+        for (int i = 0; i < UIpanels.Count; i++) {
+            UIpanels[i].economyUpgrade = upgrades[i];
+            UIpanels[i].SetUpPanel();
+        }
     }
 
     private void Update() {
@@ -23,11 +32,15 @@ public class Economy : MonoBehaviour {
         totalSouls.text = $"{TransformIntoEconomyLetter(souls)}";
 
         if (Input.GetKeyDown(KeyCode.U)) {
-            stats.ManageAddUpgrade(upgrades[0].buffType, upgrades[0].amount);
+            AddUpgrade(upgrades[0]);
         }
     }
 
-    private string TransformIntoEconomyLetter(double amount) {
+    public void AddUpgrade(EconomyUpgrade economyUpgrade) {
+        stats.ManageAddUpgrade(economyUpgrade.buffType, economyUpgrade.amount);
+    }
+
+    public string TransformIntoEconomyLetter(double amount) {
         double originalAmount = amount;
         int ceroAmount = 0;
         do {
@@ -37,6 +50,6 @@ public class Economy : MonoBehaviour {
 
         int stepsIntoTheEconomyLetters = (ceroAmount / 3);
 
-        return (originalAmount / Mathf.Pow(10, stepsIntoTheEconomyLetters * 3)).ToString("F2") + economyLetterss[stepsIntoTheEconomyLetters];
+        return (originalAmount / Mathf.Pow(10, stepsIntoTheEconomyLetters * 3)).ToString("F2") + economyLetters[stepsIntoTheEconomyLetters];
     }
 }

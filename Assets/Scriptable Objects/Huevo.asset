@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da3036b8343c974d960995b46d55a38, type: 3}
-  m_Name: EconomyUpgrade
+  m_Name: Huevo
   m_EditorClassIdentifier: 
-  buffType: 1
-  amount: 200000000
+  buffType: 0
+  amount: 0.6
   Name: Huevo
-  description: Aumenta en 50% las ganancias.
+  description: Aumenta las ganancias en 0,6
+  price: 6
