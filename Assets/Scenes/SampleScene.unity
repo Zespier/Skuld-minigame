@@ -381,6 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 1102334961}
   offset: {x: 1.238, y: 2.5, z: -10}
+  followPlayerHeight: 0
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -770,6 +771,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modulePrefabs:
   - {fileID: 2396700946368382619, guid: 1987a12c1021e1141a16178bd7e4c826, type: 3}
+  - {fileID: 7287207088016864543, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5, type: 3}
   initialPoolAmount: 
   _modulePool: []
   modulesUsedInOrder: 
