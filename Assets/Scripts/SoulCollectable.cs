@@ -16,8 +16,7 @@ public class SoulCollectable : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player")) {
             Economy.instance.AddSoulCollectable();
-            animator.Play("Idle");
-
+            animator.Play("Ploof");
             Destroy(gameObject, ploofClip.length + 0.05f);
         }
     }
