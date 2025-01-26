@@ -42,6 +42,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7277901206187669044}
   - component: {fileID: 5502067799383552102}
+  - component: {fileID: -9187752227535391213}
   - component: {fileID: 5754664669877395614}
   m_Layer: 23
   m_Name: StaticEnemy
@@ -111,6 +112,33 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 0.8}
   m_EdgeRadius: 0
+--- !u!50 &-9187752227535391213
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2221233144949349602}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!114 &5754664669877395614
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +177,7 @@ MonoBehaviour:
     enemy: {fileID: 0}
     attackingRadius: 4
     attackCooldown: 2
-  type: 0
+  type: 1
   layersToDetect:
     serializedVersion: 2
     m_Bits: 8
