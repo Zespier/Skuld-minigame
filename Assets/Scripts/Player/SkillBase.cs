@@ -23,7 +23,6 @@ public abstract class SkillBase : ScriptableObject
     public void StartCooldown(MonoBehaviour owner)
     {
         if (isOnCooldown) return;
-
         isOnCooldown = true;
         owner.StartCoroutine(CooldownCoroutine());
     }

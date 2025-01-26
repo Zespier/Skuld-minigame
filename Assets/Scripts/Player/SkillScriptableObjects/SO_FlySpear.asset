@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: SO_FlySpear
   m_EditorClassIdentifier: 
   skillName: FlyingSpear
-  cooldownTime: 0
+  cooldownTime: 2
   skillIcon: {fileID: 0}

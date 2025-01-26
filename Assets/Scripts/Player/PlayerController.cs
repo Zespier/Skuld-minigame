@@ -95,6 +95,8 @@ public class PlayerController : MonoBehaviour {
 
     private Animator _animator;
 
+    public bool IsInIdleSide => transform.position.y < -1.5f;
+
     public float GravityScale { get => _defaultGravityMultiplier * _currentIncreasedGravityValue / _currentDecreasedGravityValue; }
 
     public static PlayerController instance;
@@ -405,9 +407,53 @@ public class PlayerController : MonoBehaviour {
         
     }
 
-    public void UpSkillImpulse()
+    public void StartCoroutineSkill1()
     {
-        rb.velocity = new Vector3 (rb.velocity.x, rb.velocity.y+20, 0);
+        StartCoroutine(UpSkillImpulse());
+    }
+
+    public IEnumerator UpSkillImpulse()
+    {
+        if (IsInIdleSide)
+        {
+            state = ENUM_PlayerStates.Ability_1;
+
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 20, 0);
+
+            yield return new WaitForSeconds(1f);
+
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+
+            EvaluateState();
+        }
+        else
+        {
+            state = ENUM_PlayerStates.Ability_1;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 10, 0);
+
+            yield return new WaitForSeconds(1f);
+
+            EvaluateState();
+
+        }
+        
+    }
+
+    private void EvaluateState()
+    {
+        if (grounded)
+        {
+            state = ENUM_PlayerStates.Running;
+        }
+        else{
+            state = ENUM_PlayerStates.Jumping;
+
+        }
+
+
     }
 
 

@@ -18,8 +18,7 @@ public class FlySpear : SkillBase
 
         caster.TryGetComponent<PlayerController>(out controllerRef);
 
-        controllerRef.UpSkillImpulse();
-
+        controllerRef.StartCoroutineSkill1();
 
         Debug.Log($"{skillName} lanzada!");
 

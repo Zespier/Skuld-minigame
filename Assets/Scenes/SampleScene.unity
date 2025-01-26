@@ -547,6 +547,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
         type: 3}
+      propertyPath: initialModule
+      value: 
+      objectReference: {fileID: 7287207088016864543, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
       propertyPath: modulePrefabs.Array.size
       value: 7
       objectReference: {fileID: 0}
