@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 public class Module : MonoBehaviour {
 
+    public int ID;
     public ModuleHeight entrance;
     public ModuleHeight exitHeight;
     public float width = 1;
@@ -18,35 +19,30 @@ public class Module : MonoBehaviour {
     [Tooltip("Layer de los objetos que recojeremos en la lista")]
     public LayerMask resetObjectLayer;
 
-    [HideInInspector] public int ID;
     private bool _spawnedRight;
 
     public float RightCameraLimit => mainCamera.transform.position.x + mainCamera.orthographicSize * mainCamera.aspect;
     public float LeftCameraLimit => mainCamera.transform.position.x - mainCamera.orthographicSize * mainCamera.aspect;
 
-    //private void OnEnable() {
-    //    ModuleContainer.instance.AddModule(this);
-    //}
+    private void OnEnable() {
+        ModuleContainer.instance.AddModule(this);
+    }
 
-    //private void OnDisable() {
-    //    ModuleContainer.instance.RemoveModule(this);
-    //}
+    private void OnDisable() {
+        ModuleContainer.instance.RemoveModule(this);
+    }
 
-    private void Start()
-    {
+    private void Start() {
         enemiesRef = GetFilteredChildren(transform, resetObjectLayer);
     }
 
-    private List<GameObject> GetFilteredChildren(Transform parent, LayerMask layer)
-    {
+    private List<GameObject> GetFilteredChildren(Transform parent, LayerMask layer) {
         List<GameObject> filteredObjects = new List<GameObject>();
 
         // Recorrer todos los hijos del objeto padre
-        foreach (Transform child in parent)
-        {
+        foreach (Transform child in parent) {
             // Comprobar si el hijo est� en la capa especificada
-            if (child.gameObject.layer == Mathf.Log(layer.value, 2))
-            {
+            if (child.gameObject.layer == Mathf.Log(layer.value, 2)) {
                 // Comprobar si contiene el script espec�fico (si es necesario)
                 //var script = child.GetComponent(scriptName); // scriptName es opcional
                 //if (script != null)
@@ -62,8 +58,7 @@ public class Module : MonoBehaviour {
     public virtual void ResetSpecificVariables() {
         _spawnedRight = false;
 
-        foreach (GameObject resetObj in enemiesRef)
-        {
+        foreach (GameObject resetObj in enemiesRef) {
             resetObj.SetActive(true);
 
             break;
@@ -71,7 +66,7 @@ public class Module : MonoBehaviour {
         }
     }
 
-    private void Update() {
+    protected virtual void Update() {
         CheckDeactivation();
 
         if (!_spawnedRight && RightCameraLimit /*+ SectionManager.sectionSize*/ > transform.position.x + width/*+ SectionManager.sectionSize / 2f*/) {
@@ -93,7 +88,6 @@ public class Module : MonoBehaviour {
     private void CheckDeactivation() {
 
         if (LeftCameraLimit > transform.position.x + width) {
-            gameObject.SetActive(false);
             ModuleContainer.instance.StoreModuleInPool(this);
         }
     }
@@ -103,20 +97,10 @@ public class Module : MonoBehaviour {
 }
 
 public enum ModuleHeight {
-    Top,
-    Midle,
-    Bottom,
-    BaseModule,
-    BackGround,
-}
-public enum ModuleType {
-    TopToTop,
-    TopToMiddle,
-    TopToBottom,
-    MiddleToTop,
-    MiddleToMiddle,
-    MiddleToBottom,
-    BottomToTop,
-    BottomToMiddle,
-    BottomToBottom,
+    Top = 0,
+    Midle = 1,
+    Bottom = 2,
+    BaseModule = 3,
+    BackGround = 4,
+    Initial = 5,
 }
