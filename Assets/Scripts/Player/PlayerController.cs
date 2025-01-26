@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
     private float waitCheckWall = 0.5f;
 
     [Header("Skills")]
-    public float skillSpeedMultiplier;
+    public float qJumpForce = 2.5f;
 
     private Vector3 _velocity;
     private float _targetGravity;
@@ -132,15 +132,6 @@ public class PlayerController : MonoBehaviour {
             PlayAnimation("JumpTransition");
         }
 
-        if (Input.GetKeyDown(KeyCode.P)) {
-            if (IsInIdleSide && grounded) {
-                Vector3 newVelocity = rb.velocity;
-                newVelocity.y = jumpmStrengthToGoTOTheFockingMoonAndPlay;
-                rb.velocity = newVelocity;
-
-                ModuleContainer.instance.GetInitialModule();
-            }
-        }
     }
     private void FixedUpdate() {
         TimerWallCheckInit();
@@ -319,6 +310,8 @@ public class PlayerController : MonoBehaviour {
         _groundCollision = Physics2D.OverlapBox(groundCheck.position, sizeGroundCheck, 0f, groundLayer);
         grounded = _groundCollision ? true : false;
 
+        _animator.SetBool("isGrounded", grounded);
+
         if (grounded) {
             if (isGliding) {
                 StopGlide(); // Terminar el planeo al aterrizar.
@@ -328,8 +321,12 @@ public class PlayerController : MonoBehaviour {
         if (rb.velocity.y < 0 && (!_lastGrounded && grounded)) {
             RecoverDefaultGravity();
             MarkBoolsWhenLanding();
-            if (grounded) state = ENUM_PlayerStates.Running;
-            PlayAnimation("JumpLanding");
+            if (state != ENUM_PlayerStates.Ability_2 && grounded) {
+
+                 PlayAnimation("JumpLanding");
+                 state = ENUM_PlayerStates.Running;
+            } 
+
         }
 
         _lastGrounded = grounded;
@@ -427,23 +424,42 @@ public class PlayerController : MonoBehaviour {
         StartCoroutine(UpSkillImpulse());
     }
 
+    public void StartCoroutineSkill2()
+    {
+        StartCoroutine(DownSkillImpulse());
+    }
+
+    public void StartCoroutineSkill3()
+    {
+        StartCoroutine(DownSkillImpulse());
+    }
+
     public IEnumerator UpSkillImpulse() {
         if (IsInIdleSide) {
-            state = ENUM_PlayerStates.Ability_1;
 
-            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+            if (grounded)
+            {
+                state = ENUM_PlayerStates.Ability_1;
 
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 20, 0);
+                PlayAnimation("Skuld_Helicopter");
+                Vector3 newVelocity = rb.velocity;
+                newVelocity.y = jumpmStrengthToGoTOTheFockingMoonAndPlay;
+                rb.velocity = newVelocity;
 
-            yield return new WaitForSeconds(1f);
+                ModuleContainer.instance.GetInitialModule();
 
-            gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+                yield return new WaitForSeconds(1f);
 
-            EvaluateState();
+                EvaluateState();
+            }
+
         } else {
+
+            PlayAnimation("Skuld_TopHelicopter");
+
             state = ENUM_PlayerStates.Ability_1;
 
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 10, 0);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + qJumpForce * rb.gravityScale, 0);
 
             yield return new WaitForSeconds(1f);
 
@@ -453,6 +469,42 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    public IEnumerator DownSkillImpulse()
+    {
+        if (!IsInIdleSide)
+        {
+
+            PlayAnimation("Skuld_CutAbility");
+
+            state = ENUM_PlayerStates.Ability_2;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+
+            yield return new WaitForSeconds(2f);
+
+            EvaluateState();
+
+        }
+
+    }
+
+    public IEnumerator FrontSkillImpulse()
+    {
+        if (!IsInIdleSide)
+        {
+
+            PlayAnimation("Skuld_CutAbility");
+
+            state = ENUM_PlayerStates.Ability_2;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+
+            yield return new WaitForSeconds(2f);
+
+            EvaluateState();
+
+        }
+    }
     private void EvaluateState() {
         if (grounded) {
             state = ENUM_PlayerStates.Running;
@@ -460,8 +512,6 @@ public class PlayerController : MonoBehaviour {
             state = ENUM_PlayerStates.Jumping;
 
         }
-
-
     }
 
 
