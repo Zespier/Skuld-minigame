@@ -77,7 +77,7 @@ public class PlayerController : MonoBehaviour {
     private float waitCheckWall = 0.5f;
 
     [Header("Skills")]
-    public float skillSpeedMultiplier;
+    public float qJumpForce = 2.5f;
 
     private Vector3 _velocity;
     private float _targetGravity;
@@ -132,15 +132,6 @@ public class PlayerController : MonoBehaviour {
             PlayAnimation("JumpTransition");
         }
 
-        if (Input.GetKeyDown(KeyCode.P)) {
-            if (IsInIdleSide && grounded) {
-                Vector3 newVelocity = rb.velocity;
-                newVelocity.y = jumpmStrengthToGoTOTheFockingMoonAndPlay;
-                rb.velocity = newVelocity;
-
-                ModuleContainer.instance.GetInitialModule();
-            }
-        }
     }
     private void FixedUpdate() {
         TimerWallCheckInit();
@@ -319,6 +310,8 @@ public class PlayerController : MonoBehaviour {
         _groundCollision = Physics2D.OverlapBox(groundCheck.position, sizeGroundCheck, 0f, groundLayer);
         grounded = _groundCollision ? true : false;
 
+        _animator.SetBool("isGrounded", grounded);
+
         if (grounded) {
             if (isGliding) {
                 StopGlide(); // Terminar el planeo al aterrizar.
@@ -328,8 +321,12 @@ public class PlayerController : MonoBehaviour {
         if (rb.velocity.y < 0 && (!_lastGrounded && grounded)) {
             RecoverDefaultGravity();
             MarkBoolsWhenLanding();
-            if (grounded) state = ENUM_PlayerStates.Running;
-            PlayAnimation("JumpLanding");
+            if (state != ENUM_PlayerStates.Ability_2 && grounded) {
+
+                 PlayAnimation("JumpLanding");
+                 state = ENUM_PlayerStates.Running;
+            } 
+
         }
 
         _lastGrounded = grounded;
@@ -344,38 +341,43 @@ public class PlayerController : MonoBehaviour {
         enemiesInRange = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
 
         if (enemiesInRange.Length > 0 && Time.time > lastAttackTime + attackCooldown) {
-            foreach (Collider2D enemy in enemiesInRange) {
-                if (enemy == null) {
+            foreach (Collider2D colision in enemiesInRange) {
+                if (colision == null) {
                     continue;
                 }
                 // Aquí puedes llamar al método de daño del enemigo
-                Debug.Log($"Atacando a {enemy.name}");
+                Debug.Log($"Atacando a {colision.name}");
                 // enemy.GetComponent<EnemyController>()?.TakeDamage(attackDamage);
                 //Testeo
 
-                IHealth enemyHP = enemy.GetComponent<IHealth>();
-                if (enemyHP == null) { continue; }
-                int enemyHealth = enemyHP.currentHP;
-                Debug.Log(enemyHP);
-                Debug.Log(enemyHealth);
-                if (enemyHealth >= enemyHP.maxHP) {
-                    _animator.Play("Skuld_IdleToAttack");
-                    state = ENUM_PlayerStates.Attacking;
-                    _currentSpeed = 0;
-                    enemyHP.Set(attackDamage);
 
-                } else if (enemyHealth > 0) {
+                if (IsInIdleSide) {
 
-                    enemyHP.Set(attackDamage);
+                    Enemy enemy = colision.GetComponent<Enemy>();
+                    if (enemy == null) { continue; }
+                    int enemyHealth = enemy._currentHP;
+
+                    if (enemyHealth >= enemy._maxHP && enemy.type == Enemy.EnemyType.StaticBig) {
+                        _animator.Play("Skuld_IdleToAttack");
+                        state = ENUM_PlayerStates.Attacking;
+                        _currentSpeed = 0;
+                        enemy.Set(attackDamage);
+
+                    } else if (enemyHealth > 0) {
+
+                        enemy.Set(attackDamage);
+
+                    } else {
+                        Debug.Log("Dejo de atacar");
+                        _animator.SetTrigger("exitAttack");
+                        state = ENUM_PlayerStates.Running;
+                        colision.gameObject.SetActive(false);
+                    }
 
                 } else {
-                    Debug.Log("Dejo de atacar");
-                    _animator.SetTrigger("exitAttack");
-                    state = ENUM_PlayerStates.Running;
-                    enemy.gameObject.SetActive(false);
+                    StartCoroutine(DestroyTimer(colision.gameObject));
+                    _animator.Play("Attack Spear");
                 }
-
-                //StartCoroutine(DestroyTimer(enemy.gameObject));
 
             }
 
@@ -422,23 +424,42 @@ public class PlayerController : MonoBehaviour {
         StartCoroutine(UpSkillImpulse());
     }
 
+    public void StartCoroutineSkill2()
+    {
+        StartCoroutine(DownSkillImpulse());
+    }
+
+    public void StartCoroutineSkill3()
+    {
+        StartCoroutine(DownSkillImpulse());
+    }
+
     public IEnumerator UpSkillImpulse() {
         if (IsInIdleSide) {
-            state = ENUM_PlayerStates.Ability_1;
 
-            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+            if (grounded)
+            {
+                state = ENUM_PlayerStates.Ability_1;
 
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 20, 0);
+                PlayAnimation("Skuld_Helicopter");
+                Vector3 newVelocity = rb.velocity;
+                newVelocity.y = jumpmStrengthToGoTOTheFockingMoonAndPlay;
+                rb.velocity = newVelocity;
 
-            yield return new WaitForSeconds(1f);
+                ModuleContainer.instance.GetInitialModule();
 
-            gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+                yield return new WaitForSeconds(1f);
 
-            EvaluateState();
+                EvaluateState();
+            }
+
         } else {
+
+            PlayAnimation("Skuld_TopHelicopter");
+
             state = ENUM_PlayerStates.Ability_1;
 
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 10, 0);
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + qJumpForce * rb.gravityScale, 0);
 
             yield return new WaitForSeconds(1f);
 
@@ -448,6 +469,42 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    public IEnumerator DownSkillImpulse()
+    {
+        if (!IsInIdleSide)
+        {
+
+            PlayAnimation("Skuld_CutAbility");
+
+            state = ENUM_PlayerStates.Ability_2;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+
+            yield return new WaitForSeconds(2f);
+
+            EvaluateState();
+
+        }
+
+    }
+
+    public IEnumerator FrontSkillImpulse()
+    {
+        if (!IsInIdleSide)
+        {
+
+            PlayAnimation("Skuld_CutAbility");
+
+            state = ENUM_PlayerStates.Ability_2;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+
+            yield return new WaitForSeconds(2f);
+
+            EvaluateState();
+
+        }
+    }
     private void EvaluateState() {
         if (grounded) {
             state = ENUM_PlayerStates.Running;
@@ -455,8 +512,6 @@ public class PlayerController : MonoBehaviour {
             state = ENUM_PlayerStates.Jumping;
 
         }
-
-
     }
 
 

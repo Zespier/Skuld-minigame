@@ -22,7 +22,7 @@ public class Enemy : MonoBehaviour, IHealth {
     public Rigidbody2D rB;
     public bool canAttack;
 
-    public enum EnemyType { Static, Moveable, Flight }
+    public enum EnemyType { Static, StaticBig, Moveable, Flight }
     [HideInInspector] public Vector2 initialPos;
 
     public int _currentHP;
@@ -56,6 +56,7 @@ public class Enemy : MonoBehaviour, IHealth {
 
         switch (type) {
             case EnemyType.Static:
+            case EnemyType.StaticBig:
                 stateMachine.Initialize(idleState);
                 break;
             case EnemyType.Moveable:
