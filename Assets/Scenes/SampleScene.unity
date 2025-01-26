@@ -4104,6 +4104,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 1139724082371889472, guid: 6eaf9146862ebcd48adf0a4e461c9618,
+        type: 3}
+      propertyPath: skillW
+      value: 
+      objectReference: {fileID: 11400000, guid: d7f8e33405de5ec48aec01ee25140eed,
+        type: 2}
     - target: {fileID: 3508600585105851405, guid: 6eaf9146862ebcd48adf0a4e461c9618,
         type: 3}
       propertyPath: m_IsActive

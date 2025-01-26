@@ -131,6 +131,7 @@ public class PlayerController : MonoBehaviour {
         if (!grounded && state == ENUM_PlayerStates.Running) {
             PlayAnimation("JumpTransition");
         }
+
     }
     private void FixedUpdate() {
         TimerWallCheckInit();
@@ -309,6 +310,8 @@ public class PlayerController : MonoBehaviour {
         _groundCollision = Physics2D.OverlapBox(groundCheck.position, sizeGroundCheck, 0f, groundLayer);
         grounded = _groundCollision ? true : false;
 
+        _animator.SetBool("isGrounded", grounded);
+
         if (grounded) {
             if (isGliding) {
                 StopGlide(); // Terminar el planeo al aterrizar.
@@ -318,8 +321,12 @@ public class PlayerController : MonoBehaviour {
         if (rb.velocity.y < 0 && (!_lastGrounded && grounded)) {
             RecoverDefaultGravity();
             MarkBoolsWhenLanding();
-            if (grounded) state = ENUM_PlayerStates.Running;
-            PlayAnimation("JumpLanding");
+            if (state != ENUM_PlayerStates.Ability_2 && grounded) {
+
+                 PlayAnimation("JumpLanding");
+                 state = ENUM_PlayerStates.Running;
+            } 
+
         }
 
         _lastGrounded = grounded;
@@ -412,6 +419,16 @@ public class PlayerController : MonoBehaviour {
         StartCoroutine(UpSkillImpulse());
     }
 
+    public void StartCoroutineSkill2()
+    {
+        StartCoroutine(DownSkillImpulse());
+    }
+
+    public void StartCoroutineSkill3()
+    {
+        StartCoroutine(DownSkillImpulse());
+    }
+
     public IEnumerator UpSkillImpulse() {
         if (IsInIdleSide) {
 
@@ -447,6 +464,42 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    public IEnumerator DownSkillImpulse()
+    {
+        if (!IsInIdleSide)
+        {
+
+            PlayAnimation("Skuld_CutAbility");
+
+            state = ENUM_PlayerStates.Ability_2;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+
+            yield return new WaitForSeconds(2f);
+
+            EvaluateState();
+
+        }
+
+    }
+
+    public IEnumerator FrontSkillImpulse()
+    {
+        if (!IsInIdleSide)
+        {
+
+            PlayAnimation("Skuld_CutAbility");
+
+            state = ENUM_PlayerStates.Ability_2;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+
+            yield return new WaitForSeconds(2f);
+
+            EvaluateState();
+
+        }
+    }
     private void EvaluateState() {
         if (grounded) {
             state = ENUM_PlayerStates.Running;
