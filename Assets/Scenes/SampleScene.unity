@@ -735,7 +735,7 @@ PrefabInstance:
         type: 3}
       propertyPath: modulePrefabs.Array.data[0]
       value: 
-      objectReference: {fileID: 8572405935640436338, guid: a8ab5cc8ccc51894cb9995657a5e6d93,
+      objectReference: {fileID: 6991167936922708205, guid: a8ab5cc8ccc51894cb9995657a5e6d93,
         type: 3}
     - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
         type: 3}
@@ -1935,7 +1935,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: Background Module
       objectReference: {fileID: 0}
-    - target: {fileID: 8572405935640436338, guid: a8ab5cc8ccc51894cb9995657a5e6d93,
+    - target: {fileID: 6991167936922708205, guid: a8ab5cc8ccc51894cb9995657a5e6d93,
         type: 3}
       propertyPath: mainCamera
       value: 

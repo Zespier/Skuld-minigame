@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1876844543406688502}
-  - component: {fileID: 8572405935640436338}
   - component: {fileID: 632801319283739817}
+  - component: {fileID: 6991167936922708205}
   m_Layer: 0
   m_Name: Background Module
   m_TagString: Untagged
@@ -34,28 +34,6 @@ Transform:
   - {fileID: 2580963446143322450}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8572405935640436338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5671606763588284547}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a894b6cba7547c149afa4e19d02cf03e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  entrance: 4
-  exitHeight: 4
-  width: 9.3
-  height: 4.65
-  mainCamera: {fileID: 0}
-  enemiesRef: []
-  resetObjectLayer:
-    serializedVersion: 2
-    m_Bits: 0
-  ID: 0
 --- !u!114 &632801319283739817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,6 +47,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementPercentage: 6
+--- !u!114 &6991167936922708205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5671606763588284547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea396fba6f8386e4e9311a2ac7b04576, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ID: 0
+  entrance: 4
+  exitHeight: 4
+  width: 9.3
+  height: 4.65
+  mainCamera: {fileID: 0}
+  enemiesRef: []
+  resetObjectLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  followCamera: {fileID: 632801319283739817}
 --- !u!1 &7864373384011095494
 GameObject:
   m_ObjectHideFlags: 0

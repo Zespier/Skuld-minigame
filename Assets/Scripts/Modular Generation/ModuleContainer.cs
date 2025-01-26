@@ -81,6 +81,7 @@ public class ModuleContainer : MonoBehaviour {
         Debug.LogError("Module not defined");
     }
     public void NewRandomModule(ModuleHeight entranceHeight) {
+        Debug.LogWarning("Pensaba que no era posible que se llamara nunca");
         List<Module> allModulesWithThatHeight = new List<Module>();
 
         for (int i = 0; i < modulePrefabs.Count; i++) {
@@ -142,7 +143,9 @@ public class ModuleContainer : MonoBehaviour {
 
         desiredModule.ResetSpecificVariables();
         desiredModule.gameObject.SetActive(true);
-        modulesUsedInOrder.Add(desiredModule.ID);
+        if (desiredModule.ID != 0 && desiredModule.ID != 1) {
+            modulesUsedInOrder.Add(desiredModule.ID);
+        }
         return desiredModule;
     }
 
