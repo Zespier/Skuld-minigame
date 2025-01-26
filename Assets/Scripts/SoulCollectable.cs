@@ -6,6 +6,7 @@ using UnityEngine;
 public class SoulCollectable : MonoBehaviour {
 
     public Animator animator;
+    public AnimationClip ploofClip;
 
     private async void Start() {
         await Task.Delay(Random.Range(0, 500));
@@ -15,7 +16,8 @@ public class SoulCollectable : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D collision) {
         if (collision.CompareTag("Player")) {
             Economy.instance.AddSoulCollectable();
-            Destroy(gameObject);
+            animator.Play("Ploof");
+            Destroy(gameObject, ploofClip.length + 0.05f);
         }
     }
 }
