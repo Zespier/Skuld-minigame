@@ -5,6 +5,7 @@ using UnityEditor;
 using UnityEngine;
 
 public class FlyingEnemySpawner : MonoBehaviour {
+    public GameObject enemyPrefab;
     public List<GameObject> enemies;
     public Transform spawnPoint;
     public Transform enemyMark;
@@ -20,7 +21,9 @@ public class FlyingEnemySpawner : MonoBehaviour {
 
     public bool IsInIdleSide => PlayerController.instance.transform.position.y < -1.5f;
 
-    private List<GameObject> inactiveEnemies;
+    public Transform parentFlyingEnemies;
+
+    private List<GameObject> inactiveEnemies = new List<GameObject>();
     GameObject actualEnemy;
     private void Awake() {
     }
@@ -28,7 +31,13 @@ public class FlyingEnemySpawner : MonoBehaviour {
         timer = approximatelyCooldown;
         enemyAmount = Random.Range(1, approximatelyMaxEnemies + 1);
         timer = approximatelyCooldown + Random.Range(-0.5f, 0.5f);
-        inactiveEnemies = enemies.FindAll(e => !e.activeInHierarchy);
+
+        for (int i = 0; i < 10; i++) {
+            GameObject enemy = Instantiate(enemyPrefab, parentFlyingEnemies);
+            enemies.Add(enemy);
+            inactiveEnemies.Add(enemy);
+            Debug.Log("adadad");
+        }
     }
 
     void Update() {
