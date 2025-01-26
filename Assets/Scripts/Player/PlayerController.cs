@@ -365,7 +365,6 @@ public class PlayerController : MonoBehaviour {
                     Debug.Log("Dejo de atacar");
                     _animator.SetTrigger("exitAttack");
                     state = ENUM_PlayerStates.Running;
-                    _currentSpeed = maxSpeed;
                     enemy.gameObject.SetActive(false);
                 }
 
