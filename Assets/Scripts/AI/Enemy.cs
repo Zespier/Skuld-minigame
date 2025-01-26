@@ -35,10 +35,12 @@ public class Enemy : MonoBehaviour, IHealth {
     private void OnValidate() {
         initialPos = transform.position;
     }
-    private void OnEnable() {
+    private void Awake() {
         player = Transform.FindAnyObjectByType<PlayerController>();
         enemySprite = GetComponentInChildren<SpriteRenderer>();
         rB = GetComponent<Rigidbody2D>();
+    }
+    private void OnEnable() {
 
         _currentHP = _maxHP;
     }

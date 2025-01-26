@@ -8,6 +8,7 @@ public enum ENUM_PlayerStates
     Running,
     Jumping,
     Gliding,
+    Attacking,
     Ability_1,
     Ability_2,
     Ability_3,
