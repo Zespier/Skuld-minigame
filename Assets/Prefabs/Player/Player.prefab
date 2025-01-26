@@ -137,12 +137,14 @@ MonoBehaviour:
   rb: {fileID: 8679349758093694751}
   state: 0
   weapon: 0
+  attackDamage: 10
   attackRange: 0.4
   enemyLayer:
     serializedVersion: 2
     m_Bits: 8388608
   attackCooldown: 1
   delayAnimAttack: 0.2
+  jumpmStrengthToGoTOTheFockingMoonAndPlay: 10
   height: 1.15
   timeAtheightPeak: 0.36
   fallingGravity: 2.5
@@ -165,7 +167,7 @@ MonoBehaviour:
   previousFrameCheck2: 0
   wallStamp: 0
   wallFallGravity: 1.2
-  skillSpeedMultiplier: 0
+  qJumpForce: 3
   _storedCombo: 0
   _storedScore: 0
 --- !u!114 &1139724082371889472
