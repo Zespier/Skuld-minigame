@@ -11,6 +11,52 @@ public class AbilityUI : MonoBehaviour {
     public Image shadow;
     public TMP_Text cooldown;
 
+    private void OnEnable() {
+        switch (ability) {
+            case Abilities.skillQ:
+                SkillManager.instance.skillQ.currentCooldown = 0;
+                SkillManager.instance.skillQ.isOnCooldown = false;
+                break;
+            case Abilities.skillW:
+                SkillManager.instance.skillW.currentCooldown = 0;
+                SkillManager.instance.skillW.isOnCooldown = false;
+                break;
+            case Abilities.skillE:
+                SkillManager.instance.skillE.currentCooldown = 0;
+                SkillManager.instance.skillE.isOnCooldown = false;
+                break;
+            case Abilities.skillR:
+                SkillManager.instance.skillR.currentCooldown = 0;
+                SkillManager.instance.skillR.isOnCooldown = false;
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void OnDisable() {
+        switch (ability) {
+            case Abilities.skillQ:
+                SkillManager.instance.skillQ.currentCooldown = 0;
+                SkillManager.instance.skillQ.isOnCooldown = false;
+                break;
+            case Abilities.skillW:
+                SkillManager.instance.skillW.currentCooldown = 0;
+                SkillManager.instance.skillW.isOnCooldown = false;
+                break;
+            case Abilities.skillE:
+                SkillManager.instance.skillE.currentCooldown = 0;
+                SkillManager.instance.skillE.isOnCooldown = false;
+                break;
+            case Abilities.skillR:
+                SkillManager.instance.skillR.currentCooldown = 0;
+                SkillManager.instance.skillR.isOnCooldown = false;
+                break;
+            default:
+                break;
+        }
+    }
+
     private void Update() {
         switch (ability) {
             case Abilities.skillQ:
