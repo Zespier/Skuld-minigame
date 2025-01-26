@@ -5,6 +5,7 @@ using UnityEngine;
 public class ModuleContainer : MonoBehaviour {
 
     //public List<Module> activeModules = new List<Module>(capacity: 8);
+    public Camera mainCamera;
     public Module initialModule;
     public List<Module> modulePrefabs = new();
     public List<int> initialPoolAmount = new();
