@@ -11,7 +11,7 @@ public class Economy : MonoBehaviour {
     public TMP_Text totalSouls;
     public List<EconomyUpgrade> upgrades = new List<EconomyUpgrade>();
     public List<UIForLevelingThingys> UIpanels = new List<UIForLevelingThingys>();
-    public List<char> economyLetters = new List<char>() { ' ', 'K', 'M', 'B', 'T', 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
+    public List<string> economyLetters = new List<string>() { "", "K", "M", "B", "T", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "aa", "ab", "ac", "ad", "ae", "af", "ag", "ah", "ai", "aj", "ak", "al", "am", "an", "ao", "ap", "aq", "ar", "as", "at", "au", "av", "aw", "ax", "ay", "az" };
 
     public static Economy instance;
     private void Awake() {

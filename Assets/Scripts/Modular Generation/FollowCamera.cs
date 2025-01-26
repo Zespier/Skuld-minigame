@@ -18,7 +18,7 @@ public class FollowCamera : MonoBehaviour {
         }
     }
 
-    private void Update() {
+    private void LateUpdate() {
         Vector3 distanceTraveled = 0.01f * (100 - movementPercentage) * (CameraController.instance.transform.position - _lastCameraPosition);
 
         transform.position += distanceTraveled;
