@@ -170,6 +170,7 @@ MonoBehaviour:
   wallStamp: 0
   wallFallGravity: 1.2
   qJumpForce: 3
+  enterULTI: 0
   _storedCombo: 0
   _storedScore: 0
 --- !u!114 &1139724082371889472
@@ -185,9 +186,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skillQ: {fileID: 11400000, guid: 4679c386e0db86c43a34b8873ec9c1d2, type: 2}
-  skillW: {fileID: 11400000, guid: 4679c386e0db86c43a34b8873ec9c1d2, type: 2}
-  skillE: {fileID: 11400000, guid: 4679c386e0db86c43a34b8873ec9c1d2, type: 2}
-  skillR: {fileID: 11400000, guid: 4679c386e0db86c43a34b8873ec9c1d2, type: 2}
+  skillW: {fileID: 11400000, guid: d7f8e33405de5ec48aec01ee25140eed, type: 2}
+  skillE: {fileID: 11400000, guid: 4ffe9ddb1ebf1de49871325e163ecf14, type: 2}
+  skillR: {fileID: 11400000, guid: 4ffe9ddb1ebf1de49871325e163ecf14, type: 2}
 --- !u!70 &5157297954643048491
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -508,6 +509,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b121d5f9f8b5dbc4aad8d8844a75a40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyPrefab: {fileID: 0}
   enemies:
   - {fileID: 0}
   - {fileID: 0}
@@ -523,6 +525,7 @@ MonoBehaviour:
   approximatelyCooldown: 10
   approximatelyCooldownBetweenEnemies: 2
   approximatelyMaxEnemies: 5
+  parentFlyingEnemies: {fileID: 0}
 --- !u!1 &6824805923480133065
 GameObject:
   m_ObjectHideFlags: 0

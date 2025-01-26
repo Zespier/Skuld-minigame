@@ -78,6 +78,7 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Skills")]
     public float qJumpForce = 2.5f;
+    public bool enterULTI;
 
     private Vector3 _velocity;
     private float _targetGravity;
@@ -157,6 +158,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Movement() {
         if (wallStamp && !grounded) return;
+        if (enterULTI) return;
 
         Vector3 velocity = rb.velocity;
 
@@ -431,7 +433,7 @@ public class PlayerController : MonoBehaviour {
 
     public void StartCoroutineSkill3()
     {
-        StartCoroutine(DownSkillImpulse());
+        StartCoroutine(FrontSkillImpulse());
     }
 
     public IEnumerator UpSkillImpulse() {
@@ -459,6 +461,8 @@ public class PlayerController : MonoBehaviour {
 
             state = ENUM_PlayerStates.Ability_1;
 
+            wallStamp = false;
+
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + qJumpForce * rb.gravityScale, 0);
 
             yield return new WaitForSeconds(1f);
@@ -478,7 +482,9 @@ public class PlayerController : MonoBehaviour {
 
             state = ENUM_PlayerStates.Ability_2;
 
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+            wallStamp = false;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale *2, 0);
 
             yield return new WaitForSeconds(2f);
 
@@ -493,11 +499,19 @@ public class PlayerController : MonoBehaviour {
         if (!IsInIdleSide)
         {
 
-            PlayAnimation("Skuld_CutAbility");
+            PlayAnimation("Skuld_ULTI");
 
-            state = ENUM_PlayerStates.Ability_2;
+            state = ENUM_PlayerStates.Ability_3;
 
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+            enterULTI=true; 
+
+            rb.velocity = Vector3.zero;
+
+            yield return new WaitForSeconds(0.43f);
+
+            enterULTI = false;
+
+            rb.velocity = new Vector3(rb.velocity.x + 20f, rb.velocity.y, 0);
 
             yield return new WaitForSeconds(2f);
 
