@@ -15,7 +15,7 @@ public class FlyingEnemySpawner : MonoBehaviour {
     public int approximatelyMaxEnemies;
 
     private float timer;
-    public float timerBetweenEnemies;
+    private float timerBetweenEnemies;
     private int enemyAmount;
 
     private List<GameObject> inactiveEnemies;
