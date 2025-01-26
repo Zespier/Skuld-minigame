@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class SkillBase : ScriptableObject
-{
+public abstract class SkillBase : ScriptableObject {
     [Header("Skill Settings")]
     public string skillName;
     public float cooldownTime;
     public Sprite skillIcon;
 
-    protected bool isOnCooldown;
+    [HideInInspector] public float currentCooldown;
+
+    [HideInInspector] public bool isOnCooldown;
 
     /// <summary>
     /// Ejecuta la habilidad.
@@ -20,16 +21,19 @@ public abstract class SkillBase : ScriptableObject
     /// <summary>
     /// Inicia el cooldown.
     /// </summary>
-    public void StartCooldown(MonoBehaviour owner)
-    {
+    public void StartCooldown(MonoBehaviour owner) {
         if (isOnCooldown) return;
         isOnCooldown = true;
         owner.StartCoroutine(CooldownCoroutine());
     }
 
-    private IEnumerator CooldownCoroutine()
-    {
-        yield return new WaitForSeconds(cooldownTime);
+    private IEnumerator CooldownCoroutine() {
+        currentCooldown = cooldownTime;
+        while (currentCooldown > 0) {
+            currentCooldown -= Time.deltaTime;
+            yield return null;
+        }
+        currentCooldown = 0;
         isOnCooldown = false;
     }
 }

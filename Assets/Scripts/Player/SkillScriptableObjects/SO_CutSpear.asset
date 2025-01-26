@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: CutingSpear
   cooldownTime: 2
-  skillIcon: {fileID: 0}
+  skillIcon: {fileID: 21300000, guid: 4ecd8607875245649aed81fc28fe549b, type: 3}
+  currentCooldown: 0
