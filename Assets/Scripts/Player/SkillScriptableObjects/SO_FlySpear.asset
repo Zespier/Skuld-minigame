@@ -14,4 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   skillName: FlyingSpear
   cooldownTime: 2
-  skillIcon: {fileID: 0}
+  skillIcon: {fileID: 21300000, guid: 9d17563c0a6df8c429f6f046612b177d, type: 3}
+  currentCooldown: 0

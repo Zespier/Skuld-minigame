@@ -106,5 +106,5 @@ public enum ModuleHeight {
     BackGround = 4,
     BackGroundVanaheim = 10,
     Initial = 5,
-    InitialVanaheim = 11,
+    InitialVanaheim = 11, //Último
 }

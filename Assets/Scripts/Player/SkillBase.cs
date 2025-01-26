@@ -9,6 +9,8 @@ public abstract class SkillBase : ScriptableObject
     public float cooldownTime;
     public Sprite skillIcon;
 
+    [HideInInspector] public float currentCooldown;
+
     protected bool isOnCooldown;
 
     /// <summary>
@@ -29,7 +31,12 @@ public abstract class SkillBase : ScriptableObject
 
     private IEnumerator CooldownCoroutine()
     {
-        yield return new WaitForSeconds(cooldownTime);
+        currentCooldown = cooldownTime;
+        while (currentCooldown > 0) {
+            currentCooldown -= Time.deltaTime;
+            yield return null;
+        }
+        currentCooldown = 0;
         isOnCooldown = false;
     }
 }

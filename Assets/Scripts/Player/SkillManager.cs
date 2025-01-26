@@ -10,6 +10,11 @@ public class SkillManager : MonoBehaviour
     public SkillBase skillE;
     public SkillBase skillR;
 
+    public static SkillManager instance;
+    private void Awake() {
+        if (!instance) { instance = this; }
+    }
+
     private void Update()
     {
         // Detectar teclas y lanzar habilidades
