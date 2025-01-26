@@ -18,6 +18,8 @@ public class FlyingEnemySpawner : MonoBehaviour {
     private float timerBetweenEnemies;
     private int enemyAmount;
 
+    public bool IsInIdleSide => PlayerController.instance.transform.position.y < -1.5f;
+
     private List<GameObject> inactiveEnemies;
     GameObject actualEnemy;
     private void Awake() {
@@ -30,6 +32,8 @@ public class FlyingEnemySpawner : MonoBehaviour {
     }
 
     void Update() {
+        if (IsInIdleSide) { return; }
+
         SpawnEnemy();
         enemyMark.gameObject.SetActive(ActivateMark());
         if (actualEnemy != null)

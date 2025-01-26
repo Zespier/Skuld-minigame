@@ -11,12 +11,15 @@ public class PlayerController : MonoBehaviour {
 
     [Header("PlayerStates")]
     [Tooltip("Estado actual del jugador")]
-    public ENUM_PlayerStates state;
+    public ENUM_PlayerStates state
+        ;
 
     [Tooltip("Arma equipada por el jugador")]
     public ENUM_Weapons weapon;
 
     [Header("Attack Settings")]
+    [Tooltip("Daño de ataque")]
+    public int attackDamage = 10;
     [Tooltip("Rango de detección")]
     public float attackRange = 1.5f;
     [Tooltip("Capa de los enemigos")]
@@ -53,7 +56,7 @@ public class PlayerController : MonoBehaviour {
     public float glideSpeedMultiplier = 1.5f;
 
     [Header("Coyote Time")]
-    [Tooltip("Estado actual del jugador")]
+    [Tooltip("Tiempo dle que disponemos para saltar")]
     public float coyoteTime = 0.2f;
     public float coyoteTimeCounter;
 
@@ -72,6 +75,9 @@ public class PlayerController : MonoBehaviour {
     public bool wallStamp;
     public float wallFallGravity = 5f;
     private float waitCheckWall = 0.5f;
+
+    [Header("Skills")]
+    public float skillSpeedMultiplier;
 
     private Vector3 _velocity;
     private float _targetGravity;
@@ -154,7 +160,8 @@ public class PlayerController : MonoBehaviour {
 
     #region Movement
     private void Accelerate() {
-        _currentSpeed = Mathf.MoveTowards(_currentSpeed, maxSpeed, acceleration * Time.deltaTime);
+        if (state != ENUM_PlayerStates.Attacking)
+            _currentSpeed = Mathf.MoveTowards(_currentSpeed, maxSpeed, acceleration * Time.deltaTime);
     }
 
     private void Movement() {
@@ -338,14 +345,37 @@ public class PlayerController : MonoBehaviour {
 
         if (enemiesInRange.Length > 0 && Time.time > lastAttackTime + attackCooldown) {
             foreach (Collider2D enemy in enemiesInRange) {
+                if (enemy == null) {
+                    continue;
+                }
                 // Aquí puedes llamar al método de daño del enemigo
                 Debug.Log($"Atacando a {enemy.name}");
                 // enemy.GetComponent<EnemyController>()?.TakeDamage(attackDamage);
                 //Testeo
 
-                _animator.Play("Attack Spear");
+                IHealth enemyHP = enemy.GetComponent<IHealth>();
+                if (enemyHP == null) { continue; }
+                int enemyHealth = enemyHP.currentHP;
+                Debug.Log(enemyHP);
+                Debug.Log(enemyHealth);
+                if (enemyHealth >= enemyHP.maxHP) {
+                    _animator.Play("Skuld_IdleToAttack");
+                    state = ENUM_PlayerStates.Attacking;
+                    _currentSpeed = 0;
+                    enemyHP.Set(attackDamage);
 
-                StartCoroutine(DestroyTimer(enemy.gameObject));
+                } else if (enemyHealth > 0) {
+
+                    enemyHP.Set(attackDamage);
+
+                } else {
+                    Debug.Log("Dejo de atacar");
+                    _animator.SetTrigger("exitAttack");
+                    state = ENUM_PlayerStates.Running;
+                    enemy.gameObject.SetActive(false);
+                }
+
+                //StartCoroutine(DestroyTimer(enemy.gameObject));
 
             }
 
@@ -366,7 +396,7 @@ public class PlayerController : MonoBehaviour {
         currentFrameCheck = transform.position.x;
 
         // Comprobar si el valor se ha mantenido igual en los últimos dos frames
-        if (currentFrameCheck == previousFrameCheck1 && previousFrameCheck1 == previousFrameCheck2) {
+        if (currentFrameCheck == previousFrameCheck1 && previousFrameCheck1 == previousFrameCheck2 && state != ENUM_PlayerStates.Attacking) {
             Debug.Log("El valor no ha cambiado en los últimos dos frames.");
 
             rb.gravityScale = wallFallGravity;
@@ -387,6 +417,48 @@ public class PlayerController : MonoBehaviour {
         if (waitCheckWall > 0) waitCheckWall -= Time.deltaTime; else WallFrameCheck();
 
     }
+
+    public void StartCoroutineSkill1() {
+        StartCoroutine(UpSkillImpulse());
+    }
+
+    public IEnumerator UpSkillImpulse() {
+        if (IsInIdleSide) {
+            state = ENUM_PlayerStates.Ability_1;
+
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 20, 0);
+
+            yield return new WaitForSeconds(1f);
+
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+
+            EvaluateState();
+        } else {
+            state = ENUM_PlayerStates.Ability_1;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 10, 0);
+
+            yield return new WaitForSeconds(1f);
+
+            EvaluateState();
+
+        }
+
+    }
+
+    private void EvaluateState() {
+        if (grounded) {
+            state = ENUM_PlayerStates.Running;
+        } else {
+            state = ENUM_PlayerStates.Jumping;
+
+        }
+
+
+    }
+
 
     //public void FootSteps() {
     //    SoundFxController.instance.FootSteps();
