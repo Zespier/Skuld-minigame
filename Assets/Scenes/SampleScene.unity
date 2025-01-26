@@ -977,6 +977,12 @@ PrefabInstance:
       objectReference: {fileID: 330585545}
     - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
         type: 3}
+      propertyPath: initialModule
+      value: 
+      objectReference: {fileID: 2396700946368382619, guid: 50e757be3809e1748b4288bc07efa588,
+        type: 3}
+    - target: {fileID: 1779585074873406515, guid: 08e29df43c5617c4f91d250d9941f344,
+        type: 3}
       propertyPath: modulePrefabs.Array.size
       value: 11
       objectReference: {fileID: 0}
@@ -2462,6 +2468,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 3508600585105851405, guid: 6eaf9146862ebcd48adf0a4e461c9618,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3851652631567745442, guid: 6eaf9146862ebcd48adf0a4e461c9618,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2531,6 +2542,11 @@ PrefabInstance:
         type: 3}
       propertyPath: wallFallGravity
       value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026392931845217666, guid: 6eaf9146862ebcd48adf0a4e461c9618,
+        type: 3}
+      propertyPath: jumpmStrengthToGoTOTheFockingMoonAndPlay
+      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

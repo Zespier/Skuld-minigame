@@ -24,13 +24,13 @@ public class Module : MonoBehaviour {
     public float RightCameraLimit => mainCamera.transform.position.x + mainCamera.orthographicSize * mainCamera.aspect;
     public float LeftCameraLimit => mainCamera.transform.position.x - mainCamera.orthographicSize * mainCamera.aspect;
 
-    //private void OnEnable() {
-    //    ModuleContainer.instance.AddModule(this);
-    //}
+    private void OnEnable() {
+        ModuleContainer.instance.AddModule(this);
+    }
 
-    //private void OnDisable() {
-    //    ModuleContainer.instance.RemoveModule(this);
-    //}
+    private void OnDisable() {
+        ModuleContainer.instance.RemoveModule(this);
+    }
 
     private void Start()
     {
@@ -93,7 +93,6 @@ public class Module : MonoBehaviour {
     private void CheckDeactivation() {
 
         if (LeftCameraLimit > transform.position.x + width) {
-            gameObject.SetActive(false);
             ModuleContainer.instance.StoreModuleInPool(this);
         }
     }
@@ -103,20 +102,10 @@ public class Module : MonoBehaviour {
 }
 
 public enum ModuleHeight {
-    Top,
-    Midle,
-    Bottom,
-    BaseModule,
-    BackGround,
-}
-public enum ModuleType {
-    TopToTop,
-    TopToMiddle,
-    TopToBottom,
-    MiddleToTop,
-    MiddleToMiddle,
-    MiddleToBottom,
-    BottomToTop,
-    BottomToMiddle,
-    BottomToBottom,
+    Top = 0,
+    Midle = 1,
+    Bottom = 2,
+    BaseModule = 3,
+    BackGround = 4,
+    Initial = 5,
 }

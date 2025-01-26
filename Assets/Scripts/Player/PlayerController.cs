@@ -33,6 +33,7 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Jump")]
     //public float jumpSpeed = 5f;
+    public float jumpmStrengthToGoTOTheFockingMoonAndPlay = 10f;
     public float height = 1;
     public float timeAtheightPeak = 5;
     public float fallingGravity = 3f;
@@ -95,6 +96,7 @@ public class PlayerController : MonoBehaviour {
 
     public float GravityScale { get => _defaultGravityMultiplier * _currentIncreasedGravityValue / _currentDecreasedGravityValue; }
     public float TopLimit => CameraController.instance.transform.position.y + ModuleContainer.instance.mainCamera.orthographicSize;
+    public bool IsInIdleSide => transform.position.y < -1.5f;
 
     public static PlayerController instance;
     private void Awake() {
@@ -124,9 +126,15 @@ public class PlayerController : MonoBehaviour {
             PlayAnimation("JumpTransition");
         }
 
-        //if (Input.GetKeyDown(KeyCode.P)) {
+        if (Input.GetKeyDown(KeyCode.P)) {
+            if (IsInIdleSide && grounded) {
+                Vector3 newVelocity = rb.velocity;
+                newVelocity.y = jumpmStrengthToGoTOTheFockingMoonAndPlay;
+                rb.velocity = newVelocity;
 
-        //}
+                ModuleContainer.instance.GetInitialModule();
+            }
+        }
     }
     private void FixedUpdate() {
         TimerWallCheckInit();
