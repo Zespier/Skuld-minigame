@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Skills/CutSpear")]
-public class CutSpear : SkillBase
+[CreateAssetMenu(menuName = "Skills/BoomSpear")]
+public class BoomSpear : SkillBase
 {
     private PlayerController controllerRef;
 
@@ -20,7 +20,7 @@ public class CutSpear : SkillBase
 
         if(controllerRef.IsInIdleSide) return;
 
-        controllerRef.StartCoroutineSkill2();
+        controllerRef.StartCoroutineSkill3();
 
         Debug.Log($"{skillName} lanzada!");
 

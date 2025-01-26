@@ -96,9 +96,15 @@ public class Module : MonoBehaviour {
 
 public enum ModuleHeight {
     Top = 0,
+    TopVanaheim = 6,
     Midle = 1,
+    MidleVanaheim = 7,
     Bottom = 2,
+    BottomVanaheim = 8,
     BaseModule = 3,
+    BaseModuleVanaheim = 9,
     BackGround = 4,
+    BackGroundVanaheim = 10,
     Initial = 5,
+    InitialVanaheim = 11,
 }
