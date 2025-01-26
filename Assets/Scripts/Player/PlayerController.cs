@@ -345,12 +345,16 @@ public class PlayerController : MonoBehaviour {
 
         if (enemiesInRange.Length > 0 && Time.time > lastAttackTime + attackCooldown) {
             foreach (Collider2D enemy in enemiesInRange) {
+                if (enemy == null) {
+                    continue;
+                }
                 // Aquí puedes llamar al método de daño del enemigo
                 Debug.Log($"Atacando a {enemy.name}");
                 // enemy.GetComponent<EnemyController>()?.TakeDamage(attackDamage);
                 //Testeo
 
                 IHealth enemyHP = enemy.GetComponent<IHealth>();
+                if (enemyHP == null) { continue; }
                 int enemyHealth = enemyHP.currentHP;
                 Debug.Log(enemyHP);
                 Debug.Log(enemyHealth);
@@ -414,15 +418,12 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    public void StartCoroutineSkill1()
-    {
+    public void StartCoroutineSkill1() {
         StartCoroutine(UpSkillImpulse());
     }
 
-    public IEnumerator UpSkillImpulse()
-    {
-        if (IsInIdleSide)
-        {
+    public IEnumerator UpSkillImpulse() {
+        if (IsInIdleSide) {
             state = ENUM_PlayerStates.Ability_1;
 
             gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
@@ -434,9 +435,7 @@ public class PlayerController : MonoBehaviour {
             gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
 
             EvaluateState();
-        }
-        else
-        {
+        } else {
             state = ENUM_PlayerStates.Ability_1;
 
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 10, 0);
@@ -446,16 +445,13 @@ public class PlayerController : MonoBehaviour {
             EvaluateState();
 
         }
-        
+
     }
 
-    private void EvaluateState()
-    {
-        if (grounded)
-        {
+    private void EvaluateState() {
+        if (grounded) {
             state = ENUM_PlayerStates.Running;
-        }
-        else{
+        } else {
             state = ENUM_PlayerStates.Jumping;
 
         }
