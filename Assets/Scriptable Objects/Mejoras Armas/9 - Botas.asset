@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 9 - Botas
   m_EditorClassIdentifier: 
   buffType: 0
+  icon: {fileID: 21300000, guid: 274bbac6f0a01fb4e889038381febed5, type: 3}
   amount: 1000000
   Name: Botas
   description: Consigues 1M almas por segundo

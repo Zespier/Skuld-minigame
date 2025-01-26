@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIForLevelingThingys : MonoBehaviour {
 
     [HideInInspector] public EconomyUpgrade economyUpgrade;
+    public Image icon;
     public TMP_Text Name;
     public TMP_Text description;
     public TMP_Text levelText;
@@ -15,6 +17,7 @@ public class UIForLevelingThingys : MonoBehaviour {
     public int level;
 
     public void SetUpPanel() {
+        icon.sprite = economyUpgrade.icon;
         Name.text = economyUpgrade.Name;
         description.text = economyUpgrade.description;
         levelText.text = $"LV.{level}";

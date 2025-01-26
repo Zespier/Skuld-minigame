@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 3 - Hacha
   m_EditorClassIdentifier: 
   buffType: 0
+  icon: {fileID: 21300000, guid: 25018eb0266070a46a73c6c6470c4e43, type: 3}
   amount: 51.9
   Name: Hacha
   description: Consigues 51,9 almas por segundo

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 11 - Daga
   m_EditorClassIdentifier: 
   buffType: 0
+  icon: {fileID: 21300000, guid: 6e141ba0c056d204ba70bab6bfa8f68e, type: 3}
   amount: 1e+9
   Name: Daga
   description: Consigues 1B almas por segundo
