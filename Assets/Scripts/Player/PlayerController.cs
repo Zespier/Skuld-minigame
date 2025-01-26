@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour {
     private Animator _animator;
 
     public float GravityScale { get => _defaultGravityMultiplier * _currentIncreasedGravityValue / _currentDecreasedGravityValue; }
+    public float TopLimit => CameraController.instance.transform.position.y + ModuleContainer.instance.mainCamera.orthographicSize;
 
     public static PlayerController instance;
     private void Awake() {
@@ -125,6 +126,12 @@ public class PlayerController : MonoBehaviour {
     }
     private void FixedUpdate() {
         TimerWallCheckInit();
+    }
+
+    private void LateUpdate() {
+        Vector3 newPosition = transform.position;
+        newPosition.y = Mathf.Clamp(newPosition.y, -5.42f, 2.8f);
+        transform.position = newPosition;
     }
 
     private void OnDrawGizmos() {
