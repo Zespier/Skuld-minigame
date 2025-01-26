@@ -11,12 +11,15 @@ public class PlayerController : MonoBehaviour {
 
     [Header("PlayerStates")]
     [Tooltip("Estado actual del jugador")]
-    public ENUM_PlayerStates state;
+    public ENUM_PlayerStates state
+        ;
 
     [Tooltip("Arma equipada por el jugador")]
     public ENUM_Weapons weapon;
 
     [Header("Attack Settings")]
+    [Tooltip("Daño de ataque")]
+    public int attackDamage = 10;
     [Tooltip("Rango de detección")]
     public float attackRange = 1.5f;
     [Tooltip("Capa de los enemigos")]
@@ -159,7 +162,8 @@ public class PlayerController : MonoBehaviour {
 
     #region Movement
     private void Accelerate() {
-        _currentSpeed = Mathf.MoveTowards(_currentSpeed, maxSpeed, acceleration * Time.deltaTime);
+        if (state != ENUM_PlayerStates.Attacking)
+            _currentSpeed = Mathf.MoveTowards(_currentSpeed, maxSpeed, acceleration * Time.deltaTime);
     }
 
     private void Movement() {
@@ -348,9 +352,28 @@ public class PlayerController : MonoBehaviour {
                 // enemy.GetComponent<EnemyController>()?.TakeDamage(attackDamage);
                 //Testeo
 
-                _animator.Play("Attack Spear");
+                IHealth enemyHP = enemy.GetComponent<IHealth>();
+                int enemyHealth = enemyHP.currentHP;
+                Debug.Log(enemyHP);
+                Debug.Log(enemyHealth);
+                if (enemyHealth >= enemyHP.maxHP) {
+                    _animator.Play("Skuld_IdleToAttack");
+                    state = ENUM_PlayerStates.Attacking;
+                    _currentSpeed = 0;
+                    enemyHP.Set(attackDamage);
 
-                StartCoroutine(DestroyTimer(enemy.gameObject));
+                } else if (enemyHealth > 0) {
+
+                    enemyHP.Set(attackDamage);
+
+                } else {
+                    Debug.Log("Dejo de atacar");
+                    _animator.SetTrigger("exitAttack");
+                    state = ENUM_PlayerStates.Running;
+                    enemy.gameObject.SetActive(false);
+                }
+
+                //StartCoroutine(DestroyTimer(enemy.gameObject));
 
             }
 
@@ -371,7 +394,7 @@ public class PlayerController : MonoBehaviour {
         currentFrameCheck = transform.position.x;
 
         // Comprobar si el valor se ha mantenido igual en los últimos dos frames
-        if (currentFrameCheck == previousFrameCheck1 && previousFrameCheck1 == previousFrameCheck2) {
+        if (currentFrameCheck == previousFrameCheck1 && previousFrameCheck1 == previousFrameCheck2 && state != ENUM_PlayerStates.Attacking) {
             Debug.Log("El valor no ha cambiado en los últimos dos frames.");
 
             rb.gravityScale = wallFallGravity;
