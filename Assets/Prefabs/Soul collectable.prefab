@@ -47,6 +47,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1390578930235988345}
+  ploofClip: {fileID: 7400000, guid: 30dd1320fa408ca4f80477de7d1c79d8, type: 2}
 --- !u!61 &6479173146134121545
 BoxCollider2D:
   m_ObjectHideFlags: 0

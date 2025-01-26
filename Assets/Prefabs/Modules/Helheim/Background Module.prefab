@@ -51,7 +51,11 @@ MonoBehaviour:
   width: 9.3
   height: 4.65
   mainCamera: {fileID: 0}
-  ID: 2
+  enemiesRef: []
+  resetObjectLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  ID: 0
 --- !u!114 &632801319283739817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01220fd936a670d4297f2487ccf30222, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementPercentage: 8
+  movementPercentage: 6
 --- !u!1 &7864373384011095494
 GameObject:
   m_ObjectHideFlags: 0

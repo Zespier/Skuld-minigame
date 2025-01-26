@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ModuleContainer : MonoBehaviour {
 
-    //public List<Module> activeModules = new List<Module>(capacity: 8);
+    public List<Module> activeModules = new List<Module>(capacity: 8);
     public Camera mainCamera;
     public Module initialModule;
     public List<Module> modulePrefabs = new();
@@ -23,6 +23,15 @@ public class ModuleContainer : MonoBehaviour {
         SetInitialPoolAmountByDefaultIfNotSet();
 
         InitializePool();
+    }
+
+    private void Update() {
+        if (IsInIdleSide) {
+            for (int i = 0; i < activeModules.Count; i++) {
+                if (activeModules[i].entrance == ModuleHeight.Top || activeModules[i].entrance == ModuleHeight.Midle || activeModules[i].entrance == ModuleHeight.Bottom)
+                    StoreModuleInPool(activeModules[i]);
+            }
+        }
     }
 
     #region Initialization
@@ -96,11 +105,12 @@ public class ModuleContainer : MonoBehaviour {
 
     #endregion
 
-    public Module GetInitialModule(Vector3 playerPosition) {
+    public Module GetInitialModule() {
         Module newModule = Instantiate(initialModule, transform);
         _modulePool.Add(newModule);
 
-        newModule.transform.position = playerPosition + new Vector3();
+        newModule.transform.position = new Vector3(PlayerController.instance.transform.position.x + 3, 0, 0);
+        newModule.mainCamera = mainCamera;
         return newModule;
     }
 
@@ -141,15 +151,15 @@ public class ModuleContainer : MonoBehaviour {
         module.gameObject.SetActive(false);
     }
 
-    //#region ActiveModules
+    #region ActiveModules
 
-    //public void AddModule(Module module) {
-    //    activeModules.Add(module);
-    //}
+    public void AddModule(Module module) {
+        activeModules.Add(module);
+    }
 
-    //public void RemoveModule(Module module) {
-    //    activeModules.Remove(module);
-    //}
+    public void RemoveModule(Module module) {
+        activeModules.Remove(module);
+    }
 
-    //#endregion
+    #endregion
 }
