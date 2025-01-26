@@ -13,7 +13,7 @@ public class Module : MonoBehaviour {
 
     [Header("Reset")]
     [Tooltip("Referencia a todos los enemigos que researemos en la plataforma")]
-    public List<GameObject> enemiesRef;
+    public List<Enemy> enemiesRef;
     [Tooltip("Layer de los objetos que recojeremos en la lista")]
     public LayerMask resetObjectLayer;
 
@@ -31,7 +31,11 @@ public class Module : MonoBehaviour {
     }
 
     private void Start() {
-        enemiesRef = GetFilteredChildren(transform, resetObjectLayer);
+        enemiesRef = new List<Enemy>();
+        List<GameObject> objects = GetFilteredChildren(transform, resetObjectLayer);
+        for (int i = 0; i < objects.Count; i++) {
+            enemiesRef.Add(objects[i].GetComponent<Enemy>());
+        }
     }
 
     private List<GameObject> GetFilteredChildren(Transform parent, LayerMask layer) {
@@ -56,8 +60,8 @@ public class Module : MonoBehaviour {
     public virtual void ResetSpecificVariables() {
         _spawnedRight = false;
 
-        foreach (GameObject resetObj in enemiesRef) {
-            resetObj.SetActive(true);
+        foreach (Enemy resetObj in enemiesRef) {
+            resetObj.ResetPhysics(true);
 
             break;
 

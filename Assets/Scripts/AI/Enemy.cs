@@ -25,12 +25,22 @@ public class Enemy : MonoBehaviour, IHealth {
     public enum EnemyType { Static, StaticBig, Moveable, Flight }
     [HideInInspector] public Vector2 initialPos;
 
+
+    [Header("Health properties")]
     public int _currentHP;
 
     public int _maxHP;
 
     int IHealth.currentHP { get => _currentHP; set => _currentHP = value; }
     int IHealth.maxHP { get => _maxHP; set => _maxHP = value; }
+
+    [Header("Animations")]
+    private Animator _animator;
+    private string _lastAnimationName;
+
+    [Header("Death Animations")]
+    public Animator _deatAnimator;
+
 
     private void OnValidate() {
         initialPos = transform.position;
@@ -39,6 +49,7 @@ public class Enemy : MonoBehaviour, IHealth {
         player = Transform.FindAnyObjectByType<PlayerController>();
         enemySprite = GetComponentInChildren<SpriteRenderer>();
         rB = GetComponent<Rigidbody2D>();
+        _animator = GetComponentInChildren<Animator>();
     }
     private void OnEnable() {
 
@@ -117,5 +128,19 @@ public class Enemy : MonoBehaviour, IHealth {
 
     public void Set(int value) {
         _currentHP -= value;
+    }
+
+    public void PlayAnimation(string animationName) {
+        if (_lastAnimationName != animationName) {
+            _animator.Play(animationName);
+        }
+
+        _lastAnimationName = animationName;
+    }
+
+    public void ResetPhysics(bool state) {
+        Debug.Log("adad");
+        enemySprite.enabled = state;
+        _deatAnimator.Play("Ploof");
     }
 }
