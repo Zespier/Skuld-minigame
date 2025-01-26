@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour {
 
     [Header("PlayerStates")]
     [Tooltip("Estado actual del jugador")]
-    public ENUM_PlayerStates state;
+    public ENUM_PlayerStates state
+        ;
 
     [Tooltip("Arma equipada por el jugador")]
     public ENUM_Weapons weapon;
