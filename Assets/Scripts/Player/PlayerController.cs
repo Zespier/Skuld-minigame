@@ -120,6 +120,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Update() {
+
         EvaluateGrounded();
         CalculateCoyoteTime();
         Accelerate();
@@ -177,6 +178,8 @@ public class PlayerController : MonoBehaviour {
 
     private void ClampVerticalSpeed() {
 
+        if (enterULTI) return;
+
         _velocity = rb.velocity;
 
         if (isGliding) {
@@ -221,6 +224,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void IncreaseGravityAtPeak() {
+
 
         if (_increaseGravity != null) {
             StopCoroutine(_increaseGravity);
@@ -309,6 +313,9 @@ public class PlayerController : MonoBehaviour {
     /// Checks if the player is grounded and update the boolean
     /// </summary>
     private void EvaluateGrounded() {
+
+        if (state == ENUM_PlayerStates.Ability_3) return;
+
         _groundCollision = Physics2D.OverlapBox(groundCheck.position, sizeGroundCheck, 0f, groundLayer);
         grounded = _groundCollision ? true : false;
 
@@ -507,13 +514,17 @@ public class PlayerController : MonoBehaviour {
 
             rb.velocity = Vector3.zero;
 
+            rb.simulated = false;
+
             yield return new WaitForSeconds(0.43f);
 
             enterULTI = false;
 
-            rb.velocity = new Vector3(rb.velocity.x + 20f, rb.velocity.y, 0);
+            rb.simulated = true;
 
-            yield return new WaitForSeconds(2f);
+            rb.velocity = new Vector3(rb.velocity.x + 30f, rb.velocity.y, 0);
+
+            yield return new WaitForSeconds(1f);
 
             EvaluateState();
 
