@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
     public float glideSpeedMultiplier = 1.5f;
 
     [Header("Coyote Time")]
-    [Tooltip("Estado actual del jugador")]
+    [Tooltip("Tiempo dle que disponemos para saltar")]
     public float coyoteTime = 0.2f;
     public float coyoteTimeCounter;
 
@@ -72,6 +72,9 @@ public class PlayerController : MonoBehaviour {
     public bool wallStamp;
     public float wallFallGravity = 5f;
     private float waitCheckWall = 0.5f;
+
+    [Header("Skills")]
+    public float skillSpeedMultiplier;
 
     private Vector3 _velocity;
     private float _targetGravity;
@@ -93,6 +96,8 @@ public class PlayerController : MonoBehaviour {
     private float _currentSpeed;
 
     private Animator _animator;
+
+    public bool IsInIdleSide => transform.position.y < -1.5f;
 
     public float GravityScale { get => _defaultGravityMultiplier * _currentIncreasedGravityValue / _currentDecreasedGravityValue; }
     public float TopLimit => CameraController.instance.transform.position.y + ModuleContainer.instance.mainCamera.orthographicSize;
@@ -387,6 +392,56 @@ public class PlayerController : MonoBehaviour {
         if (waitCheckWall > 0) waitCheckWall -= Time.deltaTime; else WallFrameCheck();
 
     }
+
+    public void StartCoroutineSkill1()
+    {
+        StartCoroutine(UpSkillImpulse());
+    }
+
+    public IEnumerator UpSkillImpulse()
+    {
+        if (IsInIdleSide)
+        {
+            state = ENUM_PlayerStates.Ability_1;
+
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = false;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 20, 0);
+
+            yield return new WaitForSeconds(1f);
+
+            gameObject.GetComponent<CapsuleCollider2D>().enabled = true;
+
+            EvaluateState();
+        }
+        else
+        {
+            state = ENUM_PlayerStates.Ability_1;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + 10, 0);
+
+            yield return new WaitForSeconds(1f);
+
+            EvaluateState();
+
+        }
+        
+    }
+
+    private void EvaluateState()
+    {
+        if (grounded)
+        {
+            state = ENUM_PlayerStates.Running;
+        }
+        else{
+            state = ENUM_PlayerStates.Jumping;
+
+        }
+
+
+    }
+
 
     //public void FootSteps() {
     //    SoundFxController.instance.FootSteps();
