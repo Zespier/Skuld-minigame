@@ -344,38 +344,43 @@ public class PlayerController : MonoBehaviour {
         enemiesInRange = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
 
         if (enemiesInRange.Length > 0 && Time.time > lastAttackTime + attackCooldown) {
-            foreach (Collider2D enemy in enemiesInRange) {
-                if (enemy == null) {
+            foreach (Collider2D colision in enemiesInRange) {
+                if (colision == null) {
                     continue;
                 }
                 // Aquí puedes llamar al método de daño del enemigo
-                Debug.Log($"Atacando a {enemy.name}");
+                Debug.Log($"Atacando a {colision.name}");
                 // enemy.GetComponent<EnemyController>()?.TakeDamage(attackDamage);
                 //Testeo
 
-                IHealth enemyHP = enemy.GetComponent<IHealth>();
-                if (enemyHP == null) { continue; }
-                int enemyHealth = enemyHP.currentHP;
-                Debug.Log(enemyHP);
-                Debug.Log(enemyHealth);
-                if (enemyHealth >= enemyHP.maxHP) {
-                    _animator.Play("Skuld_IdleToAttack");
-                    state = ENUM_PlayerStates.Attacking;
-                    _currentSpeed = 0;
-                    enemyHP.Set(attackDamage);
 
-                } else if (enemyHealth > 0) {
+                if (IsInIdleSide) {
 
-                    enemyHP.Set(attackDamage);
+                    Enemy enemy = colision.GetComponent<Enemy>();
+                    if (enemy == null) { continue; }
+                    int enemyHealth = enemy._currentHP;
+
+                    if (enemyHealth >= enemy._maxHP && enemy.type == Enemy.EnemyType.StaticBig) {
+                        _animator.Play("Skuld_IdleToAttack");
+                        state = ENUM_PlayerStates.Attacking;
+                        _currentSpeed = 0;
+                        enemy.Set(attackDamage);
+
+                    } else if (enemyHealth > 0) {
+
+                        enemy.Set(attackDamage);
+
+                    } else {
+                        Debug.Log("Dejo de atacar");
+                        _animator.SetTrigger("exitAttack");
+                        state = ENUM_PlayerStates.Running;
+                        colision.gameObject.SetActive(false);
+                    }
 
                 } else {
-                    Debug.Log("Dejo de atacar");
-                    _animator.SetTrigger("exitAttack");
-                    state = ENUM_PlayerStates.Running;
-                    enemy.gameObject.SetActive(false);
+                    StartCoroutine(DestroyTimer(colision.gameObject));
+                    _animator.Play("Attack Spear");
                 }
-
-                //StartCoroutine(DestroyTimer(enemy.gameObject));
 
             }
 
