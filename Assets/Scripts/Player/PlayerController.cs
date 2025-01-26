@@ -100,8 +100,6 @@ public class PlayerController : MonoBehaviour {
 
     private Animator _animator;
 
-    public bool IsInIdleSide => transform.position.y < -1.5f;
-
     public float GravityScale { get => _defaultGravityMultiplier * _currentIncreasedGravityValue / _currentDecreasedGravityValue; }
     public float TopLimit => CameraController.instance.transform.position.y + ModuleContainer.instance.mainCamera.orthographicSize;
     public bool IsInIdleSide => transform.position.y < -1.5f;
