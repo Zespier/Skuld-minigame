@@ -123,6 +123,10 @@ public class PlayerController : MonoBehaviour {
         if (!grounded && state == ENUM_PlayerStates.Running) {
             PlayAnimation("JumpTransition");
         }
+
+        //if (Input.GetKeyDown(KeyCode.P)) {
+
+        //}
     }
     private void FixedUpdate() {
         TimerWallCheckInit();
