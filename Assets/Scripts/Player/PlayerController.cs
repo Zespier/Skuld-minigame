@@ -6,15 +6,14 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Movement")]
     public float maxSpeed = 4f;
-    public float baseMaxSpeed = 4f;
+    private float baseMaxSpeed = 4f;
     public float acceleration = 1.5f;
-    public float baseAcceleration = 1.5f;
+    private float baseAcceleration = 1.5f;
     public Rigidbody2D rb;
 
     [Header("PlayerStates")]
     [Tooltip("Estado actual del jugador")]
-    public ENUM_PlayerStates state
-        ;
+    public ENUM_PlayerStates state;
 
     [Tooltip("Arma equipada por el jugador")]
     public ENUM_Weapons weapon;
@@ -119,6 +118,8 @@ public class PlayerController : MonoBehaviour {
         _increasedGravityValue = rb.gravityScale * fallingGravity;
         _currentIncreasedGravityValue = 1;
         _currentDecreasedGravityValue = 1;
+        baseMaxSpeed = maxSpeed;
+        baseAcceleration = acceleration;
         state = ENUM_PlayerStates.Running;
 
         _animator = GetComponentInChildren<Animator>();
