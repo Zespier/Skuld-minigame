@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 10 - Anillo
   m_EditorClassIdentifier: 
   buffType: 0
+  icon: {fileID: 21300000, guid: 978f184b62e2907469ec196a7e16d73b, type: 3}
   amount: 30000000
   Name: Anillo
   description: Consigues 30M almas por segundo

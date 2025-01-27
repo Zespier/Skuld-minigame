@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 2 - Espada
   m_EditorClassIdentifier: 
   buffType: 0
+  icon: {fileID: 21300000, guid: 699614ae4938b624bb7974c4fffdf0de, type: 3}
   amount: 6.5
   Name: Espada
   description: Consigues 6,5 almas por segundo

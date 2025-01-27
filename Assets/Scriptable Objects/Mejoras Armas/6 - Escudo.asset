@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: 6 - Escudo
   m_EditorClassIdentifier: 
   buffType: 0
+  icon: {fileID: 21300000, guid: 9ae8a838123490144ad72c150491cc70, type: 3}
   amount: 4000
   Name: Escudo
   description: Consigues 4000 almas por segundo

@@ -6,6 +6,7 @@ using UnityEngine;
 public class EconomyUpgrade : ScriptableObject {
 
     public Buff buffType;
+    public Sprite icon;
     public float amount;
     public string Name;
     public string description;
