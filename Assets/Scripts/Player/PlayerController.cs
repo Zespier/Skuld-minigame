@@ -6,7 +6,9 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Movement")]
     public float maxSpeed = 4f;
+    public float baseMaxSpeed = 4f;
     public float acceleration = 1.5f;
+    public float baseAcceleration = 1.5f;
     public Rigidbody2D rb;
 
     [Header("PlayerStates")]
@@ -79,6 +81,9 @@ public class PlayerController : MonoBehaviour {
     [Header("Skills")]
     public float qJumpForce = 2.5f;
     public bool enterULTI;
+    public bool endULTI;
+    public float eMaxSpeed = 10f;
+    public float eAcceleration = 4f;
 
     private Vector3 _velocity;
     private float _targetGravity;
@@ -219,6 +224,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     private float CalculateGravity() {
+
+        if(endULTI) return 0;
+
         _targetGravity = (-2 * height) / (timeAtheightPeak * timeAtheightPeak);
         return _targetGravity / Physics2D.gravity.y;
     }
@@ -403,6 +411,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void WallFrameCheck() {
+
+        if(enterULTI) return;
+
         // Simular un valor que cambia (puedes reemplazarlo con el valor real que quieres comprobar)
         currentFrameCheck = transform.position.x;
 
@@ -511,22 +522,40 @@ public class PlayerController : MonoBehaviour {
             state = ENUM_PlayerStates.Ability_3;
 
             enterULTI=true; 
+            endULTI=true; 
 
             rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
 
             rb.simulated = false;
 
-            yield return new WaitForSeconds(0.43f);
+            yield return new WaitForSeconds(0.6f);
 
             enterULTI = false;
 
             rb.simulated = true;
 
-            rb.velocity = new Vector3(rb.velocity.x + 30f, rb.velocity.y, 0);
+            rb.gravityScale = 0;
 
-            yield return new WaitForSeconds(1f);
+            maxSpeed = eMaxSpeed;
+
+            acceleration = eAcceleration;
+
+            //rb.velocity = new Vector3(rb.velocity.x + 30f, rb.velocity.y, 0);
+
+            yield return new WaitForSeconds(1.2f);
+
+            rb.constraints = RigidbodyConstraints2D.None;
+
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            maxSpeed = baseMaxSpeed;
+
+            acceleration = baseAcceleration;
 
             EvaluateState();
+
+            endULTI = false;
 
         }
     }
