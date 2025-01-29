@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 2760283166031772798}
   - component: {fileID: 8502160106974744906}
   - component: {fileID: 302538724061176906}
+  - component: {fileID: 1041176076599863756}
   m_Layer: 23
   m_Name: Barricade Bones
   m_TagString: Untagged
@@ -148,6 +149,7 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4545388481413840980}
+  - {fileID: 2038741045031352709}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &8502160106974744906
@@ -158,14 +160,14 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6323277907661315153}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -176,7 +178,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 7
 --- !u!61 &302538724061176906
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -222,3 +224,133 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.30534124, y: 0.24372292}
   m_EdgeRadius: 0
+--- !u!114 &1041176076599863756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6323277907661315153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0e8e5e39f7c134aa74a033bc3753e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  patrolState:
+    enemy: {fileID: 0}
+    speed: 0
+    detectionRadius: 0
+    waypoints: []
+    lastPos: {x: 0, y: 0}
+  aimtToTargetState:
+    enemy: {fileID: 0}
+    turnSpeed: 0
+    predictionFactor: 0
+    cooldownToAttack: 0
+  chargeAttackState:
+    enemy: {fileID: 0}
+    impulse: 0
+    curve:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+  idleState:
+    enemy: {fileID: 0}
+  attackState:
+    enemy: {fileID: 0}
+    attackingRadius: 0
+    attackCooldown: 0
+  type: 0
+  layersToDetect:
+    serializedVersion: 2
+    m_Bits: 0
+  enemySprite: {fileID: 6329242526714717623}
+  player: {fileID: 0}
+  rB: {fileID: 8502160106974744906}
+  canAttack: 0
+  initialPos: {x: 7.5, y: 5.5}
+  _currentHP: 0
+  _maxHP: 0
+  _deatAnimator: {fileID: 6917256611257374329}
+--- !u!1001 &1445103412213603129
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2760283166031772798}
+    m_Modifications:
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5848078688120981726, guid: 23e7a2139f2405747b3aa45e95229954,
+        type: 3}
+      propertyPath: m_Name
+      value: Ploof_Bones
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 23e7a2139f2405747b3aa45e95229954, type: 3}
+--- !u!4 &2038741045031352709 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 595910874068705980, guid: 23e7a2139f2405747b3aa45e95229954,
+    type: 3}
+  m_PrefabInstance: {fileID: 1445103412213603129}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &6917256611257374329 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 5472157051646217536, guid: 23e7a2139f2405747b3aa45e95229954,
+    type: 3}
+  m_PrefabInstance: {fileID: 1445103412213603129}
+  m_PrefabAsset: {fileID: 0}
