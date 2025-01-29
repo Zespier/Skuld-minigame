@@ -38,19 +38,23 @@ public class Module : MonoBehaviour {
         }
     }
 
+    protected virtual void Update() {
+        CheckDeactivation();
+
+        if (!_spawnedRight && RightCameraLimit /*+ SectionManager.sectionSize*/ > transform.position.x + width/*+ SectionManager.sectionSize / 2f*/) {
+            Module newModule = ModuleContainer.instance.GetRandomModule(exitHeight);
+            newModule.transform.position = transform.position + Vector3.right * width;
+            newModule.mainCamera = mainCamera;
+            _spawnedRight = true;
+        }
+    }
+
     private List<GameObject> GetFilteredChildren(Transform parent, LayerMask layer) {
         List<GameObject> filteredObjects = new List<GameObject>();
 
-        // Recorrer todos los hijos del objeto padre
         foreach (Transform child in parent) {
-            // Comprobar si el hijo est� en la capa especificada
             if (child.gameObject.layer == Mathf.Log(layer.value, 2)) {
-                // Comprobar si contiene el script espec�fico (si es necesario)
-                //var script = child.GetComponent(scriptName); // scriptName es opcional
-                //if (script != null)
-                //{
                 filteredObjects.Add(child.gameObject);
-                //}
             }
         }
 
@@ -66,25 +70,6 @@ public class Module : MonoBehaviour {
             break;
 
         }
-    }
-
-    protected virtual void Update() {
-        CheckDeactivation();
-
-        if (!_spawnedRight && RightCameraLimit /*+ SectionManager.sectionSize*/ > transform.position.x + width/*+ SectionManager.sectionSize / 2f*/) {
-            Module newModule = ModuleContainer.instance.GetRandomModule(exitHeight);
-            newModule.transform.position = transform.position + Vector3.right * width;
-            newModule.mainCamera = mainCamera;
-            _spawnedRight = true;
-        }
-    }
-
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position + new Vector3(width * 0.5f, height * 0.5f, 0), new Vector3(width, height, 0));
-
-        Gizmos.color = Color.blue;
-        Gizmos.DrawCube(new Vector3(LeftCameraLimit, 0, 0), new Vector3(0.05f, height, 0));
     }
 
     private void CheckDeactivation() {

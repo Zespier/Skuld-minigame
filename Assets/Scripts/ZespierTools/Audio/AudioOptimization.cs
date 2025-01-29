@@ -47,10 +47,6 @@ public class AudioOptimization : MonoBehaviour {
         ToggleAudioSource(_distanceFromPlayerSquared <= audioSource.maxDistance * audioSource.maxDistance);
     }
 
-    /// <summary>
-    /// Check whether this audioSource should keep playing
-    /// </summary>
-    /// <param name="isAudible"></param>
     void ToggleAudioSource(bool isAudible) {
 
         if (!isAudible && audioSource.isPlaying) {
@@ -63,9 +59,6 @@ public class AudioOptimization : MonoBehaviour {
         }
     }
 
-    /// <summary>
-    /// Enables this audioSource
-    /// </summary>
     public void Activate() {
 
         switch (audioCategory) {
@@ -78,16 +71,16 @@ public class AudioOptimization : MonoBehaviour {
             case AudioCategory.ConstantAmbientSound:
             case AudioCategory.ConstantBrazierSound:
                 if (!audioSource.enabled) { audioSource.enabled = true; }
-                if (!enabled) { enabled = true; }   //It can be instantiated from a disabled one
+                if (!enabled) { enabled = true; }   
                 break;
 
             case AudioCategory.FrequentReactivation:
-                if (!enabled) { enabled = true; }  //It can be instantiated from a disabled one
+                if (!enabled) { enabled = true; }  
                 break;
 
             case AudioCategory._0DelayNeeded:
                 audioSource.time = (float)((AudioSettings.dspTime) % audioSource.clip.length);
-                if (!enabled) { enabled = true; } //It can be instantiated from a disabled one
+                if (!enabled) { enabled = true; } 
                 break;
         }
 

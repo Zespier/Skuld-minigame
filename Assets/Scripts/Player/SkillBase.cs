@@ -12,15 +12,8 @@ public abstract class SkillBase : ScriptableObject {
 
     [HideInInspector] public bool isOnCooldown;
 
-    /// <summary>
-    /// Ejecuta la habilidad.
-    /// </summary>
-    /// <param name="caster">El GameObject que lanza la habilidad.</param>
     public abstract void Execute(GameObject caster);
 
-    /// <summary>
-    /// Inicia el cooldown.
-    /// </summary>
     public void StartCooldown(MonoBehaviour owner) {
         if (isOnCooldown) return;
         isOnCooldown = true;

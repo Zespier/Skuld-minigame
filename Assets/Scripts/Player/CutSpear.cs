@@ -24,7 +24,6 @@ public class CutSpear : SkillBase
 
         Debug.Log($"{skillName} lanzada!");
 
-        // Iniciar cooldown
         StartCooldown(caster.GetComponent<MonoBehaviour>());
     }
 }

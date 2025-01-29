@@ -17,7 +17,6 @@ public class SkillManager : MonoBehaviour
 
     private void Update()
     {
-        // Detectar teclas y lanzar habilidades
         if (Input.GetKeyDown(KeyCode.Q)) ExecuteSkill(skillQ);
         if (Input.GetKeyDown(KeyCode.W)) ExecuteSkill(skillW);
         if (Input.GetKeyDown(KeyCode.E)) ExecuteSkill(skillE);
