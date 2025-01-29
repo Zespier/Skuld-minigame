@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IHealth {
 
-    int currentHP { get; set; }
-    int maxHP { get; set; }
-    void Set(int value);
+    public int CurrentHP { get; set; }
+    public int MaxHP { get; set; }
+    public void ReduceHp(int value);
 }

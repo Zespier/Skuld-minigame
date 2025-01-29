@@ -65,8 +65,7 @@ public class Module : MonoBehaviour {
         _spawnedRight = false;
 
         foreach (Enemy resetObj in enemiesRef) {
-            resetObj.ResetPhysics(true);
-
+            resetObj.ResetEnemy();
             break;
 
         }

@@ -31,8 +31,8 @@ public class Enemy : MonoBehaviour, IHealth {
 
     public int _maxHP;
 
-    int IHealth.currentHP { get => _currentHP; set => _currentHP = value; }
-    int IHealth.maxHP { get => _maxHP; set => _maxHP = value; }
+    public int CurrentHP { get => _currentHP; set => _currentHP = value; }
+    public int MaxHP { get => _maxHP; set => _maxHP = value; }
 
     [Header("Animations")]
     private Animator _animator;
@@ -55,7 +55,7 @@ public class Enemy : MonoBehaviour, IHealth {
 
         _currentHP = _maxHP;
     }
-    void Start() {
+    private void Start() {
 
         stateMachine = new StateMachine();
 
@@ -79,7 +79,7 @@ public class Enemy : MonoBehaviour, IHealth {
                 break;
         }
     }
-    void Update() {
+    private void Update() {
         stateMachine.currentState.Update();
 
         if (type != EnemyType.Static) {
@@ -124,10 +124,12 @@ public class Enemy : MonoBehaviour, IHealth {
 
     }
 
-    public void DestroyObject() => Destroy(gameObject, 5f);
-
-    public void Set(int value) {
+    public void ReduceHp(int value) {
         _currentHP -= value;
+
+        if (_currentHP <= 0) {
+            Death();
+        }
     }
 
     public void PlayAnimation(string animationName) {
@@ -138,9 +140,12 @@ public class Enemy : MonoBehaviour, IHealth {
         _lastAnimationName = animationName;
     }
 
-    public void ResetPhysics(bool state) {
-        Debug.Log("adad");
-        enemySprite.enabled = state;
+    public void ResetEnemy() {
+        enemySprite.enabled = true;
+    }
+
+    public void Death() {
+        enemySprite.enabled = false;
         _deatAnimator.Play("Ploof");
     }
 }

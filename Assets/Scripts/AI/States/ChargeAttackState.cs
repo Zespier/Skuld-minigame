@@ -16,7 +16,7 @@ public class ChargeAttackState : State {
     }
 
     public override void Exit() {
-        enemy.DestroyObject();
+
     }
 
     public override void PhysicsUpdate() {
