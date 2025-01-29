@@ -8,7 +8,7 @@ public class SoulCollectable : MonoBehaviour {
     public Animator animator;
     public AnimationClip ploofClip;
 
-    private async void Start() {
+    private async void OnEnable() {
         await Task.Delay(Random.Range(0, 500));
         animator.Play("Idle");
     }

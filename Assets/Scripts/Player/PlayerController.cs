@@ -95,8 +95,6 @@ public class PlayerController : MonoBehaviour {
     private bool _isDead;
     private bool _hasJump;
     private string _lastAnimationName;
-    [SerializeField] private float _storedCombo;
-    [SerializeField] private float _storedScore;
 
     private float _currentSpeed;
 

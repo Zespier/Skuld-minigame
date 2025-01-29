@@ -2913,6 +2913,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4026392931845217666, guid: 6eaf9146862ebcd48adf0a4e461c9618,
+        type: 3}
+      propertyPath: attackRange
+      value: 0.55
+      objectReference: {fileID: 0}
     - target: {fileID: 8110789304294770939, guid: 6eaf9146862ebcd48adf0a4e461c9618,
         type: 3}
       propertyPath: enemies.Array.data[0]
