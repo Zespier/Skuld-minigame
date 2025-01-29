@@ -22,8 +22,6 @@ public class CutSpear : SkillBase
 
         controllerRef.StartCoroutineSkill2();
 
-        Debug.Log($"{skillName} lanzada!");
-
         StartCooldown(caster.GetComponent<MonoBehaviour>());
     }
 }

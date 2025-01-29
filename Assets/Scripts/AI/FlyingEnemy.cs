@@ -23,10 +23,10 @@ public class FlyingEnemy : MonoBehaviour {
         }
 
         if (DistanceSquared(PlayerController.instance.playerCenter.position, attackPoint.position) < attackRadius * attackRadius) {
-            //Hit the player
+            PlayerController.instance.GetHit();
         }
     }
- 
+
     public static float DistanceSquared(Vector3 a, Vector3 b) {
         return (a.x - b.x) * (a.x - b.x) +
                (a.y - b.y) * (a.y - b.y) +

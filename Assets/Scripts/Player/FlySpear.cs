@@ -12,7 +12,6 @@ public class FlySpear : SkillBase
 
         if (isOnCooldown)
         {
-            Debug.Log($"{skillName} está en cooldown.");
             return;
         }
 
@@ -20,9 +19,6 @@ public class FlySpear : SkillBase
 
         controllerRef.StartCoroutineSkill1();
 
-        Debug.Log($"{skillName} lanzada!");
-
-        // Iniciar cooldown
         StartCooldown(caster.GetComponent<MonoBehaviour>());
     }
 }

@@ -35,10 +35,7 @@ public class ChargeAttackState : State {
 
         } else if (DistanceSquared(_initialPosition, enemy.transform.position) > distanceToChangeToAttackState * distanceToChangeToAttackState) {
             enemy.stateMachine.ChangeState(enemy.attackState);
-            Debug.Log(Vector3.Distance(_initialPosition, enemy.transform.position));
         }
-
-        Debug.Log(Vector3.Distance(_initialPosition, enemy.transform.position));
     }
 
     public override void Update() {

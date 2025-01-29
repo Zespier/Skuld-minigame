@@ -345,6 +345,7 @@ public class PlayerController : MonoBehaviour {
 
     private void MarkBoolsWhenLanding() {
         _afectedByIntenseFalling = false;
+        rb.excludeLayers = 0;
     }
     #endregion
 
@@ -543,5 +544,9 @@ public class PlayerController : MonoBehaviour {
         }
 
         _lastAnimationName = animationName;
+    }
+
+    public void GetHit() {
+        rb.excludeLayers = ~0;
     }
 }
