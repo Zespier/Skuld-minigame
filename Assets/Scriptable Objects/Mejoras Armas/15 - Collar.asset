@@ -16,5 +16,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 8fee1f07b3f54ba46a265703645abe87, type: 3}
   amount: 5.2e+22
   Name: Collar
-  description: Consigues 52Sx almas por segundo
+  description: Consigues 52c almas por segundo
   price: 5e+35

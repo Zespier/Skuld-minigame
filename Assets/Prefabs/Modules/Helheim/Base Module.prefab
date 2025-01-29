@@ -53,7 +53,8 @@ MonoBehaviour:
   width: 10
   height: 4.65
   mainCamera: {fileID: 0}
-  enemiesRef: []
+  enemiesRef:
+  - {fileID: 4726320036175183690}
   resetObjectLayer:
     serializedVersion: 2
     m_Bits: 0
@@ -212,7 +213,7 @@ PrefabInstance:
     - target: {fileID: 8805189344790593768, guid: bd0bbe4064f9fc54b9bef9e6b11f62e3,
         type: 3}
       propertyPath: initialPos.y
-      value: -4.982
+      value: 0.618
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -225,6 +226,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4297861238643507106}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4726320036175183690 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8805189344790593768, guid: bd0bbe4064f9fc54b9bef9e6b11f62e3,
+    type: 3}
+  m_PrefabInstance: {fileID: 4297861238643507106}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e0e8e5e39f7c134aa74a033bc3753e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &6761333886282750658
 PrefabInstance:
   m_ObjectHideFlags: 0

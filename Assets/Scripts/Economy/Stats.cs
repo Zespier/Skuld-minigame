@@ -7,43 +7,43 @@ public class Stats : MonoBehaviour {
 
     public UpgradeHolder upgradeHolder;
 
-    public List<float> baseSoulsPerSeconds;
-    public List<float> soulsPerSecondPercentages;
-    public List<float> flatSoulsPerSeconds;
+    public List<double> baseSoulsPerSeconds;
+    public List<double> soulsPerSecondPercentages;
+    public List<double> flatSoulsPerSeconds;
 
-    public List<float> baseSoulsPerCollections;
-    public List<float> soulsPerCollectionPercentages;
-    public List<float> flatSoulsPerCollections;
+    public List<double> baseSoulsPerCollections;
+    public List<double> soulsPerCollectionPercentages;
+    public List<double> flatSoulsPerCollections;
 
     //public List<float> baseSpeeds;
     //public List<float> speedPercentages;
     //public List<float> flatSpeeds;
 
-    public float baseSoulsPerSecond = 10;
-    public virtual float SoulsPerSecond => (baseSoulsPerSecond + BaseSoulsPerSeconds) * (SoulsPerSecondPercentages / 100f) + FlatSoulsPerSeconds;
-    public virtual float BaseSoulsPerSeconds => GetAllBuffs(Buff.BaseSoulsPerSecond);
-    public virtual float SoulsPerSecondPercentages => GetAllBuffs(Buff.SoulsPerSecondPercentage);
-    public virtual float FlatSoulsPerSeconds => GetAllBuffs(Buff.FlatSoulsPerSecond);
+    public double baseSoulsPerSecond = 10;
+    public virtual double SoulsPerSecond => (baseSoulsPerSecond + BaseSoulsPerSeconds) * (SoulsPerSecondPercentages / 100f) + FlatSoulsPerSeconds;
+    public virtual double BaseSoulsPerSeconds => GetAllBuffs(Buff.BaseSoulsPerSecond);
+    public virtual double SoulsPerSecondPercentages => GetAllBuffs(Buff.SoulsPerSecondPercentage);
+    public virtual double FlatSoulsPerSeconds => GetAllBuffs(Buff.FlatSoulsPerSecond);
 
-    public float baseSoulsPerCollection = 100;
-    public virtual float SoulsPerCollection => (baseSoulsPerCollection + BaseSoulsPerCollections) * (SoulsPerCollectionPercentages / 100f) + FlatSoulsPerCollections;
-    public virtual float BaseSoulsPerCollections => GetAllBuffs(Buff.BaseSoulsPerCollection);
-    public virtual float SoulsPerCollectionPercentages => GetAllBuffs(Buff.SoulsPerCollectionPercentage);
-    public virtual float FlatSoulsPerCollections => GetAllBuffs(Buff.FlatSoulsPerCollection);
+    public double baseSoulsPerCollection = 100;
+    public virtual double SoulsPerCollection => (baseSoulsPerCollection + BaseSoulsPerCollections) * (SoulsPerCollectionPercentages / 100f) + FlatSoulsPerCollections;
+    public virtual double BaseSoulsPerCollections => GetAllBuffs(Buff.BaseSoulsPerCollection);
+    public virtual double SoulsPerCollectionPercentages => GetAllBuffs(Buff.SoulsPerCollectionPercentage);
+    public virtual double FlatSoulsPerCollections => GetAllBuffs(Buff.FlatSoulsPerCollection);
 
     //No defense, too hard to manage
 
-    //public float baseSpeed = 2;
-    //public virtual float Speed => (baseSpeed + BaseSpeeds) * (SpeedPercentages / 100f) + FlatSpeeds;
-    //public virtual float BaseSpeeds => GetAllBuffs(Buff.BaseSpeed);
-    //public virtual float SpeedPercentages => GetAllBuffs(Buff.SpeedPercentage);
-    //public virtual float FlatSpeeds => GetAllBuffs(Buff.FlatSpeed);
+    //public double baseSpeed = 2;
+    //public virtual double Speed => (baseSpeed + BaseSpeeds) * (SpeedPercentages / 100f) + FlatSpeeds;
+    //public virtual double BaseSpeeds => GetAllBuffs(Buff.BaseSpeed);
+    //public virtual double SpeedPercentages => GetAllBuffs(Buff.SpeedPercentage);
+    //public virtual double FlatSpeeds => GetAllBuffs(Buff.FlatSpeed);
 
-    //private List<(Buff buff, float amount, Coroutine coroutine)> buffCoroutines = new List<(Buff buff, float amount, Coroutine coroutine)>();
+    //private List<(Buff buff, double amount, Coroutine coroutine)> buffCoroutines = new List<(Buff buff, double amount, Coroutine coroutine)>();
 
     #region Upgrade Management
 
-    public virtual void ManageAddUpgrade(Buff buffType, float amount) {
+    public virtual void ManageAddUpgrade(Buff buffType, double amount) {
         if (upgradeHolder == null) {
             Debug.LogError("No upgrade holder assigned");
             return;
@@ -51,12 +51,12 @@ public class Stats : MonoBehaviour {
 
         upgradeHolder.AddUpgrade(buffType, amount, this);
     }
-    public virtual void ManageAddUpgrade(Buff buff, float amount, float time) {
+    public virtual void ManageAddUpgrade(Buff buff, double amount, float time) {
         ManageAddUpgrade(buff, amount);
         //buffCoroutines.Add((buff, amount, StartCoroutine(C_WaitToRemoveUpgrade(buff, amount, time))));
     }
 
-    public virtual void ManageRemoveUpgrade(Buff buffType, float amount) {
+    public virtual void ManageRemoveUpgrade(Buff buffType, double amount) {
         if (upgradeHolder == null) {
             Debug.LogError("No upgrade holder assigned");
             return;
@@ -69,7 +69,7 @@ public class Stats : MonoBehaviour {
 
     #region Buffs
 
-    public virtual float GetAllBuffs(Buff buffType) {
+    public virtual double GetAllBuffs(Buff buffType) {
 
         switch (buffType) {
 
@@ -135,7 +135,7 @@ public class Stats : MonoBehaviour {
 
     }
 
-    public virtual void AddBuff(Buff buffType, float amount) {
+    public virtual void AddBuff(Buff buffType, double amount) {
 
         switch (buffType) {
 
@@ -181,7 +181,7 @@ public class Stats : MonoBehaviour {
         }
     }
 
-    public virtual void RemoveBuff(Buff buffType, float amount) {
+    public virtual void RemoveBuff(Buff buffType, double amount) {
 
         switch (buffType) {
 

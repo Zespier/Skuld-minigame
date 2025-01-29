@@ -6,7 +6,7 @@ public class Upgrade : MonoBehaviour {
 
     public Stats targetStats;
     public Buff upgradeType;
-    public float amount = 1f;
+    public double amount = 1f;
 
     private UpgradeHolder upgradeHolder;
 

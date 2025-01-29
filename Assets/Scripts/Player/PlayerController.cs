@@ -531,7 +531,6 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-
     //public void FootSteps() {
     //    SoundFxController.instance.FootSteps();
     //}

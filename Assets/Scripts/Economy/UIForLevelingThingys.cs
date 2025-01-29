@@ -35,8 +35,8 @@ public class UIForLevelingThingys : MonoBehaviour {
         }
     }
 
-    public float GetCurrentPrice() {
-        float price = economyUpgrade.price;
+    public double GetCurrentPrice() {
+        double price = economyUpgrade.price;
 
         for (int i = 0; i < level; i++) {
             price *= 1.15f;

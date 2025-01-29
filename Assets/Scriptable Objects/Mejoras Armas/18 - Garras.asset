@@ -16,5 +16,5 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 6201c2695ed5bfc46b987e33ac8b1a0d, type: 3}
   amount: 5e+34
   Name: Garras
-  description: 5e+61
-  price: 3.402823e+38
+  description: Consigues 50g almas por segundo
+  price: 5e+61

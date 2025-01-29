@@ -14,7 +14,7 @@ public class UpgradeHolder : MonoBehaviour {
     /// Adds an upgrade
     /// </summary>
     /// <param name="upgrade"></param>
-    public void AddUpgrade(Buff buffType, float amount, Stats statsToBuff) {
+    public void AddUpgrade(Buff buffType, double amount, Stats statsToBuff) {
 
         bool found = false;
 
@@ -48,7 +48,7 @@ public class UpgradeHolder : MonoBehaviour {
     /// removes an upgrade
     /// </summary>
     /// <param name="upgrade"></param>
-    public void RemoveUpgrade(Buff buffType, float amount) {
+    public void RemoveUpgrade(Buff buffType, double amount) {
 
         for (int i = 0; i < upgrades.Count; i++) {
 

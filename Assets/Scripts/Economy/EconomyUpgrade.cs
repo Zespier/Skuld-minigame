@@ -7,9 +7,9 @@ public class EconomyUpgrade : ScriptableObject {
 
     public Buff buffType;
     public Sprite icon;
-    public float amount;
+    public double amount;
     public string Name;
     public string description;
-    public float price;
+    public double price;
 
 }
