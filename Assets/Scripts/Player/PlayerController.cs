@@ -323,9 +323,9 @@ public class PlayerController : MonoBehaviour {
             MarkBoolsWhenLanding();
             if (state != ENUM_PlayerStates.Ability_2 && grounded) {
 
-                 PlayAnimation("JumpLanding");
-                 state = ENUM_PlayerStates.Running;
-            } 
+                PlayAnimation("JumpLanding");
+                state = ENUM_PlayerStates.Running;
+            }
 
         }
 
@@ -351,9 +351,9 @@ public class PlayerController : MonoBehaviour {
                 //Testeo
 
 
+                Enemy enemy = colision.GetComponent<Enemy>();
                 if (IsInIdleSide) {
 
-                    Enemy enemy = colision.GetComponent<Enemy>();
                     if (enemy == null) { continue; }
                     int enemyHealth = enemy._currentHP;
 
@@ -375,7 +375,7 @@ public class PlayerController : MonoBehaviour {
                     }
 
                 } else {
-                    StartCoroutine(DestroyTimer(colision.gameObject));
+                    enemy.ResetPhysics(false);
                     _animator.Play("Attack Spear");
                 }
 
@@ -424,21 +424,18 @@ public class PlayerController : MonoBehaviour {
         StartCoroutine(UpSkillImpulse());
     }
 
-    public void StartCoroutineSkill2()
-    {
+    public void StartCoroutineSkill2() {
         StartCoroutine(DownSkillImpulse());
     }
 
-    public void StartCoroutineSkill3()
-    {
+    public void StartCoroutineSkill3() {
         StartCoroutine(DownSkillImpulse());
     }
 
     public IEnumerator UpSkillImpulse() {
         if (IsInIdleSide) {
 
-            if (grounded)
-            {
+            if (grounded) {
                 state = ENUM_PlayerStates.Ability_1;
 
                 PlayAnimation("Skuld_Helicopter");
@@ -469,10 +466,8 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    public IEnumerator DownSkillImpulse()
-    {
-        if (!IsInIdleSide)
-        {
+    public IEnumerator DownSkillImpulse() {
+        if (!IsInIdleSide) {
 
             PlayAnimation("Skuld_CutAbility");
 
@@ -488,10 +483,8 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    public IEnumerator FrontSkillImpulse()
-    {
-        if (!IsInIdleSide)
-        {
+    public IEnumerator FrontSkillImpulse() {
+        if (!IsInIdleSide) {
 
             PlayAnimation("Skuld_CutAbility");
 
