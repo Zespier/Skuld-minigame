@@ -375,12 +375,10 @@ public class PlayerController : MonoBehaviour {
                         } else {
                             _animator.SetTrigger("exitAttack");
                             state = ENUM_PlayerStates.Running;
-                            collision.gameObject.SetActive(false);
                         }
 
                     } else {
                         enemy.Death();
-                        StartCoroutine(DestroyTimer(collision.gameObject));
                         _animator.Play("Attack Spear");
                     }
                 }
@@ -388,13 +386,6 @@ public class PlayerController : MonoBehaviour {
 
             lastAttackTime = Time.time;
         }
-    }
-
-    public IEnumerator DestroyTimer(GameObject target) {
-
-        yield return new WaitForSeconds(delayAnimAttack);
-
-        target.SetActive(false);
     }
 
     private void WallFrameCheck() {

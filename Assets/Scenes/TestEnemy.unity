@@ -884,7 +884,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!50 &624610311
 Rigidbody2D:
   serializedVersion: 4
@@ -995,6 +995,10 @@ MonoBehaviour:
   wallStamp: 0
   wallFallGravity: 5
   qJumpForce: 2.5
+  enterULTI: 0
+  endULTI: 0
+  eMaxSpeed: 10
+  eAcceleration: 4
   _storedCombo: 0
   _storedScore: 0
 --- !u!4 &624610314
@@ -3091,7 +3095,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!95 &2506979430101110587
 Animator:
   serializedVersion: 5
