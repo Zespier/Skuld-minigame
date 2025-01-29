@@ -5,7 +5,8 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public Transform playerCenter;
-    public float getHitStregth = 2f;
+    public SpriteRenderer spriteRenderer;
+    public Vector2 getHitStregth = new Vector2(-3.5f, 3f);
 
     [Header("Movement")]
     public float maxSpeed = 4f;
@@ -98,7 +99,7 @@ public class PlayerController : MonoBehaviour {
     private string _lastAnimationName;
 
     private float _currentSpeed;
-    private bool _canChangeState;
+    private bool _canChangeState = true;
 
     private Animator _animator;
 
@@ -348,7 +349,9 @@ public class PlayerController : MonoBehaviour {
 
     private void MarkBoolsWhenLanding() {
         _afectedByIntenseFalling = false;
-        rb.excludeLayers = 0;
+        if (_canChangeState) {
+            rb.excludeLayers = 0;
+        }
     }
     #endregion
 
@@ -550,21 +553,25 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void GetHit(GameObject attacker) {
-        if (attacker.activeSelf && !IsInIdleSide) {
-            Debug.LogError("AKDAKJDNAKJSD");
+        if (_canChangeState && attacker.activeSelf && !IsInIdleSide) {
+
             rb.excludeLayers = ~0;
             State = ENUM_PlayerStates.Falling;
-            rb.velocity = Vector2.left * getHitStregth;
-            _currentSpeed = -getHitStregth;
+
+
+            Vector3 newVelocity = new Vector3(getHitStregth.x, getHitStregth.y, 0);
+            rb.velocity = newVelocity;
+            _currentSpeed = getHitStregth.x;
 
             StartCoroutine(C_DisableChangeState());
+            StartCoroutine(C_IntermitentSpriteAfterHit());
         }
     }
 
     private IEnumerator C_DisableChangeState() {
         _canChangeState = false;
 
-        float timer = 1;
+        float timer = 2;
         while (timer >= 0) {
             timer -= Time.deltaTime;
             yield return null;
@@ -577,5 +584,29 @@ public class PlayerController : MonoBehaviour {
         if (_canChangeState) {
             this.state = state;
         }
+    }
+
+    private IEnumerator C_IntermitentSpriteAfterHit() {
+
+        spriteRenderer.color = Color.white;
+
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.white));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.white));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.white));
+    }
+
+    private IEnumerator C_IntermitentSpriteAfterHit(Color color) {
+
+        float timer = 0.15f;
+
+        while (timer >= 0) {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        spriteRenderer.color = color;
     }
 }

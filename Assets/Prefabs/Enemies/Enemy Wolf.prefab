@@ -362,8 +362,8 @@ MonoBehaviour:
     enemy: {fileID: 0}
   attackState:
     enemy: {fileID: 0}
-    attackingRadius: 0
-    attackDelay: 0
+    attackingRadius: 0.3
+    attackDelay: 0.1666667
     attackPoint: {fileID: 9190405697228077600}
   type: 2
   strength: 1
