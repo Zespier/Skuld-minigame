@@ -129,30 +129,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: rB
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: offset
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemyNew (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -223,30 +203,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: rB
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: offset
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemyNew (7)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -317,30 +277,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: rB
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: offset
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemyNew
-      objectReference: {fileID: 0}
-    - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -411,30 +351,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: rB
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: offset
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemyNew (6)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -505,30 +425,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: rB
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: offset
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemyNew (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -599,30 +499,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: rB
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: offset
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemyNew (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -693,30 +573,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: rB
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: offset
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemyNew (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -787,30 +647,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: rB
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: speed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 3944030423181525611, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: offset
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
         type: 3}
       propertyPath: m_Name
       value: FlyingEnemyNew (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6323277907661315153, guid: 69ae96cc2070fd24e9fad52689aa3362,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

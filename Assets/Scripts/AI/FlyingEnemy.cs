@@ -6,12 +6,10 @@ public class FlyingEnemy : MonoBehaviour {
     public float speed = 10f;
     public Rigidbody2D rB;
     public float offset = 20;
+    public float attackRadius = 0.3f;
+    public Transform attackPoint;
 
     private Vector3 initialPos;
-
-    private void Start() {
-        rB = GetComponent<Rigidbody2D>();
-    }
 
     private void OnEnable() {
         initialPos = transform.position;
@@ -23,9 +21,15 @@ public class FlyingEnemy : MonoBehaviour {
             rB.velocity = Vector3.zero;
             gameObject.SetActive(false);
         }
+
+        if (DistanceSquared(PlayerController.instance.playerCenter.position, attackPoint.position) < attackRadius * attackRadius) {
+            //Hit the player
+        }
     }
-    private void OnDrawGizmos() {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, new Vector2(initialPos.x - offset, initialPos.y));
+ 
+    public static float DistanceSquared(Vector3 a, Vector3 b) {
+        return (a.x - b.x) * (a.x - b.x) +
+               (a.y - b.y) * (a.y - b.y) +
+               (a.z - b.z) * (a.z - b.z);
     }
 }
