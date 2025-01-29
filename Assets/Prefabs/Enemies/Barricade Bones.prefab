@@ -265,7 +265,7 @@ MonoBehaviour:
     m_Bits: 0
   enemySprite: {fileID: 6329242526714717623}
   rB: {fileID: 8502160106974744906}
-  canAttack: 0
+  canAttack: 1
   initialPos: {x: 7.5, y: 5.5}
   _currentHP: 0
   _maxHP: 0

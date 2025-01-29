@@ -17,7 +17,8 @@ public class IdleState : State {
     }
 
     public override void PhysicsUpdate() {
-        if (Physics2D.OverlapCircle(enemy.transform.position, enemy.attackState.attackingRadius) && enemy.canAttack) {
+        Vector3 attackPoint = enemy.attackState.attackPoint != null ? enemy.attackState.attackPoint.position : enemy.transform.position;
+        if (DistanceSquared(PlayerController.instance.playerCenter.position, attackPoint) < enemy.attackState.attackingRadius * enemy.attackState.attackingRadius && enemy.canAttack) {
             enemy.stateMachine.ChangeState(enemy.attackState);
         } else if (Mathf.Abs((PlayerController.instance.transform.position - enemy.transform.position).x) < 4) {
             enemy.stateMachine.ChangeState(enemy.chargeAttackState);

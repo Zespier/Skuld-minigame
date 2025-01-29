@@ -29,11 +29,11 @@ public class ChargeAttackState : State {
 
         Vector3 attackPoint = enemy.attackState.attackPoint != null ? enemy.attackState.attackPoint.position : enemy.transform.position;
 
-        if (Vector2.Distance(attackPoint, PlayerController.instance.playerCenter.position) <= 0.3f) {
+        if (enemy.canAttack && Vector2.Distance(attackPoint, PlayerController.instance.playerCenter.position) <= 0.3f) {
             enemy.stateMachine.ChangeState(enemy.attackState);
             PlayerController.instance.GetHit(enemy.gameObject);
 
-        } else if (DistanceSquared(_initialPosition, enemy.transform.position) > distanceToChangeToAttackState * distanceToChangeToAttackState) {
+        } else if (enemy.canAttack && DistanceSquared(_initialPosition, enemy.transform.position) > distanceToChangeToAttackState * distanceToChangeToAttackState) {
             enemy.stateMachine.ChangeState(enemy.attackState);
         }
     }
