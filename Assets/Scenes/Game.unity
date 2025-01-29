@@ -1901,7 +1901,7 @@ PrefabInstance:
     - target: {fileID: 8501037559309169790, guid: f073c9cb0d59d7748a04883179f8ad7e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 496.2
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 8555669001273533151, guid: f073c9cb0d59d7748a04883179f8ad7e,
         type: 3}
@@ -2913,21 +2913,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5695275176731024210, guid: 6eaf9146862ebcd48adf0a4e461c9618,
-        type: 3}
-      propertyPath: enemyMark
-      value: 
-      objectReference: {fileID: 7475174450627087849}
-    - target: {fileID: 8110789304294770939, guid: 6eaf9146862ebcd48adf0a4e461c9618,
-        type: 3}
-      propertyPath: enemies.Array.size
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8110789304294770939, guid: 6eaf9146862ebcd48adf0a4e461c9618,
-        type: 3}
-      propertyPath: parentFlyingEnemies
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8110789304294770939, guid: 6eaf9146862ebcd48adf0a4e461c9618,
         type: 3}
       propertyPath: enemies.Array.data[0]
@@ -2968,28 +2953,11 @@ PrefabInstance:
       propertyPath: enemies.Array.data[7]
       value: 
       objectReference: {fileID: 713114129}
-    - target: {fileID: 8110789304294770939, guid: 6eaf9146862ebcd48adf0a4e461c9618,
-        type: 3}
-      propertyPath: approximatelyMaxEnemies
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8110789304294770939, guid: 6eaf9146862ebcd48adf0a4e461c9618,
-        type: 3}
-      propertyPath: approximatelyCooldownBetweenEnemies
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 2092659498695310577, guid: 6eaf9146862ebcd48adf0a4e461c9618, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6eaf9146862ebcd48adf0a4e461c9618, type: 3}
---- !u!4 &7475174450627087849 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4023700459725209449, guid: 6eaf9146862ebcd48adf0a4e461c9618,
-    type: 3}
-  m_PrefabInstance: {fileID: 7475174450627087848}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

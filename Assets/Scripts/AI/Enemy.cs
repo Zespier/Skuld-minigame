@@ -147,5 +147,11 @@ public class Enemy : MonoBehaviour, IHealth {
         }
 
         enemySprite.enabled = false;
+
+        Economy.instance.AddSoulCollectable();
+        Economy.instance.AddSoulCollectable();
+        Economy.instance.AddSoulCollectable();
+        Economy.instance.AddSoulCollectable();
+        Economy.instance.AddSoulCollectable();
     }
 }

@@ -17,7 +17,19 @@ public class SoulCollectable : MonoBehaviour {
         if (collision.CompareTag("Player")) {
             Economy.instance.AddSoulCollectable();
             animator.Play("Ploof");
-            Destroy(gameObject, ploofClip.length + 0.05f);
+
+            StartCoroutine(C_WaitToDeactivate());
         }
+    }
+
+    private IEnumerator C_WaitToDeactivate() {
+        float timer = ploofClip.length + 0.05f;
+
+        while (timer >= 0) {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        gameObject.SetActive(false);
     }
 }

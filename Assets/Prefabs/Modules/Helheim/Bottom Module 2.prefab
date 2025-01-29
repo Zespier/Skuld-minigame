@@ -70,7 +70,7 @@ MonoBehaviour:
   enemiesRef: []
   resetObjectLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 25165824
 --- !u!1001 &91811822953012656
 PrefabInstance:
   m_ObjectHideFlags: 0
