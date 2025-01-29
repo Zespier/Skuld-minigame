@@ -250,24 +250,20 @@ MonoBehaviour:
   chargeAttackState:
     enemy: {fileID: 0}
     impulse: 0
-    curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+    distanceToChangeToAttackState: 0
   idleState:
     enemy: {fileID: 0}
   attackState:
     enemy: {fileID: 0}
     attackingRadius: 0
-    attackCooldown: 0
+    attackDelay: 0
+    attackPoint: {fileID: 0}
   type: 0
+  strength: 1
   layersToDetect:
     serializedVersion: 2
     m_Bits: 0
   enemySprite: {fileID: 6329242526714717623}
-  player: {fileID: 0}
   rB: {fileID: 8502160106974744906}
   canAttack: 0
   initialPos: {x: 7.5, y: 5.5}

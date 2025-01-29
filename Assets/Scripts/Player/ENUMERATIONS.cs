@@ -9,6 +9,7 @@ public enum ENUM_PlayerStates
     Jumping,
     Gliding,
     Attacking,
+    Falling,
     Ability_1,
     Ability_2,
     Ability_3,

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 [System.Serializable]
@@ -42,7 +43,7 @@ public class AttackState : State {
         Vector3 attackPoint = this.attackPoint != null ? this.attackPoint.position : enemy.transform.position;
 
         if (DistanceSquared(PlayerController.instance.playerCenter.position, attackPoint) < attackingRadius * attackingRadius) {
-            PlayerController.instance.GetHit();
+            PlayerController.instance.GetHit(enemy.gameObject);
         }
     }
 

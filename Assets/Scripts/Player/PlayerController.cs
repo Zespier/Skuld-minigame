@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
 
     public Transform playerCenter;
+    public float getHitStregth = 2f;
 
     [Header("Movement")]
     public float maxSpeed = 4f;
@@ -97,12 +98,14 @@ public class PlayerController : MonoBehaviour {
     private string _lastAnimationName;
 
     private float _currentSpeed;
+    private bool _canChangeState;
 
     private Animator _animator;
 
     public float GravityScale { get => _defaultGravityMultiplier * _currentIncreasedGravityValue / _currentDecreasedGravityValue; }
     public float TopLimit => CameraController.instance.transform.position.y + ModuleContainer.instance.mainCamera.orthographicSize;
     public bool IsInIdleSide => transform.position.y < -1.5f;
+    public ENUM_PlayerStates State { get => state; set => ChangeState(value); }
 
     public static PlayerController instance;
     private void Awake() {
@@ -115,7 +118,7 @@ public class PlayerController : MonoBehaviour {
         _currentDecreasedGravityValue = 1;
         baseMaxSpeed = maxSpeed;
         baseAcceleration = acceleration;
-        state = ENUM_PlayerStates.Running;
+        State = ENUM_PlayerStates.Running;
 
         _animator = GetComponentInChildren<Animator>();
     }
@@ -129,7 +132,7 @@ public class PlayerController : MonoBehaviour {
         JumpGlideActions();
         AutoAttack();
 
-        if (!grounded && state == ENUM_PlayerStates.Running) {
+        if (!grounded && State == ENUM_PlayerStates.Running) {
             PlayAnimation("JumpTransition");
         }
 
@@ -152,8 +155,8 @@ public class PlayerController : MonoBehaviour {
 
     #region Movement
     private void Accelerate() {
-        if (state != ENUM_PlayerStates.Attacking)
-            _currentSpeed = Mathf.MoveTowards(_currentSpeed, maxSpeed, acceleration * Time.deltaTime);
+        if (State != ENUM_PlayerStates.Attacking)
+            _currentSpeed = Mathf.MoveTowards(_currentSpeed, State == ENUM_PlayerStates.Attacking ? 0 : maxSpeed, acceleration * Time.deltaTime);
     }
 
     private void Movement() {
@@ -196,7 +199,7 @@ public class PlayerController : MonoBehaviour {
 
         //coyoteTimeCounter=0f;
 
-        state = ENUM_PlayerStates.Jumping;
+        State = ENUM_PlayerStates.Jumping;
 
         Vector3 velocity = rb.velocity;
         float jumpVelocity = CalculateJumpVelocityWithTotalTime();
@@ -210,7 +213,7 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void CalculateCoyoteTime() {
-        if (grounded && state != ENUM_PlayerStates.Jumping) { coyoteTimeCounter = coyoteTime; } else coyoteTimeCounter -= Time.deltaTime;
+        if (grounded && State != ENUM_PlayerStates.Jumping) { coyoteTimeCounter = coyoteTime; } else coyoteTimeCounter -= Time.deltaTime;
     }
 
     private float CalculateJumpVelocityWithTotalTime() {
@@ -270,7 +273,7 @@ public class PlayerController : MonoBehaviour {
         PlayAnimation("Glide");
 
         isGliding = true;
-        state = ENUM_PlayerStates.Gliding;
+        State = ENUM_PlayerStates.Gliding;
         rb.gravityScale = glideGravity; // Reducir la gravedad para el planeo.
         Debug.Log("Planeo activado.");
     }
@@ -280,7 +283,7 @@ public class PlayerController : MonoBehaviour {
         PlayAnimation("JumpLanding");
 
         isGliding = false;
-        state = ENUM_PlayerStates.Jumping; // Volver al estado de salto.
+        State = ENUM_PlayerStates.Jumping; // Volver al estado de salto.
         RecoverDefaultGravity(); // Restaurar la gravedad normal.
         Debug.Log("Planeo desactivado.");
     }
@@ -288,9 +291,9 @@ public class PlayerController : MonoBehaviour {
 
     private void JumpGlideActions() {
         if (Input.GetKeyDown(KeyCode.Space)) {
-            if ((grounded || coyoteTimeCounter > 0) && state != ENUM_PlayerStates.Jumping) {
+            if ((grounded || coyoteTimeCounter > 0) && State != ENUM_PlayerStates.Jumping) {
                 Jump(); // Primer salto.
-            } else if (!isGliding && state == ENUM_PlayerStates.Jumping) {
+            } else if (!isGliding && State == ENUM_PlayerStates.Jumping) {
                 glideRequested = true; // Solicitar planeo.
             }
         }
@@ -300,7 +303,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         // Comprobamos si estamos saltando o cayendo y activamos el planeo si es necesario.
-        if (glideRequested && state == ENUM_PlayerStates.Jumping && !isGliding) {
+        if (glideRequested && State == ENUM_PlayerStates.Jumping && !isGliding) {
             if (rb.velocity.y <= 0) // Solo activar cuando estamos cayendo o al alcanzar el pico.
             {
                 StartGlide();
@@ -316,7 +319,7 @@ public class PlayerController : MonoBehaviour {
     /// </summary>
     private void EvaluateGrounded() {
 
-        if (state == ENUM_PlayerStates.Ability_3) return;
+        if (State == ENUM_PlayerStates.Ability_3) return;
 
         _groundCollision = Physics2D.OverlapBox(groundCheck.position, sizeGroundCheck, 0f, groundLayer);
         grounded = _groundCollision ? true : false;
@@ -332,10 +335,10 @@ public class PlayerController : MonoBehaviour {
         if (rb.velocity.y < 0 && (!_lastGrounded && grounded)) {
             RecoverDefaultGravity();
             MarkBoolsWhenLanding();
-            if (state != ENUM_PlayerStates.Ability_2 && grounded) {
+            if (State != ENUM_PlayerStates.Ability_2 && grounded) {
 
                 PlayAnimation("JumpLanding");
-                state = ENUM_PlayerStates.Running;
+                State = ENUM_PlayerStates.Running;
             }
 
         }
@@ -362,7 +365,7 @@ public class PlayerController : MonoBehaviour {
 
                         if (enemy._currentHP >= enemy._maxHP && enemy.type == Enemy.EnemyType.Static) {
                             _animator.Play("Skuld_IdleToAttack");
-                            state = ENUM_PlayerStates.Attacking;
+                            State = ENUM_PlayerStates.Attacking;
                             _currentSpeed = 0;
                             enemy.ReduceHp(attackDamage);
 
@@ -373,7 +376,7 @@ public class PlayerController : MonoBehaviour {
                         } else {
                             enemy.ReduceHp(attackDamage);
                             _animator.SetTrigger("exitAttack");
-                            state = ENUM_PlayerStates.Running;
+                            State = ENUM_PlayerStates.Running;
                         }
 
                     } else {
@@ -395,7 +398,7 @@ public class PlayerController : MonoBehaviour {
 
         currentFrameCheck = transform.position.x;
 
-        if (currentFrameCheck == previousFrameCheck1 && previousFrameCheck1 == previousFrameCheck2 && state != ENUM_PlayerStates.Attacking) {
+        if (currentFrameCheck == previousFrameCheck1 && previousFrameCheck1 == previousFrameCheck2 && State != ENUM_PlayerStates.Attacking) {
             Debug.Log("El valor no ha cambiado en los últimos dos frames.");
 
             rb.gravityScale = wallFallGravity;
@@ -431,7 +434,7 @@ public class PlayerController : MonoBehaviour {
         if (IsInIdleSide) {
 
             if (grounded) {
-                state = ENUM_PlayerStates.Ability_1;
+                State = ENUM_PlayerStates.Ability_1;
 
                 PlayAnimation("Skuld_Helicopter");
                 Vector3 newVelocity = rb.velocity;
@@ -449,7 +452,7 @@ public class PlayerController : MonoBehaviour {
 
             PlayAnimation("Skuld_TopHelicopter");
 
-            state = ENUM_PlayerStates.Ability_1;
+            State = ENUM_PlayerStates.Ability_1;
 
             wallStamp = false;
 
@@ -468,7 +471,7 @@ public class PlayerController : MonoBehaviour {
 
             PlayAnimation("Skuld_CutAbility");
 
-            state = ENUM_PlayerStates.Ability_2;
+            State = ENUM_PlayerStates.Ability_2;
 
             wallStamp = false;
 
@@ -487,7 +490,7 @@ public class PlayerController : MonoBehaviour {
 
             PlayAnimation("Skuld_ULTI");
 
-            state = ENUM_PlayerStates.Ability_3;
+            State = ENUM_PlayerStates.Ability_3;
 
             enterULTI = true;
             endULTI = true;
@@ -527,9 +530,9 @@ public class PlayerController : MonoBehaviour {
     }
     private void EvaluateState() {
         if (grounded) {
-            state = ENUM_PlayerStates.Running;
+            State = ENUM_PlayerStates.Running;
         } else {
-            state = ENUM_PlayerStates.Jumping;
+            State = ENUM_PlayerStates.Jumping;
 
         }
     }
@@ -546,7 +549,33 @@ public class PlayerController : MonoBehaviour {
         _lastAnimationName = animationName;
     }
 
-    public void GetHit() {
-        rb.excludeLayers = ~0;
+    public void GetHit(GameObject attacker) {
+        if (attacker.activeSelf && !IsInIdleSide) {
+            Debug.LogError("AKDAKJDNAKJSD");
+            rb.excludeLayers = ~0;
+            State = ENUM_PlayerStates.Falling;
+            rb.velocity = Vector2.left * getHitStregth;
+            _currentSpeed = -getHitStregth;
+
+            StartCoroutine(C_DisableChangeState());
+        }
+    }
+
+    private IEnumerator C_DisableChangeState() {
+        _canChangeState = false;
+
+        float timer = 1;
+        while (timer >= 0) {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        _canChangeState = true;
+    }
+
+    public void ChangeState(ENUM_PlayerStates state) {
+        if (_canChangeState) {
+            this.state = state;
+        }
     }
 }

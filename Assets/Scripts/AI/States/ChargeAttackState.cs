@@ -31,7 +31,7 @@ public class ChargeAttackState : State {
 
         if (Vector2.Distance(attackPoint, PlayerController.instance.playerCenter.position) <= 0.3f) {
             enemy.stateMachine.ChangeState(enemy.attackState);
-            //If the enemy was this close to the enemy, then it's garanteed damage
+            PlayerController.instance.GetHit(enemy.gameObject);
 
         } else if (DistanceSquared(_initialPosition, enemy.transform.position) > distanceToChangeToAttackState * distanceToChangeToAttackState) {
             enemy.stateMachine.ChangeState(enemy.attackState);
