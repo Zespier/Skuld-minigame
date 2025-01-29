@@ -743,6 +743,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Base Module
       objectReference: {fileID: 0}
+    - target: {fileID: 4726320036175183690, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
+        type: 3}
+      propertyPath: initialPos.y
+      value: -4.982
+      objectReference: {fileID: 0}
     - target: {fileID: 5744187390321673092, guid: c84d93d6980e3fe45b4c3b5ea9c92cd5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2182,6 +2187,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4026392931845217666, guid: 6eaf9146862ebcd48adf0a4e461c9618,
+        type: 3}
+      propertyPath: attackDamage
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8110789304294770939, guid: 6eaf9146862ebcd48adf0a4e461c9618,
         type: 3}

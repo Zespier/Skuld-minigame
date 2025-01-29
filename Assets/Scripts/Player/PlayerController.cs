@@ -359,20 +359,18 @@ public class PlayerController : MonoBehaviour {
 
                     if (IsInIdleSide) {
 
-                        if (enemy == null) { continue; }
-                        int enemyHealth = enemy._currentHP;
-
-                        if (enemyHealth >= enemy._maxHP && enemy.type == Enemy.EnemyType.StaticBig) {
+                        if (enemy._currentHP >= enemy._maxHP && enemy.type == Enemy.EnemyType.Static) {
                             _animator.Play("Skuld_IdleToAttack");
                             state = ENUM_PlayerStates.Attacking;
                             _currentSpeed = 0;
                             enemy.ReduceHp(attackDamage);
 
-                        } else if (enemyHealth > 0) {
+                        } else if (enemy._currentHP > 1) {
 
                             enemy.ReduceHp(attackDamage);
 
                         } else {
+                            enemy.ReduceHp(attackDamage);
                             _animator.SetTrigger("exitAttack");
                             state = ENUM_PlayerStates.Running;
                         }

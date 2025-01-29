@@ -41,20 +41,17 @@ public class Enemy : MonoBehaviour, IHealth {
     [Header("Death Animations")]
     public Animator _deatAnimator;
 
-
     private void OnValidate() {
         initialPos = transform.position;
     }
+
     private void Awake() {
         player = Transform.FindAnyObjectByType<PlayerController>();
         enemySprite = GetComponentInChildren<SpriteRenderer>();
         rB = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
     }
-    private void OnEnable() {
 
-        _currentHP = _maxHP;
-    }
     private void Start() {
 
         stateMachine = new StateMachine();
@@ -142,10 +139,14 @@ public class Enemy : MonoBehaviour, IHealth {
 
     public void ResetEnemy() {
         enemySprite.enabled = true;
+        _currentHP = _maxHP;
     }
 
     public void Death() {
+        if (enemySprite.enabled) {
+            _deatAnimator.Play("Ploof");
+        }
+
         enemySprite.enabled = false;
-        _deatAnimator.Play("Ploof");
     }
 }
