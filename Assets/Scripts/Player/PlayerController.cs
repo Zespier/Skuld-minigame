@@ -107,6 +107,7 @@ public class PlayerController : MonoBehaviour {
     public float TopLimit => CameraController.instance.transform.position.y + ModuleContainer.instance.mainCamera.orthographicSize;
     public bool IsInIdleSide => transform.position.y < -1.5f;
     public ENUM_PlayerStates State { get => state; set => ChangeState(value); }
+    public bool IsUsingAbility => State == ENUM_PlayerStates.Ability_1 || State == ENUM_PlayerStates.Ability_2 || state == ENUM_PlayerStates.Ability_3;
 
     public static PlayerController instance;
     private void Awake() {
@@ -198,7 +199,8 @@ public class PlayerController : MonoBehaviour {
     #region Jump Glide Logic
     public void Jump() {
 
-        //coyoteTimeCounter=0f;
+        if (IsInIdleSide && State == ENUM_PlayerStates.Attacking) return;
+        if (!_canChangeState) { return; }
 
         State = ENUM_PlayerStates.Jumping;
 
@@ -291,6 +293,8 @@ public class PlayerController : MonoBehaviour {
     #endregion
 
     private void JumpGlideActions() {
+        if (!_canChangeState) { return; }
+
         if (Input.GetKeyDown(KeyCode.Space)) {
             if ((grounded || coyoteTimeCounter > 0) && State != ENUM_PlayerStates.Jumping) {
                 Jump(); // Primer salto.
@@ -383,7 +387,7 @@ public class PlayerController : MonoBehaviour {
                         }
 
                     } else {
-                        if (enemy.strength == Enemy.EnemyStrength.Weak) {
+                        if (enemy.strength == Enemy.EnemyStrength.Weak || IsUsingAbility) {
                             enemy.Death();
                             _animator.Play("Attack Spear");
                         }
@@ -422,15 +426,21 @@ public class PlayerController : MonoBehaviour {
     }
 
     public void StartCoroutineSkill1() {
-        StartCoroutine(UpSkillImpulse());
+        if (_canChangeState) {
+            StartCoroutine(UpSkillImpulse());
+        }
     }
 
     public void StartCoroutineSkill2() {
-        StartCoroutine(DownSkillImpulse());
+        if (_canChangeState) {
+            StartCoroutine(DownSkillImpulse());
+        }
     }
 
     public void StartCoroutineSkill3() {
-        StartCoroutine(FrontSkillImpulse());
+        if (_canChangeState) {
+            StartCoroutine(FrontSkillImpulse());
+        }
     }
 
     public IEnumerator UpSkillImpulse() {
@@ -443,6 +453,7 @@ public class PlayerController : MonoBehaviour {
                 Vector3 newVelocity = rb.velocity;
                 newVelocity.y = jumpmStrengthToGoTOTheFockingMoonAndPlay;
                 rb.velocity = newVelocity;
+                _currentSpeed = maxSpeed;
 
                 ModuleContainer.instance.GetInitialModule();
 

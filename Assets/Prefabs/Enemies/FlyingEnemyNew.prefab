@@ -280,7 +280,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172485b0ebc0b3e429e8f24f1874c284, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2
+  speed: 1.7
   rB: {fileID: 8502160106974744906}
   offset: 10
   attackRadius: 0.3

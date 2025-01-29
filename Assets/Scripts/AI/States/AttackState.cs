@@ -43,7 +43,7 @@ public class AttackState : State {
         Vector3 attackPoint = this.attackPoint != null ? this.attackPoint.position : enemy.transform.position;
 
         if (DistanceSquared(PlayerController.instance.playerCenter.position, attackPoint) < attackingRadius * attackingRadius) {
-            PlayerController.instance.GetHit(enemy.gameObject);
+            PlayerController.instance.GetHit(enemy.enemySprite.gameObject);
         }
     }
 

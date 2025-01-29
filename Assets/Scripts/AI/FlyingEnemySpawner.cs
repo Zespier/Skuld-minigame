@@ -8,8 +8,7 @@ public class FlyingEnemySpawner : MonoBehaviour {
     public GameObject enemyPrefab;
     public List<GameObject> enemies;
     public Transform spawnPoint;
-    public Transform enemyMark;
-    public float xOffset;
+    public SpriteRenderer redAlert;
 
     public float approximatelyCooldown;
     public float approximatelyCooldownBetweenEnemies;
@@ -18,6 +17,7 @@ public class FlyingEnemySpawner : MonoBehaviour {
     private float timer;
     private float timerBetweenEnemies;
     private int enemyAmount;
+    private float _xOffset = 2.2f;
 
     public bool IsInIdleSide => PlayerController.instance.transform.position.y < -1.5f;
 
@@ -44,9 +44,10 @@ public class FlyingEnemySpawner : MonoBehaviour {
         if (IsInIdleSide) { return; }
 
         SpawnEnemy();
-        enemyMark.gameObject.SetActive(ActivateMark());
-        if (actualEnemy != null)
-            enemyMark.position = new Vector2(spawnPoint.position.x, actualEnemy.transform.position.y);
+        redAlert.gameObject.SetActive(ActivateMark());
+        if (actualEnemy != null) {
+            redAlert.transform.position = CameraController.instance.transform.position + Vector3.right * _xOffset;
+        }
     }
 
     void SpawnEnemy() {
@@ -57,8 +58,6 @@ public class FlyingEnemySpawner : MonoBehaviour {
         } else if (timerBetweenEnemies <= 0 && enemyAmount > 0 && timer <= 0) {
 
             Vector3 posToInstantiate = spawnPoint.position;
-
-            posToInstantiate.x += xOffset;
 
             inactiveEnemies = enemies.FindAll(e => !e.activeInHierarchy);
             if (inactiveEnemies.Count == 0) {
@@ -77,7 +76,8 @@ public class FlyingEnemySpawner : MonoBehaviour {
 
         } else if (timerBetweenEnemies > 0 && timer <= 0) {
             timerBetweenEnemies -= Time.deltaTime;
-            enemyMark.gameObject.SetActive(true);
+            redAlert.gameObject.SetActive(true);
+            StartCoroutine(C_IntermitentRedAlert());
 
         } else {
             timer -= Time.deltaTime;
@@ -90,5 +90,28 @@ public class FlyingEnemySpawner : MonoBehaviour {
             }
         }
         return false;
+    }
+
+    private IEnumerator C_IntermitentRedAlert() {
+
+        redAlert.color = Color.red;
+
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.red));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.red));
+        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
+    }
+
+    private IEnumerator C_IntermitentSpriteAfterHit(Color color) {
+
+        float timer = 0.15f;
+
+        while (timer >= 0) {
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        redAlert.color = color;
     }
 }

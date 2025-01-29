@@ -11,13 +11,14 @@ public class FlyingEnemy : MonoBehaviour {
 
     private Vector3 initialPos;
 
+    public float LeftCameraLimit => CameraController.instance.transform.position.x - ModuleContainer.instance.mainCamera.orthographicSize * ModuleContainer.instance.mainCamera.aspect;
+
     private void OnEnable() {
         initialPos = transform.position;
     }
     private void Update() {
-        if (transform.position.x >= initialPos.x - offset) {
-            rB.velocity -= (Vector2)transform.right * speed * Time.deltaTime;
-        } else {
+        rB.velocity = -(Vector2)transform.right * speed * Time.deltaTime;
+        if (transform.position.x < LeftCameraLimit - 2f) {
             rB.velocity = Vector3.zero;
             gameObject.SetActive(false);
         }
