@@ -6,7 +6,7 @@ using UnityEngine;
 public class ChargeAttackState : State {
 
     public float impulse;
-    public float distanceToAttackState = 3f;
+    public float distanceToChangeToAttackState = 3f;
 
     private Vector3 _initialPosition;
 
@@ -33,9 +33,12 @@ public class ChargeAttackState : State {
             enemy.stateMachine.ChangeState(enemy.attackState);
             //If the enemy was this close to the enemy, then it's garanteed damage
 
-        } else if (DistanceSquared(_initialPosition, enemy.transform.position) < distanceToAttackState * distanceToAttackState) {
+        } else if (DistanceSquared(_initialPosition, enemy.transform.position) > distanceToChangeToAttackState * distanceToChangeToAttackState) {
             enemy.stateMachine.ChangeState(enemy.attackState);
+            Debug.Log(Vector3.Distance(_initialPosition, enemy.transform.position));
         }
+
+        Debug.Log(Vector3.Distance(_initialPosition, enemy.transform.position));
     }
 
     public override void Update() {

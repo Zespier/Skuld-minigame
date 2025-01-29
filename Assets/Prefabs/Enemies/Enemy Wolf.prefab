@@ -357,7 +357,7 @@ MonoBehaviour:
   chargeAttackState:
     enemy: {fileID: 0}
     impulse: 3
-    distanceToAttackState: 0
+    distanceToChangeToAttackState: 3
   idleState:
     enemy: {fileID: 0}
   attackState:
@@ -371,7 +371,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   enemySprite: {fileID: 6329242526714717623}
-  player: {fileID: 0}
   rB: {fileID: 8502160106974744906}
   canAttack: 1
   initialPos: {x: 7.5, y: 5.5}

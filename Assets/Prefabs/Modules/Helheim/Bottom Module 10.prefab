@@ -133,6 +133,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Skeleton
       objectReference: {fileID: 0}
+    - target: {fileID: 8805189344790593768, guid: bd0bbe4064f9fc54b9bef9e6b11f62e3,
+        type: 3}
+      propertyPath: initialPos.x
+      value: 7.28
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805189344790593768, guid: bd0bbe4064f9fc54b9bef9e6b11f62e3,
+        type: 3}
+      propertyPath: initialPos.y
+      value: 2.122
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -374,6 +384,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1402207382295178644}
     m_Modifications:
+    - target: {fileID: 1041176076599863756, guid: 64cdbc90e890c7440a02410f1e939ab8,
+        type: 3}
+      propertyPath: initialPos.x
+      value: 17.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 1041176076599863756, guid: 64cdbc90e890c7440a02410f1e939ab8,
+        type: 3}
+      propertyPath: initialPos.y
+      value: 1.679
+      objectReference: {fileID: 0}
     - target: {fileID: 2760283166031772798, guid: 64cdbc90e890c7440a02410f1e939ab8,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -799,6 +819,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Wolf (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7177996016003498826, guid: 2188c7a4b75c4234d8cd83df9338bc40,
+        type: 3}
+      propertyPath: initialPos.x
+      value: 21.17
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177996016003498826, guid: 2188c7a4b75c4234d8cd83df9338bc40,
+        type: 3}
+      propertyPath: initialPos.y
+      value: 0.993
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177996016003498826, guid: 2188c7a4b75c4234d8cd83df9338bc40,
+        type: 3}
+      propertyPath: chargeAttackState.distanceToChangeToAttackState
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -947,6 +982,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy Skeleton (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8805189344790593768, guid: bd0bbe4064f9fc54b9bef9e6b11f62e3,
+        type: 3}
+      propertyPath: initialPos.x
+      value: 11.716
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805189344790593768, guid: bd0bbe4064f9fc54b9bef9e6b11f62e3,
+        type: 3}
+      propertyPath: initialPos.y
+      value: 2.123
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1020,6 +1065,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Enemy Wolf
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177996016003498826, guid: 2188c7a4b75c4234d8cd83df9338bc40,
+        type: 3}
+      propertyPath: initialPos.x
+      value: 4.936
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177996016003498826, guid: 2188c7a4b75c4234d8cd83df9338bc40,
+        type: 3}
+      propertyPath: initialPos.y
+      value: 2.262
+      objectReference: {fileID: 0}
+    - target: {fileID: 7177996016003498826, guid: 2188c7a4b75c4234d8cd83df9338bc40,
+        type: 3}
+      propertyPath: chargeAttackState.distanceToChangeToAttackState
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
