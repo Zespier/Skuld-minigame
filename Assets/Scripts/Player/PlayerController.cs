@@ -126,9 +126,7 @@ public class PlayerController : MonoBehaviour {
         CalculateCoyoteTime();
         Accelerate();
         Movement();
-        //Acciones de salto y planeo
         JumpGlideActions();
-        // Comprobar ataques automáticos
         AutoAttack();
 
         if (!grounded && state == ENUM_PlayerStates.Running) {
@@ -354,40 +352,38 @@ public class PlayerController : MonoBehaviour {
         enemiesInRange = Physics2D.OverlapCircleAll(transform.position, attackRange, enemyLayer);
 
         if (enemiesInRange.Length > 0 && Time.time > lastAttackTime + attackCooldown) {
-            foreach (Collider2D colision in enemiesInRange) {
-                if (colision == null) {
-                    continue;
-                }
-                Debug.Log($"Atacando a {colision.name}");
+            foreach (Collider2D collision in enemiesInRange) {
+                if (collision == null) { continue; }
 
-                Enemy enemy = colision.GetComponent<Enemy>();
-                if (IsInIdleSide) {
+                if (collision.TryGetComponent(out Enemy enemy)) {
 
-                    if (enemy == null) { continue; }
-                    int enemyHealth = enemy._currentHP;
+                    if (IsInIdleSide) {
 
-                    if (enemyHealth >= enemy._maxHP && enemy.type == Enemy.EnemyType.StaticBig) {
-                        _animator.Play("Skuld_IdleToAttack");
-                        state = ENUM_PlayerStates.Attacking;
-                        _currentSpeed = 0;
-                        enemy.ReduceHp(attackDamage);
+                        if (enemy == null) { continue; }
+                        int enemyHealth = enemy._currentHP;
 
-                    } else if (enemyHealth > 0) {
+                        if (enemyHealth >= enemy._maxHP && enemy.type == Enemy.EnemyType.StaticBig) {
+                            _animator.Play("Skuld_IdleToAttack");
+                            state = ENUM_PlayerStates.Attacking;
+                            _currentSpeed = 0;
+                            enemy.ReduceHp(attackDamage);
 
-                        enemy.ReduceHp(attackDamage);
+                        } else if (enemyHealth > 0) {
+
+                            enemy.ReduceHp(attackDamage);
+
+                        } else {
+                            _animator.SetTrigger("exitAttack");
+                            state = ENUM_PlayerStates.Running;
+                            collision.gameObject.SetActive(false);
+                        }
 
                     } else {
-                        _animator.SetTrigger("exitAttack");
-                        state = ENUM_PlayerStates.Running;
-                        colision.gameObject.SetActive(false);
+                        enemy.Death();
+                        StartCoroutine(DestroyTimer(collision.gameObject));
+                        _animator.Play("Attack Spear");
                     }
-
-                } else {
-                    enemy.Death();
-                    StartCoroutine(DestroyTimer(colision.gameObject));
-                    _animator.Play("Attack Spear");
                 }
-
             }
 
             lastAttackTime = Time.time;
