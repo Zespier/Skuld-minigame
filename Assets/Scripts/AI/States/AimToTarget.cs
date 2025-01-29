@@ -29,10 +29,10 @@ public class AimToTarget : State {
 
     public override void Update() {
         // Tiempo de predicción basado en la distancia entre el enemigo y el jugador, y el impulso
-        float timeToTarget = Vector3.Distance(enemy.transform.position, enemy.player.transform.position) / enemy.chargeAttackState.impulse * predictionFactor;
+        float timeToTarget = Vector3.Distance(enemy.transform.position, PlayerController.instance.transform.position) / enemy.chargeAttackState.impulse * predictionFactor;
 
         // Calcula la dirección predicha del jugador
-        Vector3 predictedPosition = enemy.player.transform.position + (enemy.player.transform.right * timeToTarget + (Vector3)enemy.rB.velocity);
+        Vector3 predictedPosition = PlayerController.instance.transform.position + (PlayerController.instance.transform.right * timeToTarget + (Vector3)enemy.rB.velocity);
 
         // Calcula la dirección hacia la posición predicha
         Vector3 directionToPredictedPosition = predictedPosition - enemy.transform.position;

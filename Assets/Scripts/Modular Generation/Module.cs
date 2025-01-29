@@ -41,10 +41,12 @@ public class Module : MonoBehaviour {
     protected virtual void Update() {
         CheckDeactivation();
 
-        if (!_spawnedRight && RightCameraLimit /*+ SectionManager.sectionSize*/ > transform.position.x + width/*+ SectionManager.sectionSize / 2f*/) {
+        if (!_spawnedRight && RightCameraLimit > transform.position.x + width) {
+
             Module newModule = ModuleContainer.instance.GetRandomModule(exitHeight);
             newModule.transform.position = transform.position + Vector3.right * width;
             newModule.mainCamera = mainCamera;
+
             _spawnedRight = true;
         }
     }

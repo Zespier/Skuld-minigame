@@ -16,13 +16,14 @@ public class Enemy : MonoBehaviour, IHealth {
 
     [Header("Enemy properties")]
     public EnemyType type;
+    public EnemyStrength strength;
     public LayerMask layersToDetect;
     public SpriteRenderer enemySprite;
-    public PlayerController player;
     public Rigidbody2D rB;
     public bool canAttack;
 
     public enum EnemyType { Static, StaticBig, Moveable, Flight }
+    public enum EnemyStrength { Weak, Strong }
     [HideInInspector] public Vector2 initialPos;
 
 
@@ -46,7 +47,6 @@ public class Enemy : MonoBehaviour, IHealth {
     }
 
     private void Awake() {
-        player = Transform.FindAnyObjectByType<PlayerController>();
         enemySprite = GetComponentInChildren<SpriteRenderer>();
         rB = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
@@ -65,9 +65,8 @@ public class Enemy : MonoBehaviour, IHealth {
         switch (type) {
             case EnemyType.Static:
             case EnemyType.StaticBig:
-                stateMachine.Initialize(idleState);
-                break;
             case EnemyType.Moveable:
+                stateMachine.Initialize(idleState);
                 break;
             case EnemyType.Flight:
                 stateMachine.Initialize(patrolState);
@@ -90,7 +89,7 @@ public class Enemy : MonoBehaviour, IHealth {
         stateMachine.currentState.PhysicsUpdate();
     }
     private void OnDrawGizmos() {
-        if (player != null && type == EnemyType.Flight) {
+        if (PlayerController.instance != null && type == EnemyType.Flight) {
             Gizmos.color = Color.yellow;
             Gizmos.DrawWireSphere(transform.position, patrolState.detectionRadius);
 
@@ -104,10 +103,10 @@ public class Enemy : MonoBehaviour, IHealth {
             }
 
             // Tiempo de predicción basado en la distancia entre el enemigo y el jugador, y el impulso
-            float timeToTarget = Vector3.Distance(transform.position, player.transform.position) / chargeAttackState.impulse * aimtToTargetState.predictionFactor;
+            float timeToTarget = Vector3.Distance(transform.position, PlayerController.instance.transform.position) / chargeAttackState.impulse * aimtToTargetState.predictionFactor;
 
             // Calcula la dirección predicha del jugador
-            Vector3 predictedPosition = player.transform.position + (player.transform.right * timeToTarget + (Vector3)rB.velocity);
+            Vector3 predictedPosition = PlayerController.instance.transform.position + (PlayerController.instance.transform.right * timeToTarget + (Vector3)rB.velocity);
 
             // Calcula la dirección hacia la posición predicha
             Vector3 directionToPredictedPosition = predictedPosition - transform.position;

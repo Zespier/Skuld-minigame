@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
 
+    public Transform playerCenter;
+
     [Header("Movement")]
     public float maxSpeed = 4f;
     private float baseMaxSpeed = 4f;
@@ -376,8 +378,10 @@ public class PlayerController : MonoBehaviour {
                         }
 
                     } else {
-                        enemy.Death();
-                        _animator.Play("Attack Spear");
+                        if (enemy.strength == Enemy.EnemyStrength.Weak) {
+                            enemy.Death();
+                            _animator.Play("Attack Spear");
+                        }
                     }
                 }
             }
