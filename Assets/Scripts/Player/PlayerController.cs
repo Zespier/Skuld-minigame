@@ -6,13 +6,14 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Movement")]
     public float maxSpeed = 4f;
+    private float baseMaxSpeed = 4f;
     public float acceleration = 1.5f;
+    private float baseAcceleration = 1.5f;
     public Rigidbody2D rb;
 
     [Header("PlayerStates")]
     [Tooltip("Estado actual del jugador")]
-    public ENUM_PlayerStates state
-        ;
+    public ENUM_PlayerStates state;
 
     [Tooltip("Arma equipada por el jugador")]
     public ENUM_Weapons weapon;
@@ -78,6 +79,10 @@ public class PlayerController : MonoBehaviour {
 
     [Header("Skills")]
     public float qJumpForce = 2.5f;
+    public bool enterULTI;
+    public bool endULTI;
+    public float eMaxSpeed = 10f;
+    public float eAcceleration = 4f;
 
     private Vector3 _velocity;
     private float _targetGravity;
@@ -113,12 +118,15 @@ public class PlayerController : MonoBehaviour {
         _increasedGravityValue = rb.gravityScale * fallingGravity;
         _currentIncreasedGravityValue = 1;
         _currentDecreasedGravityValue = 1;
+        baseMaxSpeed = maxSpeed;
+        baseAcceleration = acceleration;
         state = ENUM_PlayerStates.Running;
 
         _animator = GetComponentInChildren<Animator>();
     }
 
     private void Update() {
+
         EvaluateGrounded();
         CalculateCoyoteTime();
         Accelerate();
@@ -157,6 +165,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Movement() {
         if (wallStamp && !grounded) return;
+        if (enterULTI) return;
 
         Vector3 velocity = rb.velocity;
 
@@ -174,6 +183,8 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void ClampVerticalSpeed() {
+
+        if (enterULTI) return;
 
         _velocity = rb.velocity;
 
@@ -214,11 +225,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     private float CalculateGravity() {
+
+        if(endULTI) return 0;
+
         _targetGravity = (-2 * height) / (timeAtheightPeak * timeAtheightPeak);
         return _targetGravity / Physics2D.gravity.y;
     }
 
     private void IncreaseGravityAtPeak() {
+
 
         if (_increaseGravity != null) {
             StopCoroutine(_increaseGravity);
@@ -307,6 +322,9 @@ public class PlayerController : MonoBehaviour {
     /// Checks if the player is grounded and update the boolean
     /// </summary>
     private void EvaluateGrounded() {
+
+        if (state == ENUM_PlayerStates.Ability_3) return;
+
         _groundCollision = Physics2D.OverlapBox(groundCheck.position, sizeGroundCheck, 0f, groundLayer);
         grounded = _groundCollision ? true : false;
 
@@ -323,9 +341,9 @@ public class PlayerController : MonoBehaviour {
             MarkBoolsWhenLanding();
             if (state != ENUM_PlayerStates.Ability_2 && grounded) {
 
-                PlayAnimation("JumpLanding");
-                state = ENUM_PlayerStates.Running;
-            }
+                 PlayAnimation("JumpLanding");
+                 state = ENUM_PlayerStates.Running;
+            } 
 
         }
 
@@ -351,9 +369,9 @@ public class PlayerController : MonoBehaviour {
                 //Testeo
 
 
-                Enemy enemy = colision.GetComponent<Enemy>();
                 if (IsInIdleSide) {
 
+                    Enemy enemy = colision.GetComponent<Enemy>();
                     if (enemy == null) { continue; }
                     int enemyHealth = enemy._currentHP;
 
@@ -375,7 +393,7 @@ public class PlayerController : MonoBehaviour {
                     }
 
                 } else {
-                    enemy.ResetPhysics(false);
+                    StartCoroutine(DestroyTimer(colision.gameObject));
                     _animator.Play("Attack Spear");
                 }
 
@@ -394,6 +412,9 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void WallFrameCheck() {
+
+        if(enterULTI) return;
+
         // Simular un valor que cambia (puedes reemplazarlo con el valor real que quieres comprobar)
         currentFrameCheck = transform.position.x;
 
@@ -424,18 +445,21 @@ public class PlayerController : MonoBehaviour {
         StartCoroutine(UpSkillImpulse());
     }
 
-    public void StartCoroutineSkill2() {
+    public void StartCoroutineSkill2()
+    {
         StartCoroutine(DownSkillImpulse());
     }
 
-    public void StartCoroutineSkill3() {
-        StartCoroutine(DownSkillImpulse());
+    public void StartCoroutineSkill3()
+    {
+        StartCoroutine(FrontSkillImpulse());
     }
 
     public IEnumerator UpSkillImpulse() {
         if (IsInIdleSide) {
 
-            if (grounded) {
+            if (grounded)
+            {
                 state = ENUM_PlayerStates.Ability_1;
 
                 PlayAnimation("Skuld_Helicopter");
@@ -456,6 +480,8 @@ public class PlayerController : MonoBehaviour {
 
             state = ENUM_PlayerStates.Ability_1;
 
+            wallStamp = false;
+
             rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y + qJumpForce * rb.gravityScale, 0);
 
             yield return new WaitForSeconds(1f);
@@ -466,14 +492,18 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    public IEnumerator DownSkillImpulse() {
-        if (!IsInIdleSide) {
+    public IEnumerator DownSkillImpulse()
+    {
+        if (!IsInIdleSide)
+        {
 
             PlayAnimation("Skuld_CutAbility");
 
             state = ENUM_PlayerStates.Ability_2;
 
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+            wallStamp = false;
+
+            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale *2, 0);
 
             yield return new WaitForSeconds(2f);
 
@@ -483,18 +513,50 @@ public class PlayerController : MonoBehaviour {
 
     }
 
-    public IEnumerator FrontSkillImpulse() {
-        if (!IsInIdleSide) {
+    public IEnumerator FrontSkillImpulse()
+    {
+        if (!IsInIdleSide)
+        {
 
-            PlayAnimation("Skuld_CutAbility");
+            PlayAnimation("Skuld_ULTI");
 
-            state = ENUM_PlayerStates.Ability_2;
+            state = ENUM_PlayerStates.Ability_3;
 
-            rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y - qJumpForce * rb.gravityScale, 0);
+            enterULTI=true; 
+            endULTI=true; 
 
-            yield return new WaitForSeconds(2f);
+            rb.velocity = Vector3.zero;
+            rb.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+
+            rb.simulated = false;
+
+            yield return new WaitForSeconds(0.6f);
+
+            enterULTI = false;
+
+            rb.simulated = true;
+
+            rb.gravityScale = 0;
+
+            maxSpeed = eMaxSpeed;
+
+            acceleration = eAcceleration;
+
+            //rb.velocity = new Vector3(rb.velocity.x + 30f, rb.velocity.y, 0);
+
+            yield return new WaitForSeconds(1.2f);
+
+            rb.constraints = RigidbodyConstraints2D.None;
+
+            rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+
+            maxSpeed = baseMaxSpeed;
+
+            acceleration = baseAcceleration;
 
             EvaluateState();
+
+            endULTI = false;
 
         }
     }
