@@ -37,7 +37,7 @@ public class FlyingEnemySpawner : MonoBehaviour {
     }
 
     void Update() {
-        if (IsInIdleSide) { return; }
+        if (IsInIdleSide) { redAlert.gameObject.SetActive(false); return; }
 
         Vector3 newPosition = CameraController.instance.transform.position + Vector3.right * _xOffsett + Vector3.down * CameraController.instance.gameplayHeightOffset + Vector3.forward * 8;
         newPosition.y = lastEnemySpawned != null ? lastEnemySpawned.position.y : 0;
@@ -49,9 +49,9 @@ public class FlyingEnemySpawner : MonoBehaviour {
             SpawnEnemy();
         }
 
-        if (lastEnemySpawned != null && lastEnemySpawned.position.x < RightCameraSide) {
-            redAlert.gameObject.SetActive(false);
-        }
+        if (lastEnemySpawned != null) {
+            redAlert.gameObject.SetActive(lastEnemySpawned.position.x >= RightCameraSide);
+        } 
     }
 
     void SpawnEnemy() {
