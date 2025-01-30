@@ -11,106 +11,64 @@ public class FlyingEnemySpawner : MonoBehaviour {
     public Transform spawnPoint;
     public SpriteRenderer redAlert;
     public Transform parentFlyingEnemies;
+    public float timeBetweenBirds = 7f;
+    public float _xOffsett = 1.8f;
 
-    public float approximatelyCooldown;
-    public float approximatelyCooldownBetweenEnemies;
-    public int approximatelyMaxEnemies;
+    private Transform lastEnemySpawned;
+
+    //public float approximatelyCooldown;
+    //public float approximatelyCooldownBetweenEnemies;
+    //public int approximatelyMaxEnemies;
 
     private float timer;
-    private float timerBetweenEnemies;
-    private int enemyAmount;
-    private float _xOffset = 2.2f;
-    private List<GameObject> inactiveEnemies = new List<GameObject>();
-    private GameObject actualEnemy;
+    //private float timerBetweenEnemies;
+    //private int enemyAmount;
 
     public bool IsInIdleSide => PlayerController.instance.transform.position.y < -1.5f;
+    public float RightCameraSide => CameraController.instance.transform.position.x + ModuleContainer.instance.mainCamera.orthographicSize * ModuleContainer.instance.mainCamera.aspect;
 
     void Start() {
-        timer = approximatelyCooldown;
-        enemyAmount = Random.Range(1, approximatelyMaxEnemies + 1);
-        timer = approximatelyCooldown + Random.Range(-0.5f, 0.5f);
+        timer = timeBetweenBirds + Random.Range(-0.5f, 0.5f);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1; i++) {
             GameObject enemy = Instantiate(enemyPrefab, parentFlyingEnemies);
             enemies.Add(enemy);
-            inactiveEnemies.Add(enemy);
-            Debug.Log("adadad");
         }
     }
 
     void Update() {
         if (IsInIdleSide) { return; }
 
-        SpawnEnemy();
-        redAlert.gameObject.SetActive(ActivateMark());
-        if (actualEnemy != null) {
-            redAlert.transform.position = CameraController.instance.transform.position + Vector3.right * _xOffset;
+        Vector3 newPosition = CameraController.instance.transform.position + Vector3.right * _xOffsett + Vector3.down * CameraController.instance.gameplayHeightOffset + Vector3.forward * 8;
+        newPosition.y = lastEnemySpawned != null ? lastEnemySpawned.position.y : 0;
+
+        redAlert.transform.position = newPosition;
+
+        timer -= Time.deltaTime;
+        if (timer < 0) {
+            SpawnEnemy();
+        }
+
+        if (lastEnemySpawned != null && lastEnemySpawned.position.x < RightCameraSide) {
+            redAlert.gameObject.SetActive(false);
         }
     }
 
     void SpawnEnemy() {
 
-        if (enemyAmount == 0 && timer <= 0) {
-            enemyAmount = Random.Range(1, approximatelyMaxEnemies + 1);
-            timer = approximatelyCooldown + Random.Range(-0.5f, 0.5f);
-        } else if (timerBetweenEnemies <= 0 && enemyAmount > 0 && timer <= 0) {
+        Debug.Log("Spawning");
 
-            Vector3 posToInstantiate = spawnPoint.position;
+        timer = timeBetweenBirds;
 
-            inactiveEnemies = enemies.FindAll(e => !e.activeInHierarchy);
-            if (inactiveEnemies.Count == 0) {
-                Debug.LogWarning("No hay enemigos inactivos disponibles.");
-                return;
-            }
+        Vector3 posToInstantiate = spawnPoint.position;
 
-            actualEnemy = inactiveEnemies[Random.Range(0, inactiveEnemies.Count)];
+        GameObject enemy = enemies.Find(e => !e.activeInHierarchy);
 
+        enemy.transform.position = posToInstantiate;
+        enemy.SetActive(true);
 
-            actualEnemy.transform.position = posToInstantiate;
-            actualEnemy.SetActive(true);
+        redAlert.gameObject.SetActive(true);
 
-            timerBetweenEnemies = approximatelyCooldownBetweenEnemies + Random.Range(-0.5f, 0.5f);
-            enemyAmount--;
-
-        } else if (timerBetweenEnemies > 0 && timer <= 0) {
-            timerBetweenEnemies -= Time.deltaTime;
-            redAlert.gameObject.SetActive(true);
-            StartCoroutine(C_IntermitentRedAlert());
-
-        } else {
-            timer -= Time.deltaTime;
-        }
-    }
-
-    private bool ActivateMark() {
-        for (int i = 0; i < inactiveEnemies.Count; i++) {
-            if (inactiveEnemies[i].activeInHierarchy) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private IEnumerator C_IntermitentRedAlert() {
-
-        redAlert.color = Color.red;
-
-        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
-        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.red));
-        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
-        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.red));
-        yield return StartCoroutine(C_IntermitentSpriteAfterHit(Color.clear));
-    }
-
-    private IEnumerator C_IntermitentSpriteAfterHit(Color color) {
-
-        float timer = 0.15f;
-
-        while (timer >= 0) {
-            timer -= Time.deltaTime;
-            yield return null;
-        }
-
-        redAlert.color = color;
+        lastEnemySpawned = enemy.transform;
     }
 }

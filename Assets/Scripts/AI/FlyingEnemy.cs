@@ -5,7 +5,6 @@ using UnityEngine;
 public class FlyingEnemy : MonoBehaviour {
     public float speed = 10f;
     public Rigidbody2D rB;
-    public float offset = 20;
     public float attackRadius = 0.3f;
     public Transform attackPoint;
 
@@ -17,7 +16,7 @@ public class FlyingEnemy : MonoBehaviour {
         initialPos = transform.position;
     }
     private void Update() {
-        rB.velocity = -(Vector2)transform.right * speed * Time.deltaTime;
+        rB.velocity = -(Vector2)transform.right * speed;
         if (transform.position.x < LeftCameraLimit - 2f) {
             rB.velocity = Vector3.zero;
             gameObject.SetActive(false);

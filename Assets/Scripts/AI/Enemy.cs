@@ -42,6 +42,8 @@ public class Enemy : MonoBehaviour, IHealth {
     [Header("Death Animations")]
     public Animator _deatAnimator;
 
+    private Vector3 _initialPositionInModule;
+
     private void OnValidate() {
         initialPos = transform.position;
     }
@@ -50,6 +52,8 @@ public class Enemy : MonoBehaviour, IHealth {
         enemySprite = GetComponentInChildren<SpriteRenderer>();
         rB = GetComponent<Rigidbody2D>();
         _animator = GetComponentInChildren<Animator>();
+
+        _initialPositionInModule = transform.localPosition;
     }
 
     private void Start() {
@@ -139,6 +143,20 @@ public class Enemy : MonoBehaviour, IHealth {
     public void ResetEnemy() {
         enemySprite.enabled = true;
         _currentHP = _maxHP;
+
+        transform.localPosition = _initialPositionInModule;
+        switch (type) {
+            case EnemyType.Static:
+            case EnemyType.StaticBig:
+            case EnemyType.Moveable:
+                stateMachine.Initialize(idleState);
+                break;
+            case EnemyType.Flight:
+                stateMachine.Initialize(patrolState);
+                break;
+            default:
+                break;
+        }
     }
 
     public void Death() {

@@ -272,13 +272,12 @@ public class PlayerController : MonoBehaviour {
 
     #region Glide
     private void StartGlide() {
-        if (isGliding) return; // Evitar múltiples activaciones.
+        if (isGliding || !_canChangeState) return; // Evitar múltiples activaciones.
         PlayAnimation("Glide");
 
         isGliding = true;
         State = ENUM_PlayerStates.Gliding;
         rb.gravityScale = glideGravity; // Reducir la gravedad para el planeo.
-        Debug.Log("Planeo activado.");
     }
 
     private void StopGlide() {
@@ -288,7 +287,6 @@ public class PlayerController : MonoBehaviour {
         isGliding = false;
         State = ENUM_PlayerStates.Jumping; // Volver al estado de salto.
         RecoverDefaultGravity(); // Restaurar la gravedad normal.
-        Debug.Log("Planeo desactivado.");
     }
     #endregion
 

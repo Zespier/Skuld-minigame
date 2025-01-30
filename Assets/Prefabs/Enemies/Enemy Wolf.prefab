@@ -356,7 +356,7 @@ MonoBehaviour:
     cooldownToAttack: 0
   chargeAttackState:
     enemy: {fileID: 0}
-    impulse: 3
+    impulse: 2.6
     distanceToChangeToAttackState: 3
   idleState:
     enemy: {fileID: 0}
