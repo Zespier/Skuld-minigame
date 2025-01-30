@@ -5,10 +5,12 @@ using UnityEditor;
 using UnityEngine;
 
 public class FlyingEnemySpawner : MonoBehaviour {
+
     public GameObject enemyPrefab;
     public List<GameObject> enemies;
     public Transform spawnPoint;
     public SpriteRenderer redAlert;
+    public Transform parentFlyingEnemies;
 
     public float approximatelyCooldown;
     public float approximatelyCooldownBetweenEnemies;
@@ -18,15 +20,11 @@ public class FlyingEnemySpawner : MonoBehaviour {
     private float timerBetweenEnemies;
     private int enemyAmount;
     private float _xOffset = 2.2f;
+    private List<GameObject> inactiveEnemies = new List<GameObject>();
+    private GameObject actualEnemy;
 
     public bool IsInIdleSide => PlayerController.instance.transform.position.y < -1.5f;
 
-    public Transform parentFlyingEnemies;
-
-    private List<GameObject> inactiveEnemies = new List<GameObject>();
-    GameObject actualEnemy;
-    private void Awake() {
-    }
     void Start() {
         timer = approximatelyCooldown;
         enemyAmount = Random.Range(1, approximatelyMaxEnemies + 1);
@@ -83,7 +81,8 @@ public class FlyingEnemySpawner : MonoBehaviour {
             timer -= Time.deltaTime;
         }
     }
-    bool ActivateMark() {
+
+    private bool ActivateMark() {
         for (int i = 0; i < inactiveEnemies.Count; i++) {
             if (inactiveEnemies[i].activeInHierarchy) {
                 return true;
