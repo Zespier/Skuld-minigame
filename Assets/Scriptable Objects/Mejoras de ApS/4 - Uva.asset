@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4 - Uva
   m_EditorClassIdentifier: 
   buffType: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 9ae8a838123490144ad72c150491cc70, type: 3}
   amount: 30
   Name: Uva
   description: "Obt\xE9n un 30% de bonificaci\xF3n en ApS"

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2 - Leche
   m_EditorClassIdentifier: 
   buffType: 1
-  icon: {fileID: 0}
+  icon: {fileID: 21300000, guid: 35a7fe45f0af5bb429f8f38cec1f54d1, type: 3}
   amount: 30
   Name: Leche
   description: "Obt\xE9n un 30% de bonificaci\xF3n en ApS"
