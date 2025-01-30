@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: 1 - Pollo
   m_EditorClassIdentifier: 
   buffType: 1
-  amount: 2
+  icon: {fileID: 0}
+  amount: 20
   Name: Pollo
-  description: "Obt\xE9n un 2% de bonificaci\xF3n en ApS"
+  description: "Obt\xE9n un 20% de bonificaci\xF3n en ApS"
   price: 1280

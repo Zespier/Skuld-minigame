@@ -165,11 +165,33 @@ public class Enemy : MonoBehaviour, IHealth {
         }
 
         enemySprite.enabled = false;
-
-        Economy.instance.AddSoulCollectable();
-        Economy.instance.AddSoulCollectable();
-        Economy.instance.AddSoulCollectable();
-        Economy.instance.AddSoulCollectable();
-        Economy.instance.AddSoulCollectable();
+        if (strength == EnemyStrength.Weak) {
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+        } else {
+            Economy.instance.AddSoulCollectable(); // Me hace muchísima gracia verlo 20 veces seguidas, así que se queda xd
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+            Economy.instance.AddSoulCollectable();
+        }
     }
 }

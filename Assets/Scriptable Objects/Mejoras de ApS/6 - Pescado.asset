@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da3036b8343c974d960995b46d55a38, type: 3}
-  m_Name: 4 - Uva
+  m_Name: 6 - Pescado
   m_EditorClassIdentifier: 
   buffType: 1
   icon: {fileID: 0}
-  amount: 30
-  Name: Uva
-  description: "Obt\xE9n un 30% de bonificaci\xF3n en ApS"
-  price: 20500000000
+  amount: 10
+  Name: Pescado
+  description: "Obt\xE9n un 10% de bonificaci\xF3n en ApS"
+  price: 12800000000000

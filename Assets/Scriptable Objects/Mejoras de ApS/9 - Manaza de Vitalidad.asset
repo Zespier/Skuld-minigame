@@ -10,10 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2da3036b8343c974d960995b46d55a38, type: 3}
-  m_Name: 7 - Huevo
+  m_Name: 9 - Manaza de Vitalidad
   m_EditorClassIdentifier: 
   buffType: 1
-  amount: 1
-  Name: Huevo
-  description: "Obt\xE9n un 1% de bonificaci\xF3n en ApS"
-  price: 1e+14
+  icon: {fileID: 21300000, guid: 3d9ee93adba08e14b85c5f27564b70ee, type: 3}
+  amount: 250
+  Name: Manzana de Vitalidad
+  description: "Obt\xE9n un 250% de bonificaci\xF3n en ApS"
+  price: 10000000000000000
