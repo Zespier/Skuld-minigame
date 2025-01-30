@@ -371,17 +371,21 @@ public class PlayerController : MonoBehaviour {
                         if (enemy._currentHP >= enemy._maxHP && enemy.type == Enemy.EnemyType.Static) {
                             _animator.Play("Skuld_IdleToAttack");
                             State = ENUM_PlayerStates.Attacking;
-                            _currentSpeed = 0;
+                            //_currentSpeed = 0;
+                            StartCoroutine(C_SlowlyStop());
                             enemy.ReduceHp(attackDamage);
 
                         } else if (enemy._currentHP > 1) {
 
                             enemy.ReduceHp(attackDamage);
 
-                        } else {
+                        } else if (enemy._currentHP > 0) {
                             enemy.ReduceHp(attackDamage);
                             _animator.SetTrigger("exitAttack");
                             State = ENUM_PlayerStates.Running;
+                        } else {
+                            _animator.ResetTrigger("exitAttack");
+
                         }
 
                     } else {
@@ -395,6 +399,15 @@ public class PlayerController : MonoBehaviour {
 
             lastAttackTime = Time.time;
         }
+    }
+
+    private IEnumerator C_SlowlyStop() {
+        _currentSpeed = 1;
+        while (_currentSpeed > 0) {
+            _currentSpeed -= Time.deltaTime * 1.8f;
+            yield return null;
+        }
+        _currentSpeed = 0;
     }
 
     private void WallFrameCheck() {
@@ -617,5 +630,11 @@ public class PlayerController : MonoBehaviour {
         }
 
         spriteRenderer.color = color;
+    }
+
+    public static float DistanceSquared(Vector3 a, Vector3 b) {
+        return (a.x - b.x) * (a.x - b.x) +
+               (a.y - b.y) * (a.y - b.y) +
+               (a.z - b.z) * (a.z - b.z);
     }
 }
